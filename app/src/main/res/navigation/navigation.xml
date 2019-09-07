@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/navigation"
+            app:startDestination="@id/titleFragment">
+
+    <fragment
+            android:name="com.example.capitalcityquizktx.UI.TitleFragment"
+            android:id="@+id/titleFragment"
+            tools:layout="@layout/title_fragment"
+            android:label="@string/capitalCityQuiz">
+        <action android:id="@+id/action_titleFragment_to_gameModeSelectionFragment"
+                app:destination="@id/gameModeSelectionFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/gameModeSelectionFragment"
+              android:name="com.example.capitalcityquizktx.UI.GameModeSelectionFragment"
+              tools:layout="@layout/game_mode_selection_fragment"
+              android:label="GameModeSelectionFragment">
+        <action android:id="@+id/action_gameModeSelectionFragment_to_gameConfigSurvivalModeFragment"
+                app:destination="@id/gameConfigSurvivalModeFragment"/>
+    </fragment>
+
+    <fragment android:id="@+id/gameConfigSurvivalModeFragment"
+              android:name="com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeFragment"
+              android:label="GameConfigSurvivalModeFragment">
+        <action android:id="@+id/action_gameConfigSurvivalModeFragment_to_survivalModeGameFragment"
+                app:destination="@+id/survivalModeGameFragment"/>
+    </fragment>
+    <fragment android:id="@+id/survivalModeGameFragment"
+              android:name="com.example.capitalcityquizktx.UI.SurvivalMode.SurvivalModeGameFragment"
+              android:label="SurvivalModeGameFragment">
+        <argument android:name="survivalModeGameConfig"
+                  app:argType="com.example.capitalcityquizktx.Config.SurvivalModeGameConfig"/>
+        <action android:id="@+id/action_survivalModeGameFragment_to_titleFragment" app:destination="@id/titleFragment"
+                app:popUpTo="@+id/gameModeSelectionFragment" app:popUpToInclusive="true"/>
+    </fragment>
+
+</navigation>

@@ -1,0 +1,60 @@
+<resources>
+    <string name="app_name">CapitalCityQuiz</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="play">Play</string>
+    <string name="capitalCityQuiz">Capital City Quiz</string>
+    <string name="correctTxt">Correct</string>
+    <string name="enterBtn">Enter</string>
+    <string name="filePathCountries">raw://allcountries.csv</string>
+    <string name="gameOverBtn">Game Over</string>
+    <string name="gameOverTimer">Game Over!</string>
+    <string name="tryAgainBtn">Try Again!</string>
+    <string name="wellDoneTxt">Well Done!</string>
+    <string name="timerKey">Timer</string>
+    <string name="countryKey">Country</string>
+    <string name="listKey">List</string>
+    <string name="counterDownFlagKey">CounterDownFlag</string>
+
+    <string name="gameModeSelectionFragment">GameModeSelectionFragment</string>
+    <string name="oneOrMoreContinentSelectionSMFragment">oneOrMoreContinentSelectionSMFragment</string>
+    <string name="continentSelectionSMFragment">ContinentSelectionSMFragment</string>
+
+    <string name="europe">Europe</string>
+    <string name="africa">Africa</string>
+    <string name="southAmerica">South America</string>
+    <string name="northAmerica">North America</string>
+    <string name="australia">Australia</string>
+    <string name="asia">Asia</string>
+    <string name="country">Country</string>
+    <string name="enter">Enter</string>
+    <string name="capital_city">Capital city</string>
+    <string name="_0">0</string>
+    <string name="_00_30">00:30</string>
+    <string name="europeBtn">Europe</string>
+    <string name="africaBtn">Africa</string>
+    <string name="south_americaBtn">South America</string>
+    <string name="north_americaBtn">North America</string>
+    <string name="asiaBtn">Asia</string>
+    <string name="australiaBtn">Australia</string>
+    <string name="practice_mode">Practice Mode</string>
+    <string name="survival_mode">Survival Mode</string>
+    <string name="_20_countries">20 countries</string>
+    <string name="_50_countries">50 countries</string>
+    <string name="_100_countries">100 countries</string>
+    <string name="whole_world">Whole world</string>
+    <string name="one_continent">One continent</string>
+    <string name="all_continents">All Continents</string>
+    <string name="_1_min">1 min</string>
+    <string name="_30_sec">30 sec</string>
+    <string name="_20_sec">20 sec</string>
+    <string name="_10_sec">10 sec</string>
+    <string name="select_continents_to_play">Select continents to play</string>
+    <string name="select_time_limit">Select the time limit (in seconds) for each question</string>
+    <string name="select_countries_number">Select number of questions</string>
+    <string name="time_different_to_zero">You need to select at least one continent.</string>
+    <string name="countries_different_to_zero">Select at least one country.</string>
+    <string name="continents_different_to_zero">Please select a time different to zero seconds.</string>
+    <string name="countries_selected_seek_bar">countries</string>
+    <string name="time_limit_selected_seek_bar">seconds per question</string>
+</resources>

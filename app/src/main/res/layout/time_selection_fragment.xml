@@ -1,0 +1,67 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/timeSelectionSurvivalConstraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bangkok_city">
+
+        <TableLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:padding="5dp"
+                android:background="#99000000"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:layout_weight="1"
+                tools:layout_editor_absoluteX="15dp"
+                tools:layout_editor_absoluteY="15dp">
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <Button
+                        android:id="@+id/tenSecondsBtn"
+                        style="@style/buttonStyle"
+                        android:text="@string/_10_sec" />
+
+                <Button
+                        android:id="@+id/twentySecondsBtn"
+                        style="@style/buttonStyle"
+                        android:text="@string/_20_sec" />
+            </TableRow>
+
+            <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <Button
+                        android:id="@+id/thirtySecondsBtn"
+                        style="@style/buttonStyle"
+                        android:text="@string/_30_sec" />
+
+                <Button
+                        android:id="@+id/oneMinuteBtn"
+                        style="@style/buttonStyle"
+                        android:text="@string/_1_min" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
