@@ -20,7 +20,7 @@ class SurvivalModeGameFragment : Fragment() {
         val binding : SurvivalModeGameFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.survival_mode_game_fragment, container, false)
 
-        val args = SurvivalModeGameFragmentArgs.fromBundle(arguments!!)
+            val args = SurvivalModeGameFragmentArgs.fromBundle(arguments!!)
 
         val gameConfig = args.survivalModeGameConfig
 

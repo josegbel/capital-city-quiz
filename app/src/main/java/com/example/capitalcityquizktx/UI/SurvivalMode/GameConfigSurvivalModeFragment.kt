@@ -24,7 +24,26 @@ import kotlinx.android.synthetic.main.game_config_survival_mode_fragment.*
 import kotlinx.android.synthetic.main.title_fragment.*
 
 
-class GameConfigSurvivalModeFragment : Fragment() {
+class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
+    override fun getContinentSelection(): List<Continent> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showQuestionsNumberSelection() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showTimesetSelection() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideQuestionsNumberSelection() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun hideTimesetSelection() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     private val continentList = arrayListOf<Continent>()
 
