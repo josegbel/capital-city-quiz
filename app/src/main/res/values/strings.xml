@@ -52,7 +52,6 @@
     <string name="select_continents_to_play">Select continents to play</string>
     <string name="select_time_limit">Select the time limit (in seconds) for each question</string>
     <string name="select_countries_number">Select number of questions</string>
-    <string name="time_different_to_zero">You need to select at least one continent.</string>
     <string name="countries_different_to_zero">Select at least one country.</string>
     <string name="continents_different_to_zero">Please select a time different to zero seconds.</string>
     <string name="countries_selected_seek_bar">countries</string>

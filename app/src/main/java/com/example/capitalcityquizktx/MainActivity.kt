@@ -3,6 +3,8 @@ package com.example.capitalcityquizktx
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeFragment
+import com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeView
 import com.example.capitalcityquizktx.databinding.MainActivityBinding
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +13,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<MainActivityBinding>(
             this, R.layout.main_activity)
-
 
     }
 }

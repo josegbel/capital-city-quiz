@@ -1,10 +1,11 @@
 package com.example.capitalcityquizktx.UI.SurvivalMode
 
+import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.Database.Continent
 
 interface GameConfigSurvivalModeView {
 
-    fun getContinentSelection(): List<Continent>
+    val continentsList: MutableLiveData<List<Continent>>
 
     fun showQuestionsNumberSelection()
 

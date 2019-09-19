@@ -14,7 +14,13 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        multiDexEnabled = true
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -36,6 +42,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation 'androidx.appcompat:appcompat:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Support libraries
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
@@ -59,6 +66,7 @@ dependencies {
 
     // Testing
     testImplementation 'junit:junit:4.12'
+    testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test:runner:1.1.0'

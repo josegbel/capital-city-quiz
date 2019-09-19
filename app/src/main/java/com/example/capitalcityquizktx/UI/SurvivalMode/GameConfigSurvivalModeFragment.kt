@@ -1,8 +1,6 @@
 package com.example.capitalcityquizktx.UI.SurvivalMode
 
-
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,50 +8,60 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil.inflate
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import com.example.capitalcityquizktx.Config.GameConfig
 import com.example.capitalcityquizktx.Config.SurvivalModeGameConfig
 import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.Database.Continents.*
+import com.example.capitalcityquizktx.GameConfigSurvivalModePresenter
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalModeFragmentBinding
 import kotlinx.android.synthetic.main.game_config_survival_mode_fragment.*
-import kotlinx.android.synthetic.main.title_fragment.*
 
+/*
 
+    J. Garcia CapitalCityQuiz in Kotlin 2019
+
+ */
 class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
-    override fun getContinentSelection(): List<Continent> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
+    override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
+
+    private val displayTimesetSeekbar = MutableLiveData<Boolean>().default(false)
+    private val displayQuestionNumberSeekbar = MutableLiveData<Boolean>().default(false)
 
     override fun showQuestionsNumberSelection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        displayQuestionNumberSeekbar.value = true
     }
 
     override fun showTimesetSelection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        displayTimesetSeekbar.value = true
     }
 
     override fun hideQuestionsNumberSelection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        displayQuestionNumberSeekbar.value = false
     }
 
     override fun hideTimesetSelection() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        displayTimesetSeekbar.value = false
     }
-
-    private val continentList = arrayListOf<Continent>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: GameConfigSurvivalModeFragmentBinding = DataBindingUtil.inflate(
+        val binding: GameConfigSurvivalModeFragmentBinding = inflate(
             inflater, R.layout.game_config_survival_mode_fragment, container, false
         )
+
+        val presenter = GameConfigSurvivalModePresenter(this)
+        presenter.receiveContinentSelection()
+
+        //Minimum amount of seconds that will be added to timeLimitSeekbar
+        val minTimeLimit = 5
 
         // This counter is used to count the amount of countries to set up the seekBar acording to its value
         val counter = MutableLiveData<Int>()
@@ -96,24 +104,31 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
             }
         }
 
-        // This observer notifies whether continents are selected so that the UI can display the seekBars
-        continentsSelected.observe(this,
-            Observer { count ->
-                if (count != 0) {
+        displayQuestionNumberSeekbar.observe(this,
+            Observer { displayIt ->
+                if (displayIt){
                     binding.selectCountriesNumberTv.isVisible = true
                     binding.countriesNumberSeekBar.isVisible = true
                     binding.selectedCountriesTV.isVisible = true
-                    binding.timeLimitSeekBar.isVisible = true
-                    binding.selectTimeLimitTv.isVisible = true
-
                     binding.countriesNumberSeekBar.max = counter.value!!
                     binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
-                } else {
+                }else{
                     binding.selectCountriesNumberTv.isVisible = false
                     binding.countriesNumberSeekBar.isVisible = false
                     binding.selectedCountriesTV.isVisible = false
+                }
+            })
+
+        displayTimesetSeekbar.observe(this,
+            Observer { displayIt ->
+                if (displayIt){
+                    binding.timeLimitSeekBar.isVisible = true
+                    binding.selectTimeLimitTv.isVisible = true
+                    binding.selectedTimeLimitTV.isVisible = true
+                }else{
                     binding.timeLimitSeekBar.isVisible = false
                     binding.selectTimeLimitTv.isVisible = false
+                    binding.selectedTimeLimitTV.isVisible = false
                 }
             })
 
@@ -131,11 +146,10 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
                 // Not implemented
             }
-
         })
         binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.selectedTimeLimitTV.text = "${binding.timeLimitSeekBar.progress}" +
+                binding.selectedTimeLimitTV.text = "${binding.timeLimitSeekBar.progress + minTimeLimit}" +
                         " " + getString(R.string.time_limit_selected_seek_bar)
             }
 
@@ -149,103 +163,99 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
 
         })
 
-        // TODO Decouple the number of countries in the continents from this class, it should be considered to inject Continent type of objects
         // The following listeners check the state of the chips whether they are checked or not,
         // in order to count the amount of countries and to count the amount of continents selected.
         binding.africaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Africa.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(Africa)
+                continentsList.add(Africa)
             }else {
                 counter.value = counter.value!!.minus(Africa.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(Africa)
+                continentsList.remove(Africa)
             }
         }
-
         binding.australiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Australia.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(Australia)
+                continentsList.add(Australia)
             }else {
                 counter.value = counter.value!!.minus(Australia.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(Australia)
+                continentsList.remove(Australia)
             }
         }
-
         binding.asiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Asia.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(Asia)
+                continentsList.add(Asia)
             } else {
                 counter.value = counter.value!!.minus(Asia.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(Asia)
+                continentsList.remove(Asia)
             }
         }
-
         binding.europeSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Europe.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(Europe)
+                continentsList.add(Europe)
             } else {
                 counter.value = counter.value!!.minus(Europe.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(Europe)
+                continentsList.remove(Europe)
             }
         }
-
         binding.northAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(NorthAmerica.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(NorthAmerica)
+                continentsList.add(NorthAmerica)
             } else {
                 counter.value = counter.value!!.minus(NorthAmerica.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(NorthAmerica)
+                continentsList.remove(NorthAmerica)
             }
         }
-
         binding.southAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(SouthAmerica.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.plus(1)
-                continentList.add(SouthAmerica)
+                continentsList.add(SouthAmerica)
             } else {
                 counter.value = counter.value!!.minus(SouthAmerica.numberOfCountries)
-                continentsSelected.value = continentsSelected.value!!.minus(1)
-                continentList.remove(SouthAmerica)
+                continentsList.remove(SouthAmerica)
             }
         }
 
+        // Launch the game!
         binding.gameConfigSurvPlayBtn.setOnClickListener { v: View ->
-            if (continentsSelected.value == 0)
-            {
+            if (continentsList.value!!.size == 0) {
                 Toast.makeText(context, getString(R.string.continents_different_to_zero), Toast.LENGTH_SHORT).show()
 
             }else if(countriesNumberSeekBar.progress == 0){
                 Toast.makeText(context, getString(R.string.countries_different_to_zero), Toast.LENGTH_SHORT).show()
 
-            }else if(timeLimitSeekBar.progress == 0){
-                Toast.makeText(context, getString(R.string.time_different_to_zero), Toast.LENGTH_SHORT).show()
-
             }else{
-                val gameConfig = SurvivalModeGameConfig(continentList,
-                binding.countriesNumberSeekBar.progress,
-                binding.timeLimitSeekBar.progress)
-
+                val gameConfig = SurvivalModeGameConfig(continentsList.value as ArrayList<Continent>,
+                    binding.countriesNumberSeekBar.progress,
+                    binding.timeLimitSeekBar.progress + minTimeLimit)
 
                 view?.findNavController()?.navigate(GameConfigSurvivalModeFragmentDirections
                     .actionGameConfigSurvivalModeFragmentToSurvivalModeGameFragment(gameConfig))
             }
         }
-
         return binding.root
     }
+}
+
+/*
+
+    The followings are extension functions to manipulate MutableLiveData
+
+ */
+private fun <T> MutableLiveData<T>.default(initialValue: T) = apply { value = initialValue }
+
+private fun <T> MutableLiveData<List<T>>.remove(item: T) {
+    val updatedItems = this.value as ArrayList
+    updatedItems.remove(item)
+    this.value = updatedItems
+}
+
+private fun <T> MutableLiveData<List<T>>.add(item: T) {
+    val updatedItems = this.value as ArrayList
+    updatedItems.add(item)
+    this.value = updatedItems
 }

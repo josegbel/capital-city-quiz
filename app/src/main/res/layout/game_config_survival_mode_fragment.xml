@@ -145,7 +145,8 @@
                 android:layout_marginStart="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/selectTimeLimitTv"
-                android:visibility="invisible"/>
+                android:visibility="invisible"
+                android:max="95"/>
 
         <TextView
                 android:text=""

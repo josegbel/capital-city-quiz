@@ -25,15 +25,15 @@
               android:name="com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeFragment"
               android:label="GameConfigSurvivalModeFragment">
         <action android:id="@+id/action_gameConfigSurvivalModeFragment_to_survivalModeGameFragment"
-                app:destination="@+id/survivalModeGameFragment"/>
+                app:destination="@+id/survivalModeGameFragment"
+                app:popUpTo="@+id/titleFragment" app:popUpToInclusive="false"/>
     </fragment>
     <fragment android:id="@+id/survivalModeGameFragment"
               android:name="com.example.capitalcityquizktx.UI.SurvivalMode.SurvivalModeGameFragment"
               android:label="SurvivalModeGameFragment">
         <argument android:name="survivalModeGameConfig"
                   app:argType="com.example.capitalcityquizktx.Config.SurvivalModeGameConfig"/>
-        <action android:id="@+id/action_survivalModeGameFragment_to_titleFragment" app:destination="@id/titleFragment"
-                app:popUpTo="@+id/gameModeSelectionFragment" app:popUpToInclusive="true"/>
+        <action android:id="@+id/action_survivalModeGameFragment_to_titleFragment" app:destination="@id/titleFragment"/>
     </fragment>
 
 </navigation>
