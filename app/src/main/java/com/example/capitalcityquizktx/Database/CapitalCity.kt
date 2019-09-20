@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx.Database
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.google.gson.Gson
 
 class CapitalCity(name: String, picture: String? = null) : City(name, picture), Parcelable {
     constructor(parcel: Parcel) : this(
@@ -26,5 +27,13 @@ class CapitalCity(name: String, picture: String? = null) : City(name, picture), 
         override fun newArray(size: Int): Array<CapitalCity?> {
             return arrayOfNulls(size)
         }
+
+        fun createFromString(string: String): CapitalCity {
+            return Gson().fromJson(string, CapitalCity::class.java!!)
+        }
+    }
+
+    fun stringify(): String {
+        return Gson().toJson(this, CapitalCity::class.java!!)
     }
 }

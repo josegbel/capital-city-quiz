@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.Database
 
 import android.os.Parcelable
+import com.google.gson.Gson
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -9,6 +10,17 @@ open class Continent(
     val countries: List<Country>? = null,
     val shape: String? = null
 ) : Parcelable {
+
+companion object{
+    fun createFromString(string: String): Continent {
+        return Gson().fromJson(string, Continent::class.java!!)
+    }
+}
+
+fun stringify(): String {
+    return Gson().toJson(this, Continent::class.java!!)
+}
+
 
 //
 //    constructor(parcel: Parcel) : this(

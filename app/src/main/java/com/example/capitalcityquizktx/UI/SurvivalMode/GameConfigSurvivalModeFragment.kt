@@ -30,23 +30,23 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
 
     override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
 
-    private val displayTimesetSeekbar = MutableLiveData<Boolean>().default(false)
-    private val displayQuestionNumberSeekbar = MutableLiveData<Boolean>().default(false)
+    private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
+    private val displayQuestionNumberSeekBar = MutableLiveData<Boolean>().default(false)
 
     override fun showQuestionsNumberSelection() {
-        displayQuestionNumberSeekbar.value = true
+        displayQuestionNumberSeekBar.value = true
     }
 
-    override fun showTimesetSelection() {
-        displayTimesetSeekbar.value = true
+    override fun showTimeLimitSelection() {
+        displayTimeLimitSeekBar.value = true
     }
 
     override fun hideQuestionsNumberSelection() {
-        displayQuestionNumberSeekbar.value = false
+        displayQuestionNumberSeekBar.value = false
     }
 
-    override fun hideTimesetSelection() {
-        displayTimesetSeekbar.value = false
+    override fun hideTimeLimitSelection() {
+        displayTimeLimitSeekBar.value = false
     }
 
     override fun onCreateView(
@@ -104,7 +104,7 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
             }
         }
 
-        displayQuestionNumberSeekbar.observe(this,
+        displayQuestionNumberSeekBar.observe(this,
             Observer { displayIt ->
                 if (displayIt){
                     binding.selectCountriesNumberTv.isVisible = true
@@ -119,16 +119,16 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
                 }
             })
 
-        displayTimesetSeekbar.observe(this,
+        displayTimeLimitSeekBar.observe(this,
             Observer { displayIt ->
                 if (displayIt){
-                    binding.timeLimitSeekBar.isVisible = true
                     binding.selectTimeLimitTv.isVisible = true
-                    binding.selectedTimeLimitTV.isVisible = true
+                    binding.timeLimitSeekBar.isVisible = true
+                    binding.timeLimitTv.isVisible = true
                 }else{
-                    binding.timeLimitSeekBar.isVisible = false
                     binding.selectTimeLimitTv.isVisible = false
-                    binding.selectedTimeLimitTV.isVisible = false
+                    binding.timeLimitSeekBar.isVisible = false
+                    binding.timeLimitTv.isVisible = false
                 }
             })
 
@@ -149,7 +149,7 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
         })
         binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.selectedTimeLimitTV.text = "${binding.timeLimitSeekBar.progress + minTimeLimit}" +
+                binding.timeLimitTv.text = "${binding.timeLimitSeekBar.progress + minTimeLimit}" +
                         " " + getString(R.string.time_limit_selected_seek_bar)
             }
 

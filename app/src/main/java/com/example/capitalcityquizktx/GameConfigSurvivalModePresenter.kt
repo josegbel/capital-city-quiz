@@ -13,10 +13,10 @@ class GameConfigSurvivalModePresenter(val view: GameConfigSurvivalModeView) {
         view.continentsList.observeForever { list ->
             if (list.isEmpty()) {
                 view.hideQuestionsNumberSelection()
-                view.hideTimesetSelection()
+                view.hideTimeLimitSelection()
             } else {
                 view.showQuestionsNumberSelection()
-                view.showTimesetSelection()
+                view.showTimeLimitSelection()
             }
         }
     }

@@ -9,9 +9,9 @@ interface GameConfigSurvivalModeView {
 
     fun showQuestionsNumberSelection()
 
-    fun showTimesetSelection()
+    fun showTimeLimitSelection()
 
     fun hideQuestionsNumberSelection()
 
-    fun hideTimesetSelection()
+    fun hideTimeLimitSelection()
 }
