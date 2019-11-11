@@ -13,7 +13,7 @@ interface CountryDatabaseDao {
     fun insertAll(countries: List<Country>)
 
     @Query("SELECT COUNT(*) FROM countries_table")
-    fun dataInDatabase() : Boolean
+    fun dataFieldsCount() : Int
 //    @Update
 //
 //    @Query

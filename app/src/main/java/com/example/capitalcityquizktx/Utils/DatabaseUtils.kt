@@ -8,57 +8,64 @@ import com.example.capitalcityquizktx.Database.Country
 import java.io.*
 
 class DatabaseUtils {
-    fun csvToList(file: InputStream): List<Country> {
-        val countries: ArrayList<Country> = arrayListOf()
-        try {
-            val reader = InputStreamReader(file)
-            val buffer = BufferedReader(reader)
-            var line = ""
+    companion object {
 
-            //TODO DO IN THE BACKGROUND
-            while (buffer.readLine() != null) {
+        fun fromCsvToList(file: InputStream): List<Country> {
+            val countries: ArrayList<Country> = arrayListOf()
+            try {
+                val reader = InputStreamReader(file)
+                val buffer = BufferedReader(reader)
+//                var line = ""
+                var line : String?
                 line = buffer.readLine()
-                val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                lateinit var continent: Continent
-                when (str[2]) {
-                    "Asia" -> continent = Asia
-                    "Europe" -> continent = Europe
-                    "Australia" -> continent = Australia
-                    "South America" -> continent = SouthAmerica
-                    "North America" -> continent = NorthAmerica
+                loop@ while(line != null){
+                //TODO DO IN THE BACKGROUND
+//                while (buffer.readLine() != null) {
+                    val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                    lateinit var continent: Continent
+                    when (str[2]) {
+                        "Asia" -> continent = Asia
+                        "Europe" -> continent = Europe
+                        "Australia" -> continent = Australia
+                        "South America" -> continent = SouthAmerica
+                        "North America" -> continent = NorthAmerica
+                        else -> continue@loop
+                    }
+                    val country = Country(str[0], CapitalCity(str[1]), continent)
+                    countries.add(country)
+                    line = buffer.readLine()
                 }
-                val country = Country(str[0], CapitalCity(str[1]), continent)
-                countries.add(country)
-            }
 
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
-        } catch (e: IOException) {
-            e.printStackTrace()
+
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            return countries
         }
-        return countries
     }
 }
 
-class Converters{
+class Converters {
 
     @TypeConverter
-    fun toCapitalCity(stringified: String) : CapitalCity{
+    fun toCapitalCity(stringified: String): CapitalCity {
         return CapitalCity.createFromString(stringified)
     }
 
     @TypeConverter
-    fun fromCapitalCity(cc: CapitalCity): String{
+    fun fromCapitalCity(cc: CapitalCity): String {
         return cc.stringify()
     }
 
     @TypeConverter
-    fun toContinent(stringified: String) : Continent{
+    fun toContinent(stringified: String): Continent {
         return Continent.createFromString(stringified)
     }
 
     @TypeConverter
-    fun fromContinent(c: Continent): String{
+    fun fromContinent(c: Continent): String {
         return c.stringify()
     }
 }

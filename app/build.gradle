@@ -17,10 +17,6 @@ android {
         multiDexEnabled = true
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -36,6 +32,26 @@ android {
         enabled = true
     }
 
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.jetbrains.kotlinx:kotlinx-coroutines') {
+                details.useVersion "$version_coroutine"
+                details.because 'Different lib versions from different sources.'
+            }
+        }
+//        resolutionStrategy {
+//            force("org.objenesis:objenesis:2.6")
+//        }
+    }
 }
 
 dependencies {
@@ -61,12 +77,15 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
+    implementation 'junit:junit:4.12'
     // Testing
+    testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'

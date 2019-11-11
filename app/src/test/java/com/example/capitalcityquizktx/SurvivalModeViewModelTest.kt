@@ -1,22 +1,30 @@
 package com.example.capitalcityquizktx
 
+import TestUtil.MainCoroutineRule
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import com.example.capitalcityquizktx.Database.CountryDatabase
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.impl.annotations.MockK
+import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
-import junit.framework.Assert.assertEquals
+import junit.framework.Assert.*
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import java.io.InputStream
 
 class SurvivalModeViewModelTest{
+    @get:Rule
+    val coroutineRule = MainCoroutineRule()
 
     @RelaxedMockK
     lateinit var db: CountryDatabase
+
+    @RelaxedMockK
+    lateinit var inputStream : InputStream
 
     @RelaxedMockK
     lateinit var activity: Activity
@@ -29,6 +37,8 @@ class SurvivalModeViewModelTest{
 
     private lateinit var survivalModeViewModel : SurvivalModeViewModel
 
+    private val testDispatcher = TestCoroutineDispatcher()
+
     @Before
     fun setUp(){
         MockKAnnotations.init(this)
@@ -37,17 +47,15 @@ class SurvivalModeViewModelTest{
         val viewModelFactory = SurvivalModeViewModelFactory(dataSource, application)
 
         survivalModeViewModel = ViewModelProviders.of(fragment, viewModelFactory).get(SurvivalModeViewModel::class.java)
-
-
     }
 
     @Test
-    fun `Should handle csv dropped`(){
-        every { survivalModeViewModel.database.dataInDatabase() } returns true
+    fun `Should handle not empty database`(){
+        every { survivalModeViewModel.database.dataFieldsCount() } returns 1
 
-        val result = survivalModeViewModel.database.dataInDatabase()
+        val result = survivalModeViewModel.database.dataFieldsCount()
 
-        assertEquals(result, true)
+        assertNotSame(result, 0)
         /*
         given a mocked database is opened
         when viewModel.loadDatabase()
@@ -56,12 +64,33 @@ class SurvivalModeViewModelTest{
     }
 
     @Test
-    fun `Should handle csv not dropped`(){
-        /*
-        given a mocked database
-        when viewModel.loadDatabase()
-        verify:DataUtils.dropCsvToDB
-         */
+    fun `Should populate empty database`() = testDispatcher.runBlockingTest{
+
+//        val fakeInput = """Spain,Madrid,Europe,
+//            |France,Paris,Europe""".trimMargin()
+//        val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
+//        val reader = StringReader(fakeInput)
+//        val fakeStream = BufferedReader(reader)
+
+//        every { survivalModeViewModel.database.dataFieldsCount()
+//        } returns 0
+
+//        val result = survivalModeViewModel.database.dataFieldsCount()
+
+//        assertEquals(result, 0)
+
+//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
+//        verify {
+//            val countries = DatabaseUtils.fromCsvToList(targetStream)
+//            survivalModeViewModel.database.insertAll(countries)
+//        }
+//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
+        every{ survivalModeViewModel.database.dataFieldsCount() } returns 197
+
+        survivalModeViewModel.populateDatabase()
+
+        assertEquals(197, survivalModeViewModel.database.dataFieldsCount())
+
     }
 
 }

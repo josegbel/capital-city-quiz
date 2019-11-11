@@ -1,9 +1,11 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+ext{
+    version_coroutine = "1.3.0-M1"
+}
 
 buildscript {
     ext {
         version_core = "1.0.1"
-        version_coroutine = "1.1.0"
         version_constraint_layout = "1.1.3"
         version_gradle = '3.4.2'
         version_kotlin = "1.3.41"
@@ -26,16 +28,17 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url'https://jitpack.io' }
         google()
         jcenter()
     }
 
-    // Workaround to the compiling issue with MockK. Downgrading to objenesis 2.6
-    configurations.all {
-        resolutionStrategy {
-            force("org.objenesis:objenesis:2.6")
-        }
-    }
+//    // Workaround to the compiling issue with MockK. Downgrading to objenesis 2.6
+//    configurations.all {
+//        resolutionStrategy {
+//        }
+//
+//    }
 }
 
 task clean(type: Delete) {
