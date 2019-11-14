@@ -1,13 +1,9 @@
 package com.example.capitalcityquizktx
 
-import android.database.DatabaseUtils
 import com.example.capitalcityquizktx.Database.CapitalCity
 import com.example.capitalcityquizktx.Database.Continents.Europe
 import com.example.capitalcityquizktx.Database.Country
-import io.mockk.every
-import junit.framework.Assert
 import org.junit.Assert.*
-import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 
@@ -26,8 +22,8 @@ class DatabaseUtilsTest{
         val actual = com.example.capitalcityquizktx.Utils.DatabaseUtils.fromCsvToList(targetStream)
 
         for(i in 0 until actual.size){
-            assertEquals(actual[i].countryName, expected[i].countryName)
-            assertEquals(actual[i].capitalName.name, expected[i].capitalName.name)
+            assertEquals(actual[i].name, expected[i].name)
+            assertEquals(actual[i].capitalCity.name, expected[i].capitalCity.name)
             assertEquals(actual[i].continent, expected[i].continent)
         }
     }
