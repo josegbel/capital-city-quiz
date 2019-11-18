@@ -12,6 +12,6 @@ data class Learning(
     @PrimaryKey (autoGenerate = true)
     @ColumnInfo(name ="id")          val id: Int,
     @ColumnInfo(name ="user_id")     val userId: Int,
-                                     val country: Country,
+    @Embedded                        val country: Country,
                                      val count: Int
     )

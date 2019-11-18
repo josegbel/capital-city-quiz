@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
 import com.example.capitalcityquizktx.Utils.DatabaseUtils
@@ -25,6 +26,14 @@ class SurvivalModeViewModel(
             if (database.dataFieldsCount() == 0){
                 val countries = getListOfCountries()
 
+                insertContinents(listOf(
+                    Continent("Asia", 44),
+                    Continent("Europe",50),
+                    Continent("Australia", 14),
+                    Continent("SouthAmerica", 28),
+                    Continent("NorthAmerica", 7),
+                    Continent("Africa", 54)
+                ))
                 insertCountries(countries)
             }else if (database.dataFieldsCount() > 0) {
                 // Do nothing else
@@ -37,7 +46,13 @@ class SurvivalModeViewModel(
 
     private suspend fun insertCountries(countries: List<Country>) {
         withContext(Dispatchers.IO) {
-            database.insertAll(countries)
+            database.insertAllCountries(countries)
+        }
+    }
+
+    private suspend fun insertContinents(continents: List<Continent>) {
+        withContext(Dispatchers.IO) {
+            database.insertAllContinents(continents)
         }
     }
 

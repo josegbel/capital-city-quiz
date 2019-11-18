@@ -22,7 +22,7 @@ class DatabaseUtilsTest{
         val actual = com.example.capitalcityquizktx.Utils.DatabaseUtils.fromCsvToList(targetStream)
 
         for(i in 0 until actual.size){
-            assertEquals(actual[i].name, expected[i].name)
+            assertEquals(actual[i].countryName, expected[i].countryName)
             assertEquals(actual[i].capitalCity.name, expected[i].capitalCity.name)
             assertEquals(actual[i].continent, expected[i].continent)
         }

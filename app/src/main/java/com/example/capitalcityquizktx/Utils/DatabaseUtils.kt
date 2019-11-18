@@ -24,14 +24,15 @@ class DatabaseUtils {
                     val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
                     lateinit var continent: Continent
                     when (str[2]) {
-                        "Asia" -> continent = Asia
-                        "Europe" -> continent = Europe
-                        "Australia" -> continent = Australia
-                        "South America" -> continent = SouthAmerica
-                        "North America" -> continent = NorthAmerica
+                        "Asia" -> continent = Continent("Asia", 44)
+                        "Europe" -> continent = Continent("Europe",50)
+                        "Australia" -> continent = Continent("Australia", 14)
+                        "South America" -> continent = Continent("SouthAmerica", 28)
+                        "North America" -> continent = Continent("NorthAmerica", 7)
+                        "Africa" -> continent = Continent("Africa", 54)
                         else -> continue@loop
                     }
-                    val country = Country(str[0], CapitalCity(str[1]), continent)
+                    val country = Country(str[0], CapitalCity(str[1]), continent.continentName)
                     countries.add(country)
                     line = buffer.readLine()
                 }
@@ -58,14 +59,14 @@ class Converters {
     fun fromCapitalCity(cc: CapitalCity): String {
         return cc.stringify()
     }
-
-    @TypeConverter
-    fun toContinent(stringified: String): Continent {
-        return Continent.createFromString(stringified)
-    }
-
-    @TypeConverter
-    fun fromContinent(c: Continent): String {
-        return c.stringify()
-    }
+//
+//    @TypeConverter
+//    fun toContinent(stringified: String): Continent {
+//        return Continent.createFromString(stringified)
+//    }
+//
+//    @TypeConverter
+//    fun fromContinent(c: Continent): String {
+//        return c.stringify()
+//    }
 }

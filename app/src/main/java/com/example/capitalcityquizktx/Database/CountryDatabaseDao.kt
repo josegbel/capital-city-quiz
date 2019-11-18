@@ -10,9 +10,12 @@ interface CountryDatabaseDao {
 
 //    @Insert
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(countries: List<Country>)
+    fun insertAllCountries(countries: List<Country>)
 
-    @Query("SELECT COUNT(*) FROM countries_table")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertAllContinents(continents: List<Continent>)
+
+    @Query("SELECT COUNT(*) FROM countries")
     fun dataFieldsCount() : Int
 //    @Update
 //

@@ -23,6 +23,6 @@ data class User(
     @ColumnInfo(name = "first_name")  val firstName: String,
     @ColumnInfo(name = "last_name")   val lastName: String,
                                       val email: String
-//    @ColumnInfo(name = "learned_id")  val learnedId: String,
-//    @ColumnInfo(name = "learning_id") val learnedId: String
+//    @ColumnInfo(countryName = "learned_id")  val learnedId: String,
+//    @ColumnInfo(countryName = "learning_id") val learnedId: String
 )

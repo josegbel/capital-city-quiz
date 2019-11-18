@@ -163,60 +163,65 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
 
         })
 
+        //TODO Refactor the code below to modify constants with variables once the database is connected to the system.
+
         // The following listeners check the state of the chips whether they are checked or not,
         // in order to count the amount of countries and to count the amount of continents selected.
         binding.africaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(Africa.numberOfCountries)
-                continentsList.add(Africa)
+                counter.value = counter.value!!.plus(54)
+                continentsList.add(Continent("Africa", 54))
             }else {
-                counter.value = counter.value!!.minus(Africa.numberOfCountries)
-                continentsList.remove(Africa)
+                counter.value = counter.value!!.minus(54)
+                continentsList.remove(Continent("Africa", 54))
             }
         }
         binding.australiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(Australia.numberOfCountries)
-                continentsList.add(Australia)
+//                counter.value = counter.value!!.plus(Australia.numberOfCountries)
+//                continentsList.add(Australia)
+                counter.value = counter.value!!.plus(14)
+                continentsList.add(Continent("Australia", 14))
+
             }else {
-                counter.value = counter.value!!.minus(Australia.numberOfCountries)
-                continentsList.remove(Australia)
+                counter.value = counter.value!!.minus(14)
+                continentsList.remove(Continent("Australia", 14))
             }
         }
         binding.asiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(Asia.numberOfCountries)
-                continentsList.add(Asia)
+                counter.value = counter.value!!.plus(44)
+                continentsList.add(Continent("Asia", 44))
             } else {
-                counter.value = counter.value!!.minus(Asia.numberOfCountries)
-                continentsList.remove(Asia)
+                counter.value = counter.value!!.minus(44)
+                continentsList.remove(Continent("Asia", 44))
             }
         }
         binding.europeSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(Europe.numberOfCountries)
-                continentsList.add(Europe)
+                counter.value = counter.value!!.plus(50)
+                continentsList.add(Continent("Europe", 50))
             } else {
-                counter.value = counter.value!!.minus(Europe.numberOfCountries)
-                continentsList.remove(Europe)
+                counter.value = counter.value!!.minus(50)
+                continentsList.remove(Continent("Europe", 50))
             }
         }
         binding.northAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(NorthAmerica.numberOfCountries)
-                continentsList.add(NorthAmerica)
+                counter.value = counter.value!!.plus(7)
+                continentsList.add(Continent("NorthAmerica", 7))
             } else {
-                counter.value = counter.value!!.minus(NorthAmerica.numberOfCountries)
-                continentsList.remove(NorthAmerica)
+                counter.value = counter.value!!.minus(7)
+                continentsList.remove(Continent("NorthAmerica", 7))
             }
         }
         binding.southAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-                counter.value = counter.value!!.plus(SouthAmerica.numberOfCountries)
-                continentsList.add(SouthAmerica)
+                counter.value = counter.value!!.plus(28)
+                continentsList.add(Continent("SouthAmerica", 28))
             } else {
-                counter.value = counter.value!!.minus(SouthAmerica.numberOfCountries)
-                continentsList.remove(SouthAmerica)
+                counter.value = counter.value!!.minus(28)
+                continentsList.remove(Continent("SouthAmerica", 28))
             }
         }
 

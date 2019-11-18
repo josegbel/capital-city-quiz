@@ -82,7 +82,7 @@ class SurvivalModeViewModelTest{
 //        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
 //        verify {
 //            val countries = DatabaseUtils.fromCsvToList(targetStream)
-//            survivalModeViewModel.database.insertAll(countries)
+//            survivalModeViewModel.database.insertAllCountries(countries)
 //        }
 //        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
         every{ survivalModeViewModel.database.dataFieldsCount() } returns 197

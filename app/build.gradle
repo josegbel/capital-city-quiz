@@ -48,9 +48,9 @@ android {
                 details.because 'Different lib versions from different sources.'
             }
         }
-//        resolutionStrategy {
-//            force("org.objenesis:objenesis:2.6")
-//        }
+        resolutionStrategy {
+            force("org.objenesis:objenesis:2.6")
+        }
     }
 }
 

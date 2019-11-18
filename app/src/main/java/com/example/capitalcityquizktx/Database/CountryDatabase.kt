@@ -7,7 +7,15 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.capitalcityquizktx.Utils.Converters
 
-@Database(entities = [Country::class], version = 1, exportSchema = true)
+@Database(entities = [Country::class,
+                      Continent::class,
+                      Learned::class,
+                      Learning::class,
+                      User::class,
+                      UserLearnedJoint::class,
+                      UserLearningJoint::class],
+          version = 2,
+          exportSchema = true)
 @TypeConverters(Converters::class)
 abstract class CountryDatabase : RoomDatabase() {
 

@@ -1,9 +1,6 @@
 package com.example.capitalcityquizktx.Database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 
 @Entity(
     foreignKeys = arrayOf(ForeignKey(
@@ -12,12 +9,13 @@ import androidx.room.PrimaryKey
             childColumns = arrayOf("user_id")
         )
     ),
-    tableName = "learned",
-    primaryKeys = ["user_id", "country"]
+    tableName = "learned"
+    //, primaryKey is now "id", not composite
+//    primaryKeys = ["user_id", "country"]
 )
 data class Learned(
     @PrimaryKey (autoGenerate = true)
     @ColumnInfo(name ="id")         val id: Int,
     @ColumnInfo(name = "user_id")   val userId: Int,
-                                    val country: Country
+    @Embedded                       val country: Country
 )

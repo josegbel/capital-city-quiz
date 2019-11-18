@@ -2,12 +2,9 @@ package com.example.capitalcityquizktx
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.example.capitalcityquizktx.Database.Continent
-import com.example.capitalcityquizktx.Database.CountryDatabase
 import com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeView
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
 import org.junit.Before
