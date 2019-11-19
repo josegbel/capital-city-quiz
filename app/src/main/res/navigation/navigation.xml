@@ -5,9 +5,9 @@
             app:startDestination="@id/titleFragment">
 
     <fragment
-            android:name="com.example.capitalcityquizktx.UI.TitleFragment"
+            android:name="com.example.capitalcityquizktx.UI.LoginFragment"
             android:id="@+id/titleFragment"
-            tools:layout="@layout/title_fragment"
+            tools:layout="@layout/login_fragment"
             android:label="@string/capitalCityQuiz">
         <action android:id="@+id/action_titleFragment_to_gameModeSelectionFragment"
                 app:destination="@id/gameModeSelectionFragment"/>

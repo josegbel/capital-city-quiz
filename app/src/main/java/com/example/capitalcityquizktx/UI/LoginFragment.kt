@@ -9,24 +9,23 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.Navigation
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.databinding.TitleFragmentBinding
-import kotlinx.android.synthetic.main.title_fragment.view.*
+import com.example.capitalcityquizktx.databinding.LoginFragmentBinding
 
 /**
  * A simple [Fragment] subclass.
  *
  */
-class TitleFragment : Fragment() {
+class LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding : TitleFragmentBinding = DataBindingUtil.inflate(
-            inflater, R.layout.title_fragment, container, false)
+        val binding : LoginFragmentBinding = DataBindingUtil.inflate(
+            inflater, R.layout.login_fragment, container, false)
 
-        binding.playBtn.setOnClickListener { v : View -> Navigation.findNavController(v)
-            .navigate(TitleFragmentDirections.actionTitleFragmentToGameModeSelectionFragment()) }
+        binding.logInBtn.setOnClickListener { v : View -> Navigation.findNavController(v)
+            .navigate(LoginFragmentDirections.actionTitleFragmentToGameModeSelectionFragment()) }
 
         return binding.root
     }
