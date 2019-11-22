@@ -56,14 +56,14 @@ class SurvivalModeViewModel(
         }
     }
 
+    //THIS IS RETURNING EMPTY LIST!!!!
     private suspend fun getListOfCountries(): List<Country> {
         // Creating the list of countries from a raw file (csv)
-            return withContext(Dispatchers.IO){
-                DatabaseUtils.fromCsvToList(getApplication<Application>()
-                    .applicationContext.resources.openRawResource(R.raw.allcountries))
-
-            }
-
+//            return withContext(Dispatchers.IO){
+//                DatabaseUtils.fromCsvToList(getApplication<Application>()
+//                    .applicationContext.resources.openRawResource(R.raw.allcountries))
+//            }
+        return emptyList()
     }
 
 }

@@ -9,8 +9,6 @@ import com.example.capitalcityquizktx.Database.CountryDatabaseDao
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import junit.framework.Assert.*
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -37,8 +35,6 @@ class SurvivalModeViewModelTest{
 
     private lateinit var survivalModeViewModel : SurvivalModeViewModel
 
-    private val testDispatcher = TestCoroutineDispatcher()
-
     @Before
     fun setUp(){
         MockKAnnotations.init(this)
@@ -64,7 +60,7 @@ class SurvivalModeViewModelTest{
     }
 
     @Test
-    fun `Should populate empty database`() = testDispatcher.runBlockingTest{
+    fun `Should populate empty database`() = coroutineRule.runBlockingTest{
 
 //        val fakeInput = """Spain,Madrid,Europe,
 //            |France,Paris,Europe""".trimMargin()

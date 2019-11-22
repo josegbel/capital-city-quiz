@@ -86,6 +86,7 @@ dependencies {
 
     implementation 'junit:junit:4.12'
     // Testing
+    testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'android.arch.core:core-testing:1.1.1'

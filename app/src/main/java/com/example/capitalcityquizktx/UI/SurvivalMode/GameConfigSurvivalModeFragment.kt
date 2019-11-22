@@ -15,7 +15,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.capitalcityquizktx.Config.SurvivalModeGameConfig
 import com.example.capitalcityquizktx.Database.Continent
-import com.example.capitalcityquizktx.Database.Continents.*
 import com.example.capitalcityquizktx.GameConfigSurvivalModePresenter
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalModeFragmentBinding
@@ -29,7 +28,6 @@ import kotlinx.android.synthetic.main.game_config_survival_mode_fragment.*
 class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalModeView {
 
     override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
-
     private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
     private val displayQuestionNumberSeekBar = MutableLiveData<Boolean>().default(false)
 

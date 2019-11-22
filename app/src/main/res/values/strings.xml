@@ -18,6 +18,7 @@
     <string name="tryAgainBtn">Try Again!</string>
     <string name="filePathCountries">raw://allcountries.csv</string>
     <string name="register">Register</string>
+    <string name="start">Start</string>
     <string name="wellDoneTxt">Well Done!</string>
     <string name="oneOrMoreContinentSelectionSMFragment">oneOrMoreContinentSelectionSMFragment</string>
     <string name="europe">Europe</string>

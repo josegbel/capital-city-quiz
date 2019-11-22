@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeView
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -35,9 +36,9 @@ class GameConfigSurvivalModePresenterTest{
 
     @Test fun `Should display number of questions selection when continents are selected`(){
         listLiveData.postValue(listOf(
-            Continent(10),
-            Continent(10),
-            Continent(10)))
+            Continent("continentName", 10),
+            Continent("continentName", 10),
+            Continent("continentName", 10)))
         every { view.continentsList } returns listLiveData
 
         presenter.receiveContinentSelection()
@@ -47,9 +48,9 @@ class GameConfigSurvivalModePresenterTest{
 
     @Test fun `Should display time set selection when continents are selected`(){
         listLiveData.postValue(listOf(
-            Continent(10),
-            Continent(10),
-            Continent(10)))
+            Continent("continentName", 10),
+            Continent("continentName", 10),
+            Continent("continentName", 10)))
         every { view.continentsList } returns listLiveData
 
         presenter.receiveContinentSelection()
