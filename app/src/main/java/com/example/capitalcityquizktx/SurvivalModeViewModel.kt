@@ -10,7 +10,8 @@ import kotlinx.coroutines.*
 
 class SurvivalModeViewModel(
     val database: CountryDatabaseDao,
-    application: Application) : AndroidViewModel(application) {
+    application: Application,
+    private val testDispatcher: CoroutineDispatcher) : AndroidViewModel(application) {
 
     val viewModelJob = Job()
 
@@ -45,25 +46,23 @@ class SurvivalModeViewModel(
     }
 
     private suspend fun insertCountries(countries: List<Country>) {
-        withContext(Dispatchers.IO) {
+        withContext(testDispatcher) {
             database.insertAllCountries(countries)
         }
     }
 
     private suspend fun insertContinents(continents: List<Continent>) {
-        withContext(Dispatchers.IO) {
+        withContext(testDispatcher) {
             database.insertAllContinents(continents)
         }
     }
 
-    //THIS IS RETURNING EMPTY LIST!!!!
     private suspend fun getListOfCountries(): List<Country> {
         // Creating the list of countries from a raw file (csv)
-//            return withContext(Dispatchers.IO){
-//                DatabaseUtils.fromCsvToList(getApplication<Application>()
-//                    .applicationContext.resources.openRawResource(R.raw.allcountries))
-//            }
-        return emptyList()
+        return withContext(testDispatcher){
+                DatabaseUtils.getCountriesFromStream(getApplication<Application>()
+                    .applicationContext.resources.openRawResource(R.raw.allcountries))
+        }
     }
 
 }

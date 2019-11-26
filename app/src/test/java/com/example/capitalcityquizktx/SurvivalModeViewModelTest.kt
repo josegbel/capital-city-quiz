@@ -4,14 +4,18 @@ import TestUtil.MainCoroutineRule
 import android.app.Activity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.example.capitalcityquizktx.Database.CapitalCity
+import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabase
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
+import com.example.capitalcityquizktx.Utils.DatabaseUtils
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.io.ByteArrayInputStream
 import java.io.InputStream
 
 class SurvivalModeViewModelTest{
@@ -22,7 +26,7 @@ class SurvivalModeViewModelTest{
     lateinit var db: CountryDatabase
 
     @RelaxedMockK
-    lateinit var inputStream : InputStream
+    lateinit var targetStream : InputStream
 
     @RelaxedMockK
     lateinit var activity: Activity
@@ -61,31 +65,37 @@ class SurvivalModeViewModelTest{
 
     @Test
     fun `Should populate empty database`() = coroutineRule.runBlockingTest{
-
-//        val fakeInput = """Spain,Madrid,Europe,
-//            |France,Paris,Europe""".trimMargin()
-//        val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
+//
 //        val reader = StringReader(fakeInput)
 //        val fakeStream = BufferedReader(reader)
 
 //        every { survivalModeViewModel.database.dataFieldsCount()
 //        } returns 0
-
-//        val result = survivalModeViewModel.database.dataFieldsCount()
-
-//        assertEquals(result, 0)
-
-//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
-//        verify {
-//            val countries = DatabaseUtils.fromCsvToList(targetStream)
-//            survivalModeViewModel.database.insertAllCountries(countries)
-//        }
-//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
-        every{ survivalModeViewModel.database.dataFieldsCount() } returns 197
+        every { DatabaseUtils.getCountriesFromStream(targetStream) } returns listOf(
+            Country("Spain", CapitalCity("Madrid"), "Europe"),
+            Country("France", CapitalCity("Paris"), "Europe")
+        )
 
         survivalModeViewModel.populateDatabase()
 
-        assertEquals(197, survivalModeViewModel.database.dataFieldsCount())
+        val result = survivalModeViewModel.database.dataFieldsCount()
+
+        assertEquals(2, result)
+
+//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
+//        verify {
+//            val countries = DatabaseUtils.getCountriesFromStream(targetStream, coroutineRule.testDispatcher)
+//            survivalModeViewModel.database.insertAllCountries(countries)
+//        }
+//        assertNotSame(survivalModeViewModel.database.dataFieldsCount(), 0)
+
+
+
+//        every{ survivalModeViewModel.database.dataFieldsCount() } returns 197
+//
+//        survivalModeViewModel.populateDatabase()
+//
+//        assertEquals(197, survivalModeViewModel.database.dataFieldsCount())
 
     }
 

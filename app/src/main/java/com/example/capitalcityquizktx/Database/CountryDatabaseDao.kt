@@ -1,5 +1,6 @@
 package com.example.capitalcityquizktx.Database
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -15,7 +16,10 @@ interface CountryDatabaseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllContinents(continents: List<Continent>)
 
-    @Query("SELECT COUNT(*) FROM countries")
+    @Query("select * from countries")
+    fun getCountries() : LiveData<List<Country>>
+
+    @Query("select COUNT(*) from countries")
     fun dataFieldsCount() : Int
 //    @Update
 //

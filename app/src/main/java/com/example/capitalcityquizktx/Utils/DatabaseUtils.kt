@@ -11,43 +11,25 @@ class DatabaseUtils{
 
     companion object {
 
-        fun streamToStringList(file: InputStream, defaultDispatcher: CoroutineContext): ArrayList<List<String>> {
-            val list = ArrayList<List<String>>()
-            CoroutineScope(Dispatchers.Main).launch{
-                withContext(defaultDispatcher) {
-                    try {
-                        val reader = InputStreamReader(file)
-                        val buffer = BufferedReader(reader)
-                        var line: String?
-                        line = buffer.readLine()
-                        loop@ while (line != null) {
-                            val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                            list.add(listOf(str[0], str[1], str[2]))
-                            line = buffer.readLine()
-                        }
-                    } catch (e: FileNotFoundException) {
-                        e.printStackTrace()
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
-                }
-            }
-            if (list.equals(emptyList1<List<String>>()))
-                throw RuntimeException("Country file is empty")
-            return list
-        }
-
-        fun stringListToCountryList(stringList: List<List<String>>, testDispatcher: CoroutineDispatcher): List<Country> {
+        fun getCountriesFromStream(file: InputStream): List<Country> {
             val countries : MutableList<Country> = mutableListOf()
-
-            CoroutineScope(Dispatchers.Main).launch {
-                withContext(testDispatcher){
-                     for (element in stringList){
-                         countries.add(Country(element[0], CapitalCity(element[1]), element[2]))
-                     }
+                try {
+                    val reader = InputStreamReader(file)
+                    val buffer = BufferedReader(reader)
+                    var line: String?
+                    line = buffer.readLine()
+                    loop@ while (line != null) {
+                        val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+                        countries.add(Country(str[0], CapitalCity(str[1]), str[2]))
+                        line = buffer.readLine()
+                    }
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                } catch (e: IOException) {
+                    e.printStackTrace()
                 }
-            }
-
+            if (countries.equals(emptyList1<Country>()))
+                throw RuntimeException("Country file is empty")
             return countries
         }
 

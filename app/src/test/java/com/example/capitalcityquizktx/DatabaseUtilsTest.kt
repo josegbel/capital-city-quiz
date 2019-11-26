@@ -11,47 +11,19 @@ import org.junit.Test
 import java.io.ByteArrayInputStream
 
 class DatabaseUtilsTest{
-    @get:Rule
-    val coroutineRule = MainCoroutineRule()
 
     @Test
-    fun `should convert inputStream to a list when input is right`() = coroutineRule.runBlockingTest{
-
+    fun `should convert inputStream to a list when input is right`(){
         val fakeInput =
             """Spain,Madrid,Europe,
                 |France,Paris,Europe""".trimMargin()
         val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
         val expected = listOf(
-            listOf("Spain", "Madrid", "Europe"),
-            listOf("France", "Paris", "Europe")
-        )
-
-        val actual = DatabaseUtils.streamToStringList(targetStream, coroutineRule.testDispatcher)
-
-        assertEquals(expected, actual)
-    }
-
-    @Test (expected = RuntimeException::class)
-    fun `should throw exeption when inputstream is empty`(){
-        val fakeInput =
-            """""".trimMargin()
-        val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
-
-        DatabaseUtils.streamToStringList(targetStream, coroutineRule.testDispatcher)
-    }
-
-    @Test
-    fun `should convert List_List_String__ to List_Country_`() = coroutineRule.runBlockingTest {
-        val stringList = listOf(
-            listOf("Spain", "Madrid", "Europe"),
-            listOf("France", "Paris", "Europe")
-        )
-        val expected = listOf(
             Country("Spain", CapitalCity("Madrid"), "Europe"),
             Country("France", CapitalCity("Paris"), "Europe")
         )
 
-        val actual = DatabaseUtils.stringListToCountryList(stringList, coroutineRule.testDispatcher)
+        val actual = DatabaseUtils.getCountriesFromStream(targetStream)
 
         assertThat{
             for (element in expected){
@@ -62,6 +34,16 @@ class DatabaseUtilsTest{
             }
         }
     }
+
+    @Test (expected = RuntimeException::class)
+    fun `should throw exeption when inputstream is empty`(){
+        val fakeInput =
+            """""".trimMargin()
+        val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
+
+        DatabaseUtils.getCountriesFromStream(targetStream)
+    }
+
 //
 //    @Test
 //    fun `Should handle conversion of inputStream to countriesList when input is right`(){
