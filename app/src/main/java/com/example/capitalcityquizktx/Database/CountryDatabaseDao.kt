@@ -6,12 +6,8 @@ import androidx.room.*
 @Dao
 interface CountryDatabaseDao {
 
-//    @Insert
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAllCountries(countries: List<Country>)
-//
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertAllContinents(continents: List<Continent>)
 
     @Query("select * from countries")
     fun getCountries() : LiveData<List<Country>>
@@ -26,8 +22,4 @@ interface CountryDatabaseDao {
     @Transaction
     @Query ("select * from users")
     fun getLearningCountries(): List<UserLearningJoint>
-//    @Update
-//
-//    @Query
-
 }

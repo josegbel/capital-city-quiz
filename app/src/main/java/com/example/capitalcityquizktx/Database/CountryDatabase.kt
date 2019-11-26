@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-//import com.example.capitalcityquizktx.Utils.Converters
 
 @Database(entities = [Country::class,
                       LearnedCountry::class,
@@ -13,7 +11,6 @@ import androidx.room.TypeConverters
                       User::class],
           version = 4,
           exportSchema = true)
-//@TypeConverters(Converters::class)
 abstract class CountryDatabase : RoomDatabase() {
 
     abstract val countryDatabaseDao: CountryDatabaseDao

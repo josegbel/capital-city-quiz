@@ -2,7 +2,6 @@ package com.example.capitalcityquizktx
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
 import com.example.capitalcityquizktx.Utils.ContinentSelector
@@ -34,12 +33,6 @@ class SurvivalModeViewModel(
             database.insertAllCountries(countries)
         }
     }
-//
-//    private suspend fun insertContinents(continents: List<Continent>) {
-//        withContext(testDispatcher) {
-//            database.insertAllContinents(continents)
-//        }
-//    }
 
     private suspend fun getListOfCountries(): List<Country> {
         // Creating the list of countries from a raw file (csv)
