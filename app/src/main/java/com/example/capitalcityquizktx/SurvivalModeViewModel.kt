@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
+import com.example.capitalcityquizktx.Utils.ContinentSelector
 import com.example.capitalcityquizktx.Utils.DatabaseUtils
 import kotlinx.coroutines.*
 
@@ -24,24 +25,7 @@ class SurvivalModeViewModel(
 
     fun populateDatabase() {
         uiScope.launch {
-            if (database.dataFieldsCount() == 0){
-                val countries = getListOfCountries()
-
-                insertContinents(listOf(
-                    Continent("Asia", 44),
-                    Continent("Europe",50),
-                    Continent("Australia", 14),
-                    Continent("SouthAmerica", 28),
-                    Continent("NorthAmerica", 7),
-                    Continent("Africa", 54)
-                ))
-                insertCountries(countries)
-            }else if (database.dataFieldsCount() > 0) {
-                // Do nothing else
-                //TODO Probably I should check that the data is correct?
-            }else{
-                throw Exception("Failed to get data from database")
-            }
+            insertCountries(getListOfCountries())
         }
     }
 
@@ -50,19 +34,27 @@ class SurvivalModeViewModel(
             database.insertAllCountries(countries)
         }
     }
-
-    private suspend fun insertContinents(continents: List<Continent>) {
-        withContext(testDispatcher) {
-            database.insertAllContinents(continents)
-        }
-    }
+//
+//    private suspend fun insertContinents(continents: List<Continent>) {
+//        withContext(testDispatcher) {
+//            database.insertAllContinents(continents)
+//        }
+//    }
 
     private suspend fun getListOfCountries(): List<Country> {
         // Creating the list of countries from a raw file (csv)
         return withContext(testDispatcher){
                 DatabaseUtils.getCountriesFromStream(getApplication<Application>()
-                    .applicationContext.resources.openRawResource(R.raw.allcountries))
+                    .applicationContext.resources.openRawResource(R.raw.allcountries), ContinentSelector())
         }
+    }
+
+    fun shouldPopulate(): Boolean{
+        if (database.dataFieldsCount() == 0)
+            return true
+        else if (database.dataFieldsCount() == 197)
+            return false
+        return false
     }
 
 }

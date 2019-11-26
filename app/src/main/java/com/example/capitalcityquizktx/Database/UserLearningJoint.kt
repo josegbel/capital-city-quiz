@@ -1,20 +1,25 @@
 package com.example.capitalcityquizktx.Database
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
+import androidx.room.*
 
-@Entity (tableName = "user_learning_joint",
-         primaryKeys = [ "user_id", "learning_id"],
-         foreignKeys = [
-             ForeignKey(entity = User::class,
-                        parentColumns = ["user_id"],
-                        childColumns = ["user_id"]),
-             ForeignKey(entity = Learning::class,
-                        parentColumns = ["id"],
-                        childColumns = ["learning_id"])]
-)
-class UserLearningJoint(
-    @ColumnInfo(name = "user_id")     val userId : Int,
-    @ColumnInfo(name = "learning_id") val learningId : Int
-)
+//@Entity (tableName = "user_learning_joint",
+//         primaryKeys = [ "user_id", "learning_id"],
+//         foreignKeys = [
+//             ForeignKey(entity = User::class,
+//                        parentColumns = ["user_id"],
+//                        childColumns = ["user_id"]),
+//             ForeignKey(entity = Learning::class,
+//                        parentColumns = ["id"],
+//                        childColumns = ["learning_id"])]
+//)
+class UserLearningJoint {
+    @Embedded
+    lateinit var user: User
+
+    @Relation(
+        parentColumn = "user_id",
+        entityColumn = "learning_user_id"
+    )
+    lateinit var learningCountries: List<LearningCountry>
+}
+

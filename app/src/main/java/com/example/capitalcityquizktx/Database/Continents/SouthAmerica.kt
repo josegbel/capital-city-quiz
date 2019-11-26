@@ -1,7 +1,11 @@
 package com.example.capitalcityquizktx.Database.Continents
 
-//object SouthAmerica : Continent(28){
-//    override fun toString(): String {
-//        return "South America"
-//    }
-//}
+import com.example.capitalcityquizktx.Database.Continent
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
+object SouthAmerica : Continent(continentName = "SouthAmerica", totalCountries = 28){
+    override fun toString(): String {
+        return "South America"
+    }
+}

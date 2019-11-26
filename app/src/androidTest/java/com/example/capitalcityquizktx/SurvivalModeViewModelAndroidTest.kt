@@ -7,6 +7,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.capitalcityquizktx.Database.CapitalCity
+import com.example.capitalcityquizktx.Database.Continents.Europe
 import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabase
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
@@ -54,7 +55,7 @@ class SurvivalModeViewModelAndroidTest {
     @Test
     @Throws (Exception::class)
     fun should_write_and_read_entry_from_db(){
-        val country = Country("Spain", CapitalCity("Madrid"), "Europe")
+        val country = Country("Spain", CapitalCity("Madrid"), Europe)
 
         countryDao.insertAllCountries(listOf(country))
         val countries = countryDao.getCountries()

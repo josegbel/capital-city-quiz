@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.Utils
 import androidx.room.TypeConverter
 import com.example.capitalcityquizktx.Database.CapitalCity
+import com.example.capitalcityquizktx.Database.Continent
 import com.example.capitalcityquizktx.Database.Country
 import kotlinx.coroutines.*
 import java.io.*
@@ -11,7 +12,7 @@ class DatabaseUtils{
 
     companion object {
 
-        fun getCountriesFromStream(file: InputStream): List<Country> {
+        fun getCountriesFromStream(file: InputStream, continentSelector : ContinentSelector): List<Country> {
             val countries : MutableList<Country> = mutableListOf()
                 try {
                     val reader = InputStreamReader(file)
@@ -20,7 +21,7 @@ class DatabaseUtils{
                     line = buffer.readLine()
                     loop@ while (line != null) {
                         val str = line.split(",".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-                        countries.add(Country(str[0], CapitalCity(str[1]), str[2]))
+                        countries.add(Country(str[0], CapitalCity(str[1]), continentSelector.getContinent(str[2])))
                         line = buffer.readLine()
                     }
                 } catch (e: FileNotFoundException) {
@@ -71,17 +72,17 @@ class DatabaseUtils{
     }
 }
 
-class Converters {
-
-    @TypeConverter
-    fun toCapitalCity(stringified: String): CapitalCity {
-        return CapitalCity.createFromString(stringified)
-    }
-
-    @TypeConverter
-    fun fromCapitalCity(cc: CapitalCity): String {
-        return cc.stringify()
-    }
+//class Converters {
+//
+//    @TypeConverter
+//    fun toCapitalCity(stringified: String): CapitalCity {
+//        return CapitalCity.createFromString(stringified)
+//    }
+//
+//    @TypeConverter
+//    fun fromCapitalCity(cc: CapitalCity): String {
+//        return cc.stringify()
+//    }
 //
 //    @TypeConverter
 //    fun toContinent(stringified: String): Continent {
@@ -92,4 +93,4 @@ class Converters {
 //    fun fromContinent(c: Continent): String {
 //        return c.stringify()
 //    }
-}
+//}

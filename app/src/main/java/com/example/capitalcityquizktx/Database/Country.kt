@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.NonNull
 import androidx.room.*
 import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 
 /*
@@ -19,14 +20,15 @@ Temporarily disable for the implementation of Continent
 //) : Parcelable
 
 @Parcelize
-@Entity(tableName = "countries",
-        foreignKeys = [ForeignKey(
-                            entity = Continent::class,
-                            parentColumns = ["continent_name"],
-                            childColumns = ["continent"])])
+//@Entity(tableName = "countries",
+//        foreignKeys = [ForeignKey(
+//                            entity = Continent::class,
+//                            parentColumns = ["continent_name"],
+//                            childColumns = ["continent"])])
+@Entity(tableName = "countries")
 data class Country(
     @PrimaryKey @NonNull
     @ColumnInfo(name = "country_name") var countryName: String,
     @Embedded                          var capitalCity: CapitalCity,
-                                       var continent: String
+    @Embedded                          var continent: Continent
 ) : Parcelable

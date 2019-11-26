@@ -1,4 +1,6 @@
 package com.example.capitalcityquizktx.Database
 
-open class City (val name: String,
-                 val picture: String? = null)
+abstract class City {
+    abstract val cityName: String
+    abstract val cityPicture: String?
+}
