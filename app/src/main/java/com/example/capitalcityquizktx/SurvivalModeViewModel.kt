@@ -2,6 +2,8 @@ package com.example.capitalcityquizktx
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.Database.Country
 import com.example.capitalcityquizktx.Database.CountryDatabaseDao
 import com.example.capitalcityquizktx.Utils.ContinentSelector
@@ -12,6 +14,9 @@ class SurvivalModeViewModel(
     val database: CountryDatabaseDao,
     application: Application,
     private val testDispatcher: CoroutineDispatcher) : AndroidViewModel(application) {
+
+    private val _countries = MutableLiveData<List<Country>>()
+    val countries: LiveData<List<Country>> = _countries
 
     val viewModelJob = Job()
 
@@ -24,7 +29,7 @@ class SurvivalModeViewModel(
 
     fun populateDatabase() {
         uiScope.launch {
-            insertCountries(getListOfCountries())
+            insertCountries(getListOfCountriesFromFile())
         }
     }
 
@@ -34,7 +39,7 @@ class SurvivalModeViewModel(
         }
     }
 
-    private suspend fun getListOfCountries(): List<Country> {
+    private suspend fun getListOfCountriesFromFile(): List<Country> {
         // Creating the list of countries from a raw file (csv)
         return withContext(testDispatcher){
                 DatabaseUtils.getCountriesFromStream(getApplication<Application>()

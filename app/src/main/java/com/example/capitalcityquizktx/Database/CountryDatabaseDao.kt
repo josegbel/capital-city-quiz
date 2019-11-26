@@ -22,4 +22,7 @@ interface CountryDatabaseDao {
     @Transaction
     @Query ("select * from users")
     fun getLearningCountries(): List<UserLearningJoint>
+
+    @Query ("delete from countries")
+    fun destroyCountriesTable()
 }

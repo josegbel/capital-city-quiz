@@ -26,11 +26,10 @@ abstract class CountryDatabase : RoomDatabase() {
 
                 if (instance == null) {
                     instance = Room.databaseBuilder(
-                        context,
+                        context.applicationContext,
                         CountryDatabase::class.java,
                         "country_database"
                     )
-                        .allowMainThreadQueries()
                         .fallbackToDestructiveMigration()
                         .build()
 
