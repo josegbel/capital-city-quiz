@@ -79,6 +79,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
 
     // Navigation
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
@@ -87,6 +88,8 @@ dependencies {
     implementation 'junit:junit:4.12'
     // Testing
     implementation 'io.mockk:mockk:1.9.3.kotlin12'
+    implementation 'io.mockk:mockk-android:1.9.3.kotlin12'
+
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
     testImplementation 'junit:junit:4.12'

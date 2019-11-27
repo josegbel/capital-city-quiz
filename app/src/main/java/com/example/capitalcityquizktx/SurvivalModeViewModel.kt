@@ -29,7 +29,14 @@ class SurvivalModeViewModel(
 
     fun populateDatabase() {
         uiScope.launch {
+            deleteAllCountries()
             insertCountries(getListOfCountriesFromFile())
+        }
+    }
+
+    private suspend fun deleteAllCountries() {
+        withContext(testDispatcher){
+            database.destroyCountries()
         }
     }
 

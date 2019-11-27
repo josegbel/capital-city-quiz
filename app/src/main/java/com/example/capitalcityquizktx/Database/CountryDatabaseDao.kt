@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx.Database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import java.nio.file.attribute.UserDefinedFileAttributeView
 
 @Dao
 interface CountryDatabaseDao {
@@ -17,12 +18,21 @@ interface CountryDatabaseDao {
 
     @Transaction
     @Query ("select * from users")
-    fun getLearnedCountries(): List<UserLearnedJoint>
+    fun getLearnedCountries(): LiveData<UserLearnedJoint>
 
     @Transaction
     @Query ("select * from users")
-    fun getLearningCountries(): List<UserLearningJoint>
+    fun getLearningCountries(): LiveData<List<UserLearningJoint>>
 
     @Query ("delete from countries")
-    fun destroyCountriesTable()
+    fun destroyCountries()
+
+    @Insert(onConflict = OnConflictStrategy.FAIL)
+    fun insertUser()
+
+    @Query("select * from users where user_id like :id")
+    fun getUserFromId(id : Int) : User
+
+//    @Query ("insert into countries_learned")
+//    fun insertLearnedCountry()
 }
