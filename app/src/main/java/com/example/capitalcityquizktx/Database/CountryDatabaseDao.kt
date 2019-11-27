@@ -28,7 +28,7 @@ interface CountryDatabaseDao {
     fun destroyCountries()
 
     @Insert(onConflict = OnConflictStrategy.FAIL)
-    fun insertUser()
+    fun insertUser(user : User)
 
     @Query("select * from users where user_id like :id")
     fun getUserFromId(id : Int) : User

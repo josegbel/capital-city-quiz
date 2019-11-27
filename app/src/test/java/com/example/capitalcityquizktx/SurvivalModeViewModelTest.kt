@@ -3,6 +3,7 @@ package com.example.capitalcityquizktx
 import TestUtil.MainCoroutineRule
 import android.app.Activity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
 import com.example.capitalcityquizktx.Database.CapitalCity
 import com.example.capitalcityquizktx.Database.Continents.Europe
@@ -68,4 +69,8 @@ class SurvivalModeViewModelTest{
        // verify { survivalModeViewModel.populateDatabase() }
     }
 
+    @Test
+    fun `given a liveData that emmits when calling getCountries then shuffles the data` (){
+        val data = dataSource.getCountries()
+    }
 }
