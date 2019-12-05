@@ -3,7 +3,7 @@ package com.example.capitalcityquizktx
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.capitalcityquizktx.Database.CountryDatabaseDao
+import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
 import kotlinx.coroutines.Dispatchers
 
 class SurvivalModeViewModelFactory (

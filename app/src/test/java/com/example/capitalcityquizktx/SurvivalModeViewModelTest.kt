@@ -3,22 +3,14 @@ package com.example.capitalcityquizktx
 import TestUtil.MainCoroutineRule
 import android.app.Activity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProviders
-import com.example.capitalcityquizktx.Database.CapitalCity
-import com.example.capitalcityquizktx.Database.Continents.Europe
-import com.example.capitalcityquizktx.Database.Country
-import com.example.capitalcityquizktx.Database.CountryDatabase
-import com.example.capitalcityquizktx.Database.CountryDatabaseDao
-import com.example.capitalcityquizktx.Utils.ContinentSelector
-import com.example.capitalcityquizktx.Utils.DatabaseUtils
+import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
 import junit.framework.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.ByteArrayInputStream
 import java.io.InputStream
 
 class SurvivalModeViewModelTest{

@@ -9,12 +9,11 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.capitalcityquizktx.Database.CapitalCity
-import com.example.capitalcityquizktx.Database.Continents.*
-import com.example.capitalcityquizktx.Database.Country
-import com.example.capitalcityquizktx.Database.CountryDatabase
-import com.example.capitalcityquizktx.Database.CountryDatabaseDao
-import kotlinx.coroutines.Dispatchers
+import com.example.capitalcityquizktx.model.database.CapitalCity
+import com.example.capitalcityquizktx.model.database.continents.*
+import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.model.database.CountryDatabase
+import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import org.junit.After
 import org.junit.Assert.*

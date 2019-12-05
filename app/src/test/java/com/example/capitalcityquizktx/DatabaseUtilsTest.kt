@@ -1,17 +1,13 @@
 package com.example.capitalcityquizktx
 
-import TestUtil.MainCoroutineRule
 import assertk.assertThat
-import com.example.capitalcityquizktx.Database.CapitalCity
-import com.example.capitalcityquizktx.Database.Continents.Europe
-import com.example.capitalcityquizktx.Database.Country
-import com.example.capitalcityquizktx.Utils.ContinentSelector
-import com.example.capitalcityquizktx.Utils.DatabaseUtils
-import io.mockk.MockKAnnotations
-import io.mockk.impl.annotations.MockK
+import com.example.capitalcityquizktx.model.database.CapitalCity
+import com.example.capitalcityquizktx.model.database.continents.Europe
+import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.utils.ContinentSelector
+import com.example.capitalcityquizktx.utils.DatabaseUtils
 import junit.framework.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import java.io.ByteArrayInputStream
 

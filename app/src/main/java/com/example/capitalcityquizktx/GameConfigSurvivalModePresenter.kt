@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeView
+import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeView
 
 /*
 

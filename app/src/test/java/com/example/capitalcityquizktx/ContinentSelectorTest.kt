@@ -1,9 +1,8 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.Database.Continent
-import com.example.capitalcityquizktx.Database.Continents.*
-import com.example.capitalcityquizktx.Utils.ContinentSelector
-import io.mockk.verify
+import com.example.capitalcityquizktx.model.database.Continent
+import com.example.capitalcityquizktx.model.database.continents.*
+import com.example.capitalcityquizktx.utils.ContinentSelector
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

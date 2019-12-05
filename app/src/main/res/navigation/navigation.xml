@@ -5,7 +5,7 @@
             app:startDestination="@id/titleFragment">
 
     <fragment
-            android:name="com.example.capitalcityquizktx.UI.LoginFragment"
+            android:name="com.example.capitalcityquizktx.ui.LoginFragment"
             android:id="@+id/titleFragment"
             tools:layout="@layout/login_fragment"
             android:label="@string/capitalCityQuiz">
@@ -14,7 +14,7 @@
     </fragment>
 
     <fragment android:id="@+id/gameModeSelectionFragment"
-              android:name="com.example.capitalcityquizktx.UI.GameModeSelectionFragment"
+              android:name="com.example.capitalcityquizktx.ui.GameModeSelectionFragment"
               tools:layout="@layout/game_mode_selection_fragment"
               android:label="GameModeSelectionFragment">
         <action android:id="@+id/action_gameModeSelectionFragment_to_gameConfigSurvivalModeFragment"
@@ -22,14 +22,14 @@
     </fragment>
 
     <fragment android:id="@+id/gameConfigSurvivalModeFragment"
-              android:name="com.example.capitalcityquizktx.UI.SurvivalMode.GameConfigSurvivalModeFragment"
+              android:name="com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeFragment"
               android:label="GameConfigSurvivalModeFragment">
         <action android:id="@+id/action_gameConfigSurvivalModeFragment_to_survivalModeGameFragment"
                 app:destination="@+id/survivalModeGameFragment"
                 app:popUpTo="@+id/titleFragment" app:popUpToInclusive="false"/>
     </fragment>
     <fragment android:id="@+id/survivalModeGameFragment"
-              android:name="com.example.capitalcityquizktx.UI.SurvivalMode.SurvivalModeGameFragment"
+              android:name="com.example.capitalcityquizktx.ui.survivalmode.SurvivalModeGameFragment"
               android:label="SurvivalModeGameFragment">
         <argument android:name="survivalModeGameConfig"
                   app:argType="com.example.capitalcityquizktx.Config.SurvivalModeGameConfig"/>
