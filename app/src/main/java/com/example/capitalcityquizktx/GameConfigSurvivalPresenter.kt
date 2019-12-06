@@ -1,13 +1,13 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeView
+import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
 
 /*
 
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
  */
-class GameConfigSurvivalModePresenter(val view: GameConfigSurvivalModeView) {
+class GameConfigSurvivalPresenter(val view: GameConfigSurvivalView) {
 
     fun receiveContinentSelection() {
         view.continentsList.observeForever { list ->

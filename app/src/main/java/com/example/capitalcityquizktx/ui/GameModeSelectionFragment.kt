@@ -27,7 +27,7 @@ class GameModeSelectionFragment : Fragment() {
             inflater, R.layout.game_mode_selection_fragment, container, false)
 
         binding.survivalModeBtn.setOnClickListener{ v : View -> Navigation.findNavController(v)
-            .navigate(R.id.action_gameModeSelectionFragment_to_gameConfigSurvivalModeFragment)}
+            .navigate(R.id.action_gameModeSelectionFragment_to_gameConfigSurvivalFragment)}
 
         binding.practiceModeBtn.setOnClickListener{ Toast
             .makeText(context, "Under construction", Toast.LENGTH_LONG)

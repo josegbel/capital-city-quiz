@@ -5,15 +5,15 @@
 
     <data>
         <variable
-            name="survivalModeViewModel"
-            type="com.example.capitalcityquizktx.SurvivalModeViewModel"/>
+            name="survivalViewModel"
+            type="com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/survivalModeGameFragmentConstraint"
+            android:id="@+id/survivalGameFragmentConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.survivalmode.SurvivalModeGameFragment">
+            tools:context=".ui.survivalmode.SurvivalGameFragment">
 
         <TextView
                 android:id="@+id/countryTextView"

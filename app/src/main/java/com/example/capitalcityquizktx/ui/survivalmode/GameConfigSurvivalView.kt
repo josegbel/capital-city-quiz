@@ -3,7 +3,7 @@ package com.example.capitalcityquizktx.ui.survivalmode
 import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.model.database.Continent
 
-interface GameConfigSurvivalModeView {
+interface GameConfigSurvivalView {
 
     val continentsList: MutableLiveData<List<Continent>>
 

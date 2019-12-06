@@ -3,7 +3,7 @@ package com.example.capitalcityquizktx
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeView
+import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
@@ -19,19 +19,19 @@ import org.junit.Test
  */
 class GameConfigSurvivalModePresenterTest{
 
-    private lateinit var presenter : GameConfigSurvivalModePresenter
+    private lateinit var presenter : GameConfigSurvivalPresenter
     private val listLiveData = MutableLiveData<List<Continent>>()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
     @RelaxedMockK
-    lateinit var view: GameConfigSurvivalModeView
+    lateinit var view: GameConfigSurvivalView
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        presenter = GameConfigSurvivalModePresenter(view)
+        presenter = GameConfigSurvivalPresenter(view)
     }
 
     @Test fun `Should display number of questions selection when continents are selected`(){

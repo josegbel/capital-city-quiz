@@ -15,7 +15,7 @@ import com.example.capitalcityquizktx.databinding.LoginFragmentBinding
  * A simple [Fragment] subclass.
  *
  */
-class LoginFragment : Fragment() {
+class       LoginFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
