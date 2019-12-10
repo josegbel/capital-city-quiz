@@ -24,7 +24,7 @@
 
     <fragment
             android:id="@+id/gameConfigSurvivalFragment"
-            android:name="com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeFragment"
+            android:name="com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalFragment"
             android:label="GameConfigSurvivalFragment">
         <action
                 android:id="@+id/action_gameConfigSurvivalFragment_to_survivalGameFragment"

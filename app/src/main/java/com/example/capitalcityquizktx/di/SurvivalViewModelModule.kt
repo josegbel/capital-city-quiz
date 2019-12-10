@@ -6,8 +6,8 @@ import com.example.capitalcityquizktx.model.DataRepository
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-object SurvivalViewModelModule {
-    fun getModule() : Module = module {
-        single { GameInteractor(get(), get()) }
-    }
-}
+//object SurvivalViewModelModule {
+//    fun getModule() : Module = module {
+//        single { GameInteractor(get(), get()) }
+//    }
+//}

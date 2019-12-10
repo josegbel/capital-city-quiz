@@ -17,8 +17,8 @@ import kotlin.coroutines.CoroutineContext
 
 class SurvivalViewModel(
     val gameUseCases: GameUseCases,
-    val subscribeOnScheduler: Scheduler,
-    val observeOnScheduler: Scheduler,
+   // val subscribeOnScheduler: Scheduler,
+   // val observeOnScheduler: Scheduler,
     private val testDispatcher: CoroutineDispatcher) : ViewModel(), CoroutineScope{
 
     private val _countries = MutableLiveData<List<Country>>()

@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.UI.SurvivalMode
+package com.example.capitalcityquizktx.ui.survivalmode
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -19,8 +19,6 @@ import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.continents.*
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalModeFragmentDirections
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
 import kotlinx.android.synthetic.main.game_config_survival_fragment.*
 
 /*
@@ -28,7 +26,7 @@ import kotlinx.android.synthetic.main.game_config_survival_fragment.*
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
  */
-class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalView {
+class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
 
     override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
     private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
@@ -240,7 +238,7 @@ class GameConfigSurvivalModeFragment : Fragment(), GameConfigSurvivalView {
                     binding.timeLimitSeekBar.progress + minTimeLimit)
 
                 view?.findNavController()?.navigate(
-                    GameConfigSurvivalModeFragmentDirections
+                    GameConfigSurvivalFragmentDirections
                     .actionGameConfigSurvivalFragmentToSurvivalGameFragment(gameConfig))
             }
         }

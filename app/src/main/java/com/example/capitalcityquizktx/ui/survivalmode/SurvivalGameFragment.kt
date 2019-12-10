@@ -43,11 +43,11 @@ class SurvivalGameFragment : Fragment() {
 //
 //        val survivalModeViewModel =
 //            ViewModelProviders.of(this, viewModelFactory).get(SurvivalModeViewModel::class.java)
-        val survivalViewModel : SurvivalViewModel by viewModel()
+        val survivalViewModel by viewModel<SurvivalViewModel>()
 
+        binding.lifecycleOwner = this
         binding.survivalViewModel = survivalViewModel
 
-        binding.setLifecycleOwner(this)
         return null
     }
 }
