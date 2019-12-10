@@ -6,6 +6,11 @@ import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigator
 
+/**
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 fun NavController.navigateSafe(
     @IdRes resId: Int,
     args: Bundle? = null,

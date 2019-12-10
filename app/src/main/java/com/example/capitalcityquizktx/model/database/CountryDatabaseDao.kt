@@ -3,6 +3,11 @@ package com.example.capitalcityquizktx.model.database
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/**
+
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 @Dao
 interface CountryDatabaseDao {
 
@@ -26,11 +31,15 @@ interface CountryDatabaseDao {
     @Query ("delete from countries")
     fun destroyCountries()
 
-    @Insert(onConflict = OnConflictStrategy.FAIL)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUser(user : User)
 
     @Query("select * from users where user_id like :id")
     fun getUserFromId(id : Int) : User
+
+    @Transaction
+    @Query("select * from users")
+    fun getUserLearnedCountries(): List<UserLearnedJoint>
 
 //    @Query ("insert into countries_learned")
 //    fun insertLearnedCountry()

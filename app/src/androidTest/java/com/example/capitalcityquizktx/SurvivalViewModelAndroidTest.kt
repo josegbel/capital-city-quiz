@@ -9,30 +9,35 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.capitalcityquizktx.model.database.CapitalCity
+import com.example.capitalcityquizktx.di.DatabaseModule
+import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.RepositoryModule
+import com.example.capitalcityquizktx.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.model.database.*
 import com.example.capitalcityquizktx.model.database.continents.*
-import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.model.database.CountryDatabase
-import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
-import kotlinx.coroutines.test.TestCoroutineDispatcher
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.koin.core.context.loadKoinModules
+import org.koin.dsl.module
+import org.koin.test.KoinTest
+import org.koin.test.get
 import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
-class SurvivalViewModelAndroidTest {
+class SurvivalViewModelAndroidTest : KoinTest {
 
     @get:Rule
     val coroutineRule = MainCoroutineRule()
 
     private lateinit var countryDao : CountryDatabaseDao
     private lateinit var db: CountryDatabase
-    private lateinit var survivalModeViewModel : SurvivalModeViewModel
     private lateinit var context : Context
+    private val survivalViewModel = SurvivalViewModel(get(), get())
 
     companion object{
         const val TAG : String = "JUnit4"
@@ -48,6 +53,12 @@ class SurvivalViewModelAndroidTest {
         Log.d(TAG, "createDb")
         countryDao = db.countryDatabaseDao
         Log.d(TAG, "Dao Referenced")
+
+        loadKoinModules(module { listOf(
+            SurvivalViewModelModule.getModule(),
+            RepositoryModule.getModule(),
+            GameUseCasesModule.getModules())
+        })
 
 //        val application = requireNotNull(activity).application
     }
@@ -107,13 +118,21 @@ class SurvivalViewModelAndroidTest {
     @Throws (Exception::class)
     fun should_write_and_read_entry_from_db_in_countriesLearned_table(){
         val country = Country("Spain", CapitalCity("Madrid"), Europe)
-//        countryDao.insertLearnedCountry()
-        Log.d(TAG, "writeToLeanedTable")
+        val user = User(1,
+                     "johnDoe",
+                     "pw",
+                     "john",
+                      "doe",
+                         "john@doe.com")
+
+        countryDao.insertLearnedCountry(country, user.userId)
+        Log.d(TAG, "writeToLearnedTable")
         val countries = countryDao.getLearnedCountries()
         Log.d(TAG, "readFromLearnedTable")
-        assertEquals(country.countryName, countries.getOrAwaitValue().learnedCountries[0].country.countryName)
-        assertEquals(country.capitalCity, countries.getOrAwaitValue().learnedCountries[0].country.capitalCity)
+        assertEquals(country.countryName,             countries.getOrAwaitValue().learnedCountries[0].country.countryName)
+        assertEquals(country.capitalCity,             countries.getOrAwaitValue().learnedCountries[0].country.capitalCity)
         assertEquals(country.continent.continentName, countries.getOrAwaitValue().learnedCountries[0].country.continent.continentName)
+        assertEquals(user.userId,                     countries.getOrAwaitValue().learnedCountries[0].userId)
     }
 
     @Test
@@ -137,33 +156,31 @@ class SurvivalViewModelAndroidTest {
     }
 
     @Test
-    fun given_full_database_when_view_model_is_initialise_then_delete_entries_and_insert_all_again() = coroutineRule.runBlockingTest{
-
-        // get ViewModel
-        val application = ApplicationProvider.getApplicationContext<Application>()
-        survivalModeViewModel = SurvivalModeViewModel(countryDao, application , TestCoroutineDispatcher())
-
+    fun given_full_database_when_view_model_is_initialised_then_delete_entries_and_insert_all_again() = coroutineRule.runBlockingTest{
         val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
         val country2 = Country("France", CapitalCity("Paris"), Europe)
         val country3 = Country("Portugal", CapitalCity("Lisbon"), Europe)
         val expectedCountries = listOf(country1, country2, country3)
-        countryDao.insertAllCountries(expectedCountries)
+        survivalViewModel.gameUseCases.insertAllCountries(expectedCountries)
+//        countryDao.insertAllCountries(expectedCountries)
         Log.d(TAG, "write3EntriesInDb")
-        assertEquals(3, survivalModeViewModel.database.dataFieldsCount())
+        assertEquals(3, survivalViewModel.gameUseCases.getDataFieldsCount())
 
-        survivalModeViewModel.populateDatabase()
+        survivalViewModel.populateDatabase()
 
-        assertEquals(195, survivalModeViewModel.database.dataFieldsCount())
+        assertEquals(195, survivalViewModel.gameUseCases.getDataFieldsCount())
     }
 
     fun when_database_is_populated_print_elements_for_debugging_purposes_only() {
-        survivalModeViewModel.populateDatabase()
-        val countries = survivalModeViewModel.database.getCountries()
+        survivalViewModel.populateDatabase()
+        val countriesObservable = survivalViewModel.gameUseCases.getAllCountries()
+        countriesObservable.subscribe { countries ->
+            for (i in 0..194){
+                println("${countries.get(i).countryName}," +
+                        "${countries.get(i).capitalCity.name}," +
+                        "${countries.get(i).continent.continentName}")
 
-        for (i in 0..194){
-            println("${countries.getOrAwaitValue()[i].countryName}," +
-                    "${countries.getOrAwaitValue()[i].capitalCity.name}," +
-                    "${countries.getOrAwaitValue()[i].continent.continentName}")
+            }
         }
     }
 }

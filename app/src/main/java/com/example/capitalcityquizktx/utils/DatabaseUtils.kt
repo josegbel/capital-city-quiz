@@ -5,6 +5,11 @@ import com.example.capitalcityquizktx.model.database.Country
 import java.io.*
 import kotlin.collections.emptyList as emptyList1
 
+/**
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 class DatabaseUtils{
 
     companion object {

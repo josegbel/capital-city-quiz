@@ -3,6 +3,11 @@ package com.example.capitalcityquizktx.ui.survivalmode
 import com.example.capitalcityquizktx.config.GameConfig
 import com.example.capitalcityquizktx.model.database.Country
 
+/**
+
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 sealed class SurvivalModeState {
     abstract val gameConfig:GameConfig
     abstract val loadedAllItems:Boolean

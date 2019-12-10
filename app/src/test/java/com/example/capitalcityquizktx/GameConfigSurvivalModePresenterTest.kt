@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
+import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
 import io.mockk.MockKAnnotations

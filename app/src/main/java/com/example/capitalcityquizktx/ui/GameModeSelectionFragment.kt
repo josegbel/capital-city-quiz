@@ -12,10 +12,10 @@ import androidx.navigation.Navigation
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.GameModeSelectionFragmentBinding
 
-
 /**
- * A simple [Fragment] subclass.
- *
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
  */
 class GameModeSelectionFragment : Fragment() {
 

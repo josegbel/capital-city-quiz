@@ -8,6 +8,11 @@ import com.example.capitalcityquizktx.di.HomeModules
 import com.example.capitalcityquizktx.ui.HomeViewModel
 import org.koin.android.ext.android.inject
 
+/**
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 class MainActivity : EntryActivity() {
 
     private val viewModel: HomeViewModel by inject()

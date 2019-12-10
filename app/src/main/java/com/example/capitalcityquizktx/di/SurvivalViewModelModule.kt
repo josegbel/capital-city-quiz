@@ -1,13 +1,19 @@
 package com.example.capitalcityquizktx.di
 
-import com.example.capitalcityquizktx.domain.GameInteractor
-import com.example.capitalcityquizktx.model.DataDownloader
-import com.example.capitalcityquizktx.model.DataRepository
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import kotlinx.coroutines.Dispatchers
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
 import org.koin.dsl.module
 
-//object SurvivalViewModelModule {
-//    fun getModule() : Module = module {
-//        single { GameInteractor(get(), get()) }
-//    }
-//}
+/**
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
+object SurvivalViewModelModule {
+    fun getModule() : Module = module {
+            single { Dispatchers.Default  }
+            viewModel { SurvivalViewModel( get(), get() ) }
+    }
+}

@@ -1,15 +1,16 @@
 package com.example.capitalcityquizktx.model
 
-import androidx.lifecycle.LiveData
 import com.example.capitalcityquizktx.config.GameConfig
 import com.example.capitalcityquizktx.model.database.Country
 import io.reactivex.Single
 
-interface DataRepository {
+/**
 
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
+interface DataRepository {
     fun getCountryList() : Single<List<Country>>
     fun getCountryList(gameConfig: GameConfig) : Single<List<Country>>
-    fun refreshCountries(){}
-
-
+    fun getFieldsCount() : Int
 }

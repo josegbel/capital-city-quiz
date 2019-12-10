@@ -1,20 +1,16 @@
 package com.example.capitalcityquizktx.ui.survivalmode
 
-import android.app.Application
 import androidx.lifecycle.*
 import com.example.capitalcityquizktx.domain.GameUseCases
-import com.example.capitalcityquizktx.model.DataApi
-import com.example.capitalcityquizktx.model.DataDownloader
-import com.example.capitalcityquizktx.model.DataRepository
 import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
-import com.example.capitalcityquizktx.utils.ContinentSelector
-import com.example.capitalcityquizktx.utils.DatabaseUtils
-import io.reactivex.Scheduler
-import io.reactivex.Single
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
+/**
+
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 class SurvivalViewModel(
     val gameUseCases: GameUseCases,
    // val subscribeOnScheduler: Scheduler,
@@ -102,7 +98,7 @@ class SurvivalViewModel(
 //    val viewModelJob = Job()
 //
 //    override val coroutineContext: CoroutineContext
-//        get() = Dispatchers.Main + viewModelJob
+//        getModule() = Dispatchers.Main + viewModelJob
 //
 //    override fun onCleared() {
 //        super.onCleared()

@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import com.example.capitalcityquizktx.GameConfigSurvivalPresenter
+import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
@@ -21,7 +21,7 @@ import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.continents.*
 import kotlinx.android.synthetic.main.game_config_survival_fragment.*
 
-/*
+/**
 
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
@@ -162,10 +162,11 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
 
         })
 
-        //TODO Refactor the code below to modify constants with variables once the database is connected to the system.
+        //TODO The logic contained bellow should be decoupled from the view
 
-        // The following listeners check the state of the chips whether they are checked or not,
-        // in order to count the amount of countries and to count the amount of continents selected.
+        /* The following listeners check the state of the chips whether they are checked or not,
+        in order to count the amount of countries and to count the amount of continents selected */
+
         binding.africaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Africa.totalCountries)
@@ -175,18 +176,17 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
                 continentsList.remove(Africa)
             }
         }
+
         binding.australiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
-//                counter.value = counter.value!!.plus(Australia.numberOfCountries)
-//                continentsList.add(Australia)
                 counter.value = counter.value!!.plus(Australia.totalCountries)
                 continentsList.add(Australia)
-
             }else {
                 counter.value = counter.value!!.minus(Australia.totalCountries)
                 continentsList.remove(Australia)
             }
         }
+
         binding.asiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Asia.totalCountries)
@@ -196,6 +196,7 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
                 continentsList.remove(Asia)
             }
         }
+
         binding.europeSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Europe.totalCountries)
@@ -205,6 +206,7 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
                 continentsList.remove(Europe)
             }
         }
+
         binding.northAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(NorthAmerica.totalCountries)
@@ -214,6 +216,7 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
                 continentsList.remove(NorthAmerica)
             }
         }
+
         binding.southAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(SouthAmerica.totalCountries)
@@ -228,10 +231,8 @@ class GameConfigSurvivalFragment : Fragment(), GameConfigSurvivalView {
         binding.gameConfigSurvPlayBtn.setOnClickListener { v: View ->
             if (continentsList.value!!.size == 0) {
                 Toast.makeText(context, getString(R.string.continents_different_to_zero), Toast.LENGTH_SHORT).show()
-
             }else if(countriesNumberSeekBar.progress == 0){
                 Toast.makeText(context, getString(R.string.countries_different_to_zero), Toast.LENGTH_SHORT).show()
-
             }else{
                 val gameConfig = SurvivalGameConfig(continentsList.value as ArrayList<Continent>,
                     binding.countriesNumberSeekBar.progress,

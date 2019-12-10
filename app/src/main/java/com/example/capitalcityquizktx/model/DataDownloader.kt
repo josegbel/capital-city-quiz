@@ -1,14 +1,22 @@
 package com.example.capitalcityquizktx.model
 
-import android.app.Application
-import androidx.lifecycle.LiveData
-import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.GameConfig
 import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.utils.ContinentSelector
+import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
 import io.reactivex.Single
 
-class DataDownloader(private val dataApi : DataApi) : DataRepository {
+/**
+
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
+class DataDownloader(private val dataCsvLoader : DataCsvLoader,
+                     private val dataApi: DataApi,
+                     private val database: CountryDatabaseDao) : DataRepository {
+    override fun getFieldsCount(): Int {
+        return database.dataFieldsCount()
+    }
+
     override fun getCountryList(): Single<List<Country>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -16,6 +24,5 @@ class DataDownloader(private val dataApi : DataApi) : DataRepository {
     override fun getCountryList(gameConfig: GameConfig): Single<List<Country>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
     

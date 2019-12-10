@@ -4,7 +4,11 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
 
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 @Entity(tableName = "users")
 data class User(
     @PrimaryKey(autoGenerate = true)

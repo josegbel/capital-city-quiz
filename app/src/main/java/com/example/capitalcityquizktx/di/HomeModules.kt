@@ -5,6 +5,14 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 
+/**
+
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
+/*
+    Currently unavailable
+ */
 object HomeModules {
 
     fun load() = loadModules

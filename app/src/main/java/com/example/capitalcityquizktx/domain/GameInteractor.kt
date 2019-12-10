@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx.domain
 
 import android.app.Application
 import android.content.Context
+import androidx.lifecycle.LiveData
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.GameConfig
 import com.example.capitalcityquizktx.model.DataRepository
@@ -10,9 +11,18 @@ import com.example.capitalcityquizktx.utils.ContinentSelector
 import com.example.capitalcityquizktx.utils.DatabaseUtils
 import io.reactivex.Single
 
+/**
+
+    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+
+ */
 class GameInteractor (private val dataRepository: DataRepository,
                       private val applicationContext : Application
 ) : GameUseCases{
+    override fun getAllCountries(): Single<List<Country>> {
+        return dataRepository.getCountryList()
+    }
+
     override fun getCountryListBy(gameConfig: GameConfig): Single<List<Country>> {
         return dataRepository.getCountryList(gameConfig)
     }
@@ -26,7 +36,7 @@ class GameInteractor (private val dataRepository: DataRepository,
     }
 
     override fun getDataFieldsCount(): Int {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dataRepository.getFieldsCount()
     }
 
     override fun getCountriesFromStream(): List<Country> {

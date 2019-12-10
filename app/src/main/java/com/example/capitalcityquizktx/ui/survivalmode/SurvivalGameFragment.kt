@@ -12,7 +12,7 @@ import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/*
+/**
 
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
@@ -42,7 +42,7 @@ class SurvivalGameFragment : Fragment() {
 //        val viewModelFactory = SurvivalModeViewModelFactory(dataSource, application)
 //
 //        val survivalModeViewModel =
-//            ViewModelProviders.of(this, viewModelFactory).get(SurvivalModeViewModel::class.java)
+//            ViewModelProviders.of(this, viewModelFactory).getModule(SurvivalModeViewModel::class.java)
         val survivalViewModel by viewModel<SurvivalViewModel>()
 
         binding.lifecycleOwner = this
