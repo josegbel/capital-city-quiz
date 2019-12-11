@@ -15,7 +15,7 @@ class SurvivalViewModel(
     val gameUseCases: GameUseCases,
    // val subscribeOnScheduler: Scheduler,
    // val observeOnScheduler: Scheduler,
-    private val testDispatcher: CoroutineDispatcher) : ViewModel(), CoroutineScope{
+    private val coroutineDispatcher: CoroutineDispatcher) : ViewModel(), CoroutineScope{
 
     private val _countries = MutableLiveData<List<Country>>()
 //    val countries: LiveData<List<Country>> = _countries
@@ -40,33 +40,24 @@ class SurvivalViewModel(
     }
 
     private suspend fun deleteAllCountries() {
-        withContext(testDispatcher){
+        withContext(coroutineDispatcher){
             gameUseCases.destroyCountries()
         }
     }
 
     private suspend fun insertCountries(countries: List<Country>) {
-        withContext(testDispatcher) {
+        withContext(coroutineDispatcher) {
             gameUseCases.insertAllCountries(countries)
         }
     }
 
     private suspend fun getListOfCountriesFromFile(): List<Country> {
         // Creating the list of countries from a raw file (csv)
-        return withContext(testDispatcher){
+        return withContext(coroutineDispatcher){
             gameUseCases.getCountriesFromStream()
 
         }
     }
-
-    fun shouldPopulate(): Boolean{
-        if (gameUseCases.getDataFieldsCount() == 0)
-            return true
-        else if (gameUseCases.getDataFieldsCount() == 197)
-            return false
-        return false
-    }
-
 }
 
 //package com.example.capitalcityquizktx

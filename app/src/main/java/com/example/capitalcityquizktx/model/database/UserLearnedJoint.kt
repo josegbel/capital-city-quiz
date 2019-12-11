@@ -12,8 +12,8 @@ class UserLearnedJoint {
     lateinit var user: User
     @Relation(
         parentColumn = "user_id",
-        entityColumn = "learned_user_id",
-        associateBy = Junction(LearnedCountryUserCrossRef::class)
+        entityColumn = "learned_user_id"
+      //  associateBy = Junction(LearnedCountryUserCrossRef::class)
     )
     lateinit var learnedCountries: List<LearnedCountry>
 }

@@ -14,7 +14,7 @@ import androidx.room.RoomDatabase
                       LearnedCountry::class,
                       LearningCountry::class,
                       User::class],
-          version = 4,
+          version = 5,
           exportSchema = true)
 abstract class CountryDatabase : RoomDatabase() {
 

@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.model
 
-import com.example.capitalcityquizktx.config.GameConfig
+import androidx.lifecycle.LiveData
+import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.Country
 import io.reactivex.Single
 
@@ -11,6 +12,9 @@ import io.reactivex.Single
  */
 interface DataRepository {
     fun getCountryList() : Single<List<Country>>
-    fun getCountryList(gameConfig: GameConfig) : Single<List<Country>>
+    fun getCountryListBy(continent: Continent) : LiveData<MutableList<Country>>
     fun getFieldsCount() : Int
+    fun insertCountries(countries: List<Country>)
+    fun getCountriesFromFile(): List<Country>
+    fun removeCountries()
 }

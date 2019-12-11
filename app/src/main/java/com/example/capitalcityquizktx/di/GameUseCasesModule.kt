@@ -1,6 +1,5 @@
 package com.example.capitalcityquizktx.di
 
-import android.app.Application
 import com.example.capitalcityquizktx.domain.GameInteractor
 import com.example.capitalcityquizktx.domain.GameUseCases
 import com.example.capitalcityquizktx.model.DataRepository
@@ -14,9 +13,9 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
  */
 object GameUseCasesModule {
     fun getModules() : Module =  module {
-        fun provideGameInteractor(dataRepository: DataRepository, application: Application) : GameUseCases {
-            return GameInteractor(dataRepository, application)
+        fun provideGameInteractor(dataRepository: DataRepository) : GameUseCases {
+            return GameInteractor(dataRepository)
         }
-        single { provideGameInteractor(get(), get()) }
+        single { provideGameInteractor(get()) }
     }
 }

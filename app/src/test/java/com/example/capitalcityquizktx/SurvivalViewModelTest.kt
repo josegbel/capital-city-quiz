@@ -2,23 +2,28 @@ package com.example.capitalcityquizktx
 
 import TestUtil.MainCoroutineRule
 import android.app.Activity
-import androidx.fragment.app.Fragment
+import com.example.capitalcityquizktx.di.DatabaseModule
+import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.RepositoryModule
+import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
-import junit.framework.Assert.*
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.InputStream
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
+import org.koin.test.KoinTest
+import org.koin.test.inject
+import org.koin.test.mock.declareMock
 
-class SurvivalViewModelTest{
+class SurvivalViewModelTest : KoinTest {
     @get:Rule
     val coroutineRule = MainCoroutineRule()
-
-    @RelaxedMockK
-    lateinit var targetStream : InputStream
 
     @RelaxedMockK
     lateinit var activity: Activity
@@ -26,35 +31,30 @@ class SurvivalViewModelTest{
     @RelaxedMockK
     lateinit var dataSource: CountryDatabaseDao
 
-    @RelaxedMockK
-    lateinit var fragment: Fragment
-
-    private lateinit var survivalViewModel : SurvivalViewModel
+    private val survivalViewModel : SurvivalViewModel by inject()
 
     @Before
     fun setUp(){
         MockKAnnotations.init(this)
+
         val application = requireNotNull(activity).application
+
+        startKoin {
+            androidContext(application)
+            modules(listOf(
+                SurvivalViewModelModule.getModule(),
+                RepositoryModule.getModule(),
+                GameUseCasesModule.getModules(),
+                DatabaseModule.getModule()))
+        }
+
+        declareMock<CountryDatabaseDao>()
+
     }
 
-    @Test
-    fun `Should handle not empty database`(){
-        every { survivalViewModel.gameUseCases.getDataFieldsCount() } returns 197
-
-        val result = survivalViewModel.shouldPopulate()
-
-        assertEquals(false, result)
-     //   verify(exactly = 0) { survivalModeViewModel.populateDatabase() }
-    }
-
-    @Test
-    fun `Should populate empty database`() = coroutineRule.runBlockingTest{
-        every { survivalViewModel.gameUseCases.getDataFieldsCount() } returns 0
-
-        val result = survivalViewModel.shouldPopulate()
-
-        assertEquals(true, result)
-       // verify { survivalModeViewModel.populateDatabase() }
+    @After
+    fun tearDown(){
+        stopKoin()
     }
 
     @Test

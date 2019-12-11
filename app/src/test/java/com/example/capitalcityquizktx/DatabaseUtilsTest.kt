@@ -11,6 +11,10 @@ import org.junit.Before
 import org.junit.Test
 import java.io.ByteArrayInputStream
 
+/**
+ * This class tests a helper function getCountriesFromStream(...) which has been moved to
+ * a CsvDataLoader class.
+ */
 class DatabaseUtilsTest{
 
     lateinit var continentSelector : ContinentSelector
@@ -51,24 +55,4 @@ class DatabaseUtilsTest{
 
         DatabaseUtils.getCountriesFromStream(targetStream, continentSelector)
     }
-
-//
-//    @Test
-//    fun `Should handle conversion of inputStream to countriesList when input is right`(){
-//        val fakeInput =
-//            """Spain,Madrid,Europe,
-//                |France,Paris,Europe""".trimMargin()
-//        val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
-//        val expected = listOf(
-//            Country("Spain", CapitalCity("Madrid"), Europe),
-//            Country("France", CapitalCity("Paris"), Europe))
-//
-//        val actual = com.example.capitalcityquizktx.Utils.DatabaseUtils.fromCsvToList(targetStream)
-//
-//        for(i in 0 until actual.size){
-//            assertEquals(actual[i].countryName, expected[i].countryName)
-//            assertEquals(actual[i].capitalCity.name, expected[i].capitalCity.name)
-//            assertEquals(actual[i].continent, expected[i].continent)
-//        }
-//    }
 }

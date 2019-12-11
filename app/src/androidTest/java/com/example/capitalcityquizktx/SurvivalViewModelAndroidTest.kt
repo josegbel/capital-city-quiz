@@ -1,21 +1,20 @@
 package com.example.capitalcityquizktx
 
-import AndroidTestUtils.MainCoroutineRule
-import AndroidTestUtils.getOrAwaitValue
-import android.app.Application
+import androidTestUtils.MainCoroutineRule
+import androidTestUtils.getOrAwaitValue
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.Transformations
 import androidx.room.Room
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.GameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.model.database.*
 import com.example.capitalcityquizktx.model.database.continents.*
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -27,7 +26,9 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 import java.io.IOException
+import kotlin.random.Random
 
+@ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
 class SurvivalViewModelAndroidTest : KoinTest {
 
@@ -86,6 +87,80 @@ class SurvivalViewModelAndroidTest : KoinTest {
     }
 
     @Test
+    fun should_print_all_european_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until Europe.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(Europe)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_european_countries_in_shuffled_fashion() = coroutineRule.runBlockingTest{
+        val seed = System.currentTimeMillis()
+        val list = Transformations.map(survivalViewModel.gameUseCases.getCountriesIn(Europe)){
+            it.shuffled(Random(seed))
+        }
+
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until Europe.totalCountries)
+            println(list.getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_north_american_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until NorthAmerica.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(NorthAmerica)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_south_american_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until SouthAmerica.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(SouthAmerica)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_australian_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until Australia.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(Australia)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_african_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until Africa.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(Africa)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
+    fun should_print_all_asian_countries() = coroutineRule.runBlockingTest{
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+
+        for (i in 0 until Asia.totalCountries)
+            println(survivalViewModel.gameUseCases.getCountriesIn(Asia)
+                .getOrAwaitValue()[i].countryName)
+    }
+
+    @Test
     @Throws (Exception::class)
     fun should_write_and_read_many_entries_from_db_in_counties_table(){
         val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
@@ -125,14 +200,14 @@ class SurvivalViewModelAndroidTest : KoinTest {
                       "doe",
                          "john@doe.com")
 
-        countryDao.insertLearnedCountry(country, user.userId)
+        countryDao.insertLearnedCountry(LearnedCountry(user.userId, country))
         Log.d(TAG, "writeToLearnedTable")
         val countries = countryDao.getLearnedCountries()
         Log.d(TAG, "readFromLearnedTable")
-        assertEquals(country.countryName,             countries.getOrAwaitValue().learnedCountries[0].country.countryName)
-        assertEquals(country.capitalCity,             countries.getOrAwaitValue().learnedCountries[0].country.capitalCity)
-        assertEquals(country.continent.continentName, countries.getOrAwaitValue().learnedCountries[0].country.continent.continentName)
-        assertEquals(user.userId,                     countries.getOrAwaitValue().learnedCountries[0].userId)
+        assertEquals(country.countryName,             countries.getOrAwaitValue()[0].country.countryName)
+        assertEquals(country.capitalCity,             countries.getOrAwaitValue()[0].country.capitalCity)
+        assertEquals(country.continent.continentName, countries.getOrAwaitValue()[0].country.continent.continentName)
+        assertEquals(user.userId,                     countries.getOrAwaitValue()[0].userId)
     }
 
     @Test
@@ -157,28 +232,33 @@ class SurvivalViewModelAndroidTest : KoinTest {
 
     @Test
     fun given_full_database_when_view_model_is_initialised_then_delete_entries_and_insert_all_again() = coroutineRule.runBlockingTest{
+        // thread sleep is a workaround to the problem with coroutines
+        survivalViewModel.gameUseCases.destroyCountries()
+        Thread.sleep(1000)
+
         val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
         val country2 = Country("France", CapitalCity("Paris"), Europe)
         val country3 = Country("Portugal", CapitalCity("Lisbon"), Europe)
         val expectedCountries = listOf(country1, country2, country3)
         survivalViewModel.gameUseCases.insertAllCountries(expectedCountries)
-//        countryDao.insertAllCountries(expectedCountries)
         Log.d(TAG, "write3EntriesInDb")
         assertEquals(3, survivalViewModel.gameUseCases.getDataFieldsCount())
 
         survivalViewModel.populateDatabase()
+        Thread.sleep(1000)
 
         assertEquals(195, survivalViewModel.gameUseCases.getDataFieldsCount())
     }
 
-    fun when_database_is_populated_print_elements_for_debugging_purposes_only() {
+    fun when_database_is_populated_print_elements_for_debugging_purposes_only() = coroutineRule.runBlockingTest{
         survivalViewModel.populateDatabase()
         val countriesObservable = survivalViewModel.gameUseCases.getAllCountries()
         countriesObservable.subscribe { countries ->
             for (i in 0..194){
-                println("${countries.get(i).countryName}," +
-                        "${countries.get(i).capitalCity.name}," +
-                        "${countries.get(i).continent.continentName}")
+                println("${countries[i].countryName}," +
+                        "${countries[i].capitalCity.name}," +
+                        "${countries[i].continent.continentName}"
+                )
 
             }
         }

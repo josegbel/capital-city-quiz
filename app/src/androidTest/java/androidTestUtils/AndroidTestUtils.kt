@@ -1,10 +1,11 @@
-package AndroidTestUtils
+package androidTestUtils
 
 import android.os.Handler
 import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
 import org.junit.rules.TestRule
 import org.junit.runner.Description
@@ -13,6 +14,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
+@ExperimentalCoroutinesApi
 class MainCoroutineRule : TestRule {
 
     val testDispatcher = TestCoroutineDispatcher()

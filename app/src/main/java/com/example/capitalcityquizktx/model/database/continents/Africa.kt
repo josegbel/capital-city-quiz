@@ -9,7 +9,7 @@ import kotlinx.android.parcel.Parcelize
 
  */
 @Parcelize
-object Africa : Continent(continentName = "Africa", totalCountries = 54){
+object Africa : Continent(continentName = "Africa", totalCountries = 53){
     override fun toString(): String {
         return "Africa"
     }

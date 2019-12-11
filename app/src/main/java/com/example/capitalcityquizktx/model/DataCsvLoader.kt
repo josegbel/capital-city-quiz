@@ -15,7 +15,7 @@ import java.io.*
 class DataCsvLoader {
     fun getCountryList(file: InputStream,
                                continentSelector : ContinentSelector
-    ): Single<List<Country>> {
+    ): List<Country> {
         val countries : MutableList<Country> = mutableListOf()
         try {
             val reader = InputStreamReader(file)
@@ -42,6 +42,6 @@ class DataCsvLoader {
         if (countries.equals(emptyList<Country>()))
             throw RuntimeException("Country file is empty")
 
-        return Single.just(countries)
+        return countries
     }
 }

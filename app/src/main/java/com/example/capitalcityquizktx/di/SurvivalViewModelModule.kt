@@ -13,7 +13,7 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
  */
 object SurvivalViewModelModule {
     fun getModule() : Module = module {
-            single { Dispatchers.Default  }
+            factory { Dispatchers.Default  }
             viewModel { SurvivalViewModel( get(), get() ) }
     }
 }
