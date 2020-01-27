@@ -17,5 +17,6 @@ object GameUseCasesModule {
             return GameInteractor(dataRepository)
         }
         single { provideGameInteractor(get()) }
+        single { GameInteractor (get())}
     }
 }

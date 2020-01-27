@@ -4,7 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
+import com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalView
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK

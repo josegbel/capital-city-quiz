@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.model.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 
 /**
@@ -18,7 +19,7 @@ interface CountryDatabaseDao {
     fun getCountries() : LiveData<List<Country>>
 
     @Query("SELECT * FROM countries WHERE continentName LIKE :continent")
-    fun getCountriesBy(continent: String) : LiveData<MutableList<Country>>
+    fun getCountriesBy(continent: String) : MutableList<Country>
 
     @Query("select COUNT(*) from countries")
     fun dataFieldsCount() : Int

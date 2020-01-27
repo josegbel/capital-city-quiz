@@ -4,6 +4,8 @@ import androidTestUtils.MainCoroutineRule
 import androidTestUtils.getOrAwaitValue
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -87,27 +89,39 @@ class SurvivalViewModelAndroidTest : KoinTest {
     }
 
     @Test
+    fun given_list_continents_when_getCountriesByContinent_return_all_their_countries() {
+        val continents = listOf(Europe, Africa, Asia)
+        val expectedSizeList = Europe.totalCountries + Africa.totalCountries + Asia.totalCountries
+        val countries: MutableLiveData<MutableList<Country>>
+
+        survivalViewModel.populateDatabase()
+        Thread.sleep(1500)
+        countries = survivalViewModel.gameUseCases.getCountriesIn(continents)
+        Thread.sleep(1500)
+
+        assertEquals(expectedSizeList, countries.value!!.size)
+    }
+
+    @Test
     fun should_print_all_european_countries() = coroutineRule.runBlockingTest{
         survivalViewModel.populateDatabase()
         Thread.sleep(1500)
 
         for (i in 0 until Europe.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(Europe)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe)).value!![i].countryName)
     }
 
     @Test
     fun should_print_all_european_countries_in_shuffled_fashion() = coroutineRule.runBlockingTest{
-        val seed = System.currentTimeMillis()
-        val list = Transformations.map(survivalViewModel.gameUseCases.getCountriesIn(Europe)){
-            it.shuffled(Random(seed))
+        val countries : LiveData<List<Country>>? = Transformations.map(survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))){
+            it.shuffled(Random(System.currentTimeMillis()))
         }
 
         survivalViewModel.populateDatabase()
         Thread.sleep(1500)
 
         for (i in 0 until Europe.totalCountries)
-            println(list.getOrAwaitValue()[i].countryName)
+            println(countries!!.value!![i].countryName)
     }
 
     @Test
@@ -116,8 +130,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until NorthAmerica.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(NorthAmerica)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(NorthAmerica)).value!![i].countryName)
     }
 
     @Test
@@ -126,8 +139,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until SouthAmerica.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(SouthAmerica)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(SouthAmerica)).value!![i].countryName)
     }
 
     @Test
@@ -136,8 +148,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Australia.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(Australia)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Australia)).value!![i].countryName)
     }
 
     @Test
@@ -146,8 +157,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Africa.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(Africa)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Africa)).value!![i].countryName)
     }
 
     @Test
@@ -156,8 +166,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Asia.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(Asia)
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Asia)).value!![i].countryName)
     }
 
     @Test

@@ -4,16 +4,21 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+<!--        <import type="androidx.lifecycle.LiveData" />-->
+<!--        <import type="com.example.capitalcityquizktx.model.database.Country"/>-->
         <variable
             name="survivalViewModel"
             type="com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel"/>
+<!--        <variable-->
+<!--                name="countryName"-->
+<!--                type="LiveData&lt;Country>" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/survivalGameFragmentConstraint"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.survivalmode.SurvivalGameFragment">
+            tools:context=".ui.survivalmode.game.SurvivalGameFragment">
 
         <TextView
                 android:id="@+id/countryTextView"

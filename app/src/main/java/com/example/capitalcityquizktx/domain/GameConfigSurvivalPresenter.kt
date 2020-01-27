@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx.domain
 
-import com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalView
+import com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalView
 
 /**
 

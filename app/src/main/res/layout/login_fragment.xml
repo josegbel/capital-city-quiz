@@ -19,9 +19,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                android:src="@mipmap/logo"
+                android:src="@mipmap/ccq_round_384x384"
                 android:layout_marginTop="32dp"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/logo" />
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -29,8 +30,9 @@
                 android:ems="10"
                 android:id="@+id/usernameET" android:layout_marginEnd="8dp"
                 app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-                app:layout_constraintStart_toStartOf="parent" android:hint="Username" android:layout_marginTop="32dp"
-                app:layout_constraintTop_toBottomOf="@+id/titleImage"/>
+                app:layout_constraintStart_toStartOf="parent" android:hint="@string/username" android:layout_marginTop="32dp"
+                app:layout_constraintTop_toBottomOf="@+id/titleImage"
+                android:autofillHints="@string/password" />
         <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +41,8 @@
                 android:id="@+id/passwordET" app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="8dp" app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="8dp" android:layout_marginTop="8dp"
-                app:layout_constraintTop_toBottomOf="@+id/usernameET" android:hint="Password"/>
+                app:layout_constraintTop_toBottomOf="@+id/usernameET" android:hint="@string/password"
+                android:autofillHints="@string/username" />
         <Button
                 android:text="@string/login"
                 android:id="@+id/logInBtn"
@@ -64,7 +67,7 @@
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:id="@+id/facebookBtn"
-                android:contentDescription="FacebookButton"
+                android:contentDescription="@string/facebookbutton"
                 android:scaleType="fitCenter"
                 android:background="@drawable/facebook512x512"
                 android:layout_marginEnd="8dp"
@@ -75,7 +78,7 @@
                 android:layout_height="48dp"
                 android:id="@+id/twitterBtn" android:layout_marginTop="32dp"
                 app:layout_constraintTop_toBottomOf="@+id/registerBtn"
-                android:contentDescription="TwitterButton"
+                android:contentDescription="@string/twitter_button"
                 android:scaleType="fitCenter"
                 android:background="@drawable/twitter_rounded_512x512"
                 app:layout_constraintStart_toEndOf="@+id/googleBtn"
@@ -85,7 +88,7 @@
                 android:layout_height="48dp"
                 android:id="@+id/googleBtn" android:layout_marginTop="32dp"
                 app:layout_constraintTop_toBottomOf="@+id/registerBtn"
-                android:contentDescription="GoogleButton"
+                android:contentDescription="@string/google_button"
                 android:scaleType="fitCenter"
                 android:background="@drawable/google_512x512"
                 android:layout_marginEnd="8dp"

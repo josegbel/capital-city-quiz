@@ -20,8 +20,8 @@ class CapitalCityQuizApp : Application() {
             modules(listOf(
                 GameUseCasesModule.getModules(),
                 RepositoryModule.getModule(),
-                SurvivalViewModelModule.getModule(),
-                DatabaseModule.getModule()))
+                DatabaseModule.getModule(),
+                SurvivalViewModelModule.getModule()))
         }
     }
 }

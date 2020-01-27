@@ -2,6 +2,8 @@ package com.example.capitalcityquizktx.ui.survivalmode
 
 import androidx.lifecycle.*
 import com.example.capitalcityquizktx.domain.GameUseCases
+import com.example.capitalcityquizktx.domain.ISurvivalGame
+import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.Country
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
@@ -15,10 +17,24 @@ class SurvivalViewModel(
     val gameUseCases: GameUseCases,
    // val subscribeOnScheduler: Scheduler,
    // val observeOnScheduler: Scheduler,
-    private val coroutineDispatcher: CoroutineDispatcher) : ViewModel(), CoroutineScope{
+    private val coroutineDispatcher: CoroutineDispatcher)
+    : ViewModel(), CoroutineScope, ISurvivalGame{
+    override fun gameWon() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
-    private val _countries = MutableLiveData<List<Country>>()
-//    val countries: LiveData<List<Country>> = _countries
+    override fun gameOver() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    val lista : MutableLiveData<MutableList<Country>> by lazy{
+        MutableLiveData<MutableList<Country>>()
+    }
+
+    private val _countries : MutableLiveData<MutableList<Country>> by lazy{
+        MutableLiveData<MutableList<Country>>()
+    }
+    val countries: LiveData<MutableList<Country>> = _countries
 
     val viewModelJob = Job()
 
@@ -30,12 +46,25 @@ class SurvivalViewModel(
         viewModelJob.cancel()
     }
 
+
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun populateDatabase() {
         uiScope.launch {
             deleteAllCountries()
             insertCountries(getListOfCountriesFromFile())
+        }
+    }
+
+//    fun getCountriesFrom(continents: List<Continent>) {
+//        uiScope.launch {
+//                lista = getCountriesByContinents(continents)
+//        }
+//    }
+
+    private suspend fun getCountriesByContinents(continents: List<Continent>): LiveData<MutableList<Country>>{
+        return withContext(coroutineDispatcher){
+            gameUseCases.getCountriesIn(continents)
         }
     }
 

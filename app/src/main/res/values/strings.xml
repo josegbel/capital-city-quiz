@@ -56,4 +56,10 @@
     <string name="continents_different_to_zero">Select at least one continent</string>
     <string name="countries_selected_seek_bar">countries</string>
     <string name="time_limit_selected_seek_bar">seconds per question</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="facebookbutton">Facebook Button</string>
+    <string name="twitter_button">Twitter Button</string>
+    <string name="google_button">Google Button</string>
+    <string name="logo">logo</string>
 </resources>

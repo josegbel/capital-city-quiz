@@ -5,12 +5,16 @@
             app:startDestination="@id/loginFragment">
 
     <fragment
-            android:name="com.example.capitalcityquizktx.ui.LoginFragment"
             android:id="@+id/loginFragment"
-            tools:layout="@layout/login_fragment"
+            android:name="com.example.capitalcityquizktx.ui.LoginFragment"
             android:label="@string/capitalCityQuiz">
-        <action android:id="@+id/action_titleFragment_to_gameModeSelectionFragment"
-                app:destination="@id/gameModeSelectionFragment"/>
+        <action
+                android:id="@+id/action_titleFragment_to_gameModeSelectionFragment"
+                app:destination="@id/gameModeSelectionFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -19,29 +23,42 @@
             android:label="GameModeSelectionFragment">
         <action
                 android:id="@+id/action_gameModeSelectionFragment_to_gameConfigSurvivalFragment"
-                app:destination="@id/gameConfigSurvivalFragment" />
+                app:destination="@id/gameConfigSurvivalFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
             android:id="@+id/gameConfigSurvivalFragment"
-            android:name="com.example.capitalcityquizktx.ui.survivalmode.GameConfigSurvivalFragment"
+            android:name="com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalFragment"
             android:label="GameConfigSurvivalFragment">
         <action
                 android:id="@+id/action_gameConfigSurvivalFragment_to_survivalGameFragment"
                 app:destination="@+id/survivalGameFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
                 app:popUpTo="@+id/loginFragment"
                 app:popUpToInclusive="false" />
     </fragment>
     <fragment
             android:id="@+id/survivalGameFragment"
-            android:name="com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameFragment"
+            android:name="com.example.capitalcityquizktx.ui.survivalmode.game.SurvivalGameFragment"
             android:label="SurvivalGameFragment">
         <argument
                 android:name="survivalGameConfig"
                 app:argType="com.example.capitalcityquizktx.config.SurvivalGameConfig" />
         <action
-                android:id="@+id/action_survivalGameFragment_to_titleFragment"
-                app:destination="@id/loginFragment" />
+                android:id="@+id/action_survivalGameFragment_to_gameModeSelectionFragment"
+                app:destination="@id/gameModeSelectionFragment"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popUpTo="@+id/gameModeSelectionFragment" />
     </fragment>
 
 </navigation>

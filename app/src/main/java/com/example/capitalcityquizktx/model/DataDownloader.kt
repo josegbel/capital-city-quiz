@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx.model
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.Country
@@ -40,8 +41,18 @@ class DataDownloader(private val dataCsvLoader : DataCsvLoader,
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun getCountryListBy(continent: Continent): LiveData<MutableList<Country>> {
-        return database.getCountriesBy(continent.continentName)
+    override fun getCountryListBy(continents: List<Continent>): MutableLiveData<MutableList<Country>> {
+        val countries = MutableLiveData<MutableList<Country>>()
+        val tempList = mutableListOf<Country>()
+
+        // collect all the countries in a temporary list
+        for (i in continents.indices){
+            tempList.addAll(database.getCountriesBy(continents[i].continentName))
+        }
+
+        // post the countries to a liveData
+        countries.postValue(tempList)
+        return countries
     }
 }
     

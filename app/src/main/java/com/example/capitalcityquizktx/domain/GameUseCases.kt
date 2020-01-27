@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.domain
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.Country
 import io.reactivex.Single
@@ -14,9 +15,11 @@ interface GameUseCases {
 //    fun getLearnedCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
 //    fun getLearningCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
     fun getAllCountries() : Single<List<Country>>
-    fun getCountriesIn(continent: Continent) : LiveData<MutableList<Country>>
+    fun getCountriesIn(continents: List<Continent>) : MutableLiveData<MutableList<Country>>
     fun destroyCountries()
     fun insertAllCountries(countries: List<Country>)
     fun getDataFieldsCount(): Int
     fun getCountriesFromStream() : List<Country>
+    fun getNextQuestion(list: MutableList<Country>) : MutableLiveData<Country>?
+    fun shuffleList(list: MutableList<Country>)
 }
