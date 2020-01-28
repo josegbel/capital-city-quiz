@@ -23,12 +23,8 @@ class GameInteractor(
         if (list.isEmpty()) {
             return null
         }
-
-
         country.postValue(list[0])
-
         list.removeAt(0)
-
         return country
     }
 

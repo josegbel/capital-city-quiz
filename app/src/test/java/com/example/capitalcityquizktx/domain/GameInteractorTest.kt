@@ -66,8 +66,6 @@ class GameInteractorTest : KoinTest {
         val country6 = Country("Peru", CapitalCity("Lima"), SouthAmerica)
         val list = mutableListOf(country1, country2, country3, country4, country5, country6)
         val expectedSizeList = list.size - 1
-
-
         val countries = mutableListOf<Country>()
         countries.addAll(list)
 
@@ -87,6 +85,7 @@ class GameInteractorTest : KoinTest {
         val country = interactor.getNextQuestion(countries)
 
         assertEquals(null, country)
+        verify(exactly = 1) {  }
     }
 
     // Todo dont think I should worry about testing the shuffle function

@@ -245,8 +245,8 @@ class SurvivalViewModelAndroidTest : KoinTest {
         survivalViewModel.gameUseCases.destroyCountries()
         Thread.sleep(1000)
 
-        val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
-        val country2 = Country("France", CapitalCity("Paris"), Europe)
+        val country1 = Country(   "Spain", CapitalCity("Madrid"), Europe)
+        val country2 = Country(  "France", CapitalCity("Paris"),  Europe)
         val country3 = Country("Portugal", CapitalCity("Lisbon"), Europe)
         val expectedCountries = listOf(country1, country2, country3)
         survivalViewModel.gameUseCases.insertAllCountries(expectedCountries)
