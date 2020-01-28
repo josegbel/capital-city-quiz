@@ -85,7 +85,6 @@ class GameInteractorTest : KoinTest {
         val country = interactor.getNextQuestion(countries)
 
         assertEquals(null, country)
-        verify(exactly = 1) {  }
     }
 
     // Todo dont think I should worry about testing the shuffle function
