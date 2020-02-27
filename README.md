@@ -1,11 +1,6 @@
 # CapitalCityQuiz
 Android app that will boost your knowledge of the capital cities of the world. Train your party trick in a fun a reliable way.
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
-     alt="Get it on Google Play"
-     height="80">](https://play.google.com/store/apps/details?id=remcode.apps.notaza)
-
-
 ## License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
