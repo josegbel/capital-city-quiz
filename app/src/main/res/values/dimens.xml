@@ -5,4 +5,5 @@
     <dimen name="button_padding">16dp</dimen>
     <dimen name="button_text_size">18sp</dimen>
     <dimen name="continent_btn_margin">4dp</dimen>
+    <dimen name="login_form_margin_sides_land">80dp</dimen>
 </resources>
