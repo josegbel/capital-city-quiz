@@ -28,12 +28,12 @@
                 app:layout_constraintTop_toTopOf="parent">
 
             <Button
-                    android:id="@+id/survivalModeBtn"
+                    android:id="@+id/GMSFsurvivalModeBtn"
                     style="@style/buttonStyle"
                     android:text="@string/survival_mode"/>
 
             <Button
-                    android:id="@+id/practiceModeBtn"
+                    android:id="@+id/GMSFpracticeModeBtn"
                     style="@style/buttonStyle"
                     android:text="@string/practice_mode"/>
 

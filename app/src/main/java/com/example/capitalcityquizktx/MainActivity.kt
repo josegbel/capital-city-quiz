@@ -22,7 +22,6 @@ class MainActivity : EntryActivity() {
         val binding = DataBindingUtil.setContentView<MainActivityBinding>(
             this, R.layout.main_activity)
 
-
     }
 
     override fun loadModules() {
