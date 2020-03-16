@@ -58,6 +58,8 @@ android {
         }
 
         resolutionStrategy {
+            force("com.linkedin.dexmaker:dexmaker:2.12.1")
+            force("net.bytebuddy:byte-buddy-agent:1.9.10")
             force("org.objenesis:objenesis:2.6")
         }
     }
@@ -66,6 +68,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
+    implementation "net.bytebuddy:byte-buddy:1.10.5"
 
     // Retrofit's Gson
     implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
@@ -108,19 +111,21 @@ dependencies {
     implementation 'junit:junit:4.12'
     implementation 'io.mockk:mockk:1.9.3.kotlin12'
     implementation 'io.mockk:mockk-android:1.9.3.kotlin12'
+    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
     testImplementation 'junit:junit:4.12'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.0.0'
+    testImplementation "org.koin:koin-test:$koin_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
-    testImplementation "org.koin:koin-test:$koin_version"
-    debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     androidTestImplementation ("org.koin:koin-test:$koin_version") {
         exclude group: 'org.mockito', module: 'mockito-inline'
     }
-    androidTestImplementation("org.mockito:mockito-android:2.24.5")
+    androidTestImplementation("io.mockk:mockk-android:1.9.3.kotlin12")
+    androidTestImplementation 'org.mockito:mockito-android:3.2.4'
+
 }
