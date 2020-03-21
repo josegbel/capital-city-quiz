@@ -27,7 +27,7 @@ class SurvivalViewModel(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    val lista : MutableLiveData<MutableList<Country>> by lazy{
+    val list : MutableLiveData<MutableList<Country>> by lazy{
         MutableLiveData<MutableList<Country>>()
     }
 

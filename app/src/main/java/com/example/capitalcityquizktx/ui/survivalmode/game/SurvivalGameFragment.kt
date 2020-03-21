@@ -1,25 +1,17 @@
 package com.example.capitalcityquizktx.ui.survivalmode.game
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
 import com.example.capitalcityquizktx.model.database.Country
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -66,7 +58,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
             binding.countryTextView.text = country[0].countryName
 
         }
-        survivalViewModel.lista.observe(this, myObserver)
+        survivalViewModel.list.observe(this, myObserver)
 
 //            val list = survivalViewModel.getCountriesFrom(gameConfig!!.continents)
 
