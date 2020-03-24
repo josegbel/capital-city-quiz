@@ -27,11 +27,11 @@ class SurvivalViewModel(
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    val list : MutableLiveData<MutableList<Country>> by lazy{
+    val list : MutableLiveData<MutableList<Country>> by lazy {
         MutableLiveData<MutableList<Country>>()
     }
 
-    private val _countries : MutableLiveData<MutableList<Country>> by lazy{
+    private val _countries : MutableLiveData<MutableList<Country>> by lazy {
         MutableLiveData<MutableList<Country>>()
     }
     val countries: LiveData<MutableList<Country>> = _countries
@@ -84,7 +84,6 @@ class SurvivalViewModel(
         // Creating the list of countries from a raw file (csv)
         return withContext(coroutineDispatcher){
             gameUseCases.getCountriesFromStream()
-
         }
     }
 }

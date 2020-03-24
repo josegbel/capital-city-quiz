@@ -21,7 +21,8 @@ import org.mockito.Mockito.verify
 class GameModeSelectionFragmentTest {
 
     @Rule
-    @JvmField var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    @JvmField
+    var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
     @Test
     fun when_survival_mode_button_clicked_navigates_to_game_config_fragment(){

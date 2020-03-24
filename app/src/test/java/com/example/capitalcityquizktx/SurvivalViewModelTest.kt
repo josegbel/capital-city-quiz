@@ -2,14 +2,21 @@ package com.example.capitalcityquizktx
 
 import TestUtil.MainCoroutineRule
 import android.app.Activity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.GameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.model.database.CapitalCity
+import com.example.capitalcityquizktx.model.database.Country
 import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
+import com.example.capitalcityquizktx.model.database.continents.*
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import io.mockk.*
 import io.mockk.impl.annotations.RelaxedMockK
+import io.reactivex.rxkotlin.toObservable
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -20,6 +27,7 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import java.util.*
 
 class SurvivalViewModelTest : KoinTest {
     @get:Rule
@@ -58,7 +66,19 @@ class SurvivalViewModelTest : KoinTest {
     }
 
     @Test
-    fun `given a liveData that emmits when calling getCountries then shuffles the data` (){
+    fun `given a liveData that emmits when calling getCountries then shuffles the data and add to queue` (){
+//        val country1 = Country("Australia", CapitalCity("Sidney"), Australia)
+//        val country2 = Country("China", CapitalCity("Beijin"), Asia)
+//        val country3 = Country("Senegal", CapitalCity("Dakar"), Africa)
+//        val country4 = Country("Spain", CapitalCity("Madrid"), Europe)
+//        val country5 = Country("Peru", CapitalCity("Lima"), SouthAmerica)
+//        val country6 = Country("USA", CapitalCity("Washington"), NorthAmerica)
+//        val countries = listOf(country1, country2, country3, country4, country5, country6)
+//        val liveData = MutableLiveData<List<Country>>()
+//        liveData.value = countries
+
         val data = dataSource.getCountries()
+
     }
+
 }
