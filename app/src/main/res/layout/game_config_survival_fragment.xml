@@ -20,6 +20,7 @@
                 android:layout_marginTop="32dp"/>
 
         <com.google.android.material.chip.ChipGroup
+                android:theme="@style/ChipGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/continentsSurvChipGroup"
@@ -34,41 +35,34 @@
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content">
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content"
-                            android:textAlignment="center" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/europeSurvChip" android:text="@string/europe"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false" />
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/southAmericaSurvChip" android:text="@string/southAmerica"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:textAlignment="center" android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false"/>
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/australiaSurvChip" android:text="@string/australia"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:textAlignment="center" android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false" />
                 </TableRow>
 
                 <TableRow android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
                           android:gravity="center">
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/africaSurvChip" android:text="@string/africa"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:textAlignment="center" android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false" />
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/asiaSurvChip" android:text="@string/asia"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:textAlignment="center" android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false" />
                     <com.google.android.material.chip.Chip
-                            android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/northAmericaSurvChip" android:text="@string/northAmerica"
-                            android:checkable="true" app:checkedIconVisible="false"
-                            android:textAlignment="center" android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="false"/>
 
                 </TableRow>
 
@@ -77,11 +71,9 @@
                           android:gravity="center">
 
                     <com.google.android.material.chip.Chip
-                            android:layout_width="match_parent" android:layout_height="wrap_content"
+                            style="@style/Chip"
                             android:id="@+id/allContinentsSurvChip" android:text="@string/all_continents"
-                            android:checkable="true" app:checkedIconVisible="true"
-                            android:textAlignment="center"
-                            android:layout_margin="@dimen/continent_btn_margin"/>
+                            app:checkedIconVisible="true"/>
 
                 </TableRow>
             </TableLayout>

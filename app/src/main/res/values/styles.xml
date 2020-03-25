@@ -16,4 +16,16 @@
         <item  name="android:textSize">11dp</item>
         <item name="android:layout_margin">3dp</item>
     </style>
+
+    <style name="ChipGroup" parent="Theme.AppCompat">
+    </style>
+
+    <style name="Chip">
+        <item  name="android:textAppearance">@style/TextAppearance.MaterialComponents.Body2</item>
+        <item  name="android:layout_width">wrap_content</item>
+        <item  name="android:textAlignment">center</item>
+        <item  name="android:layout_height">wrap_content</item>
+        <item  name="android:checkable">true</item>
+        <item  name="android:layout_margin">@dimen/continent_btn_margin</item>
+    </style>
 </resources>
