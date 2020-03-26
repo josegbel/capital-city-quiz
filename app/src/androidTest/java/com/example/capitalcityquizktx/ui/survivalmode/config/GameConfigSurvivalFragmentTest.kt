@@ -1,10 +1,11 @@
 package com.example.capitalcityquizktx.ui.survivalmode.config
 
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
@@ -20,7 +21,7 @@ class GameConfigSurvivalFragmentTest {
 
     @Rule
     @JvmField
-    val activityRule : ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
     @Before
     fun setUp() {
@@ -31,11 +32,34 @@ class GameConfigSurvivalFragmentTest {
     }
 
     @Test
-    fun when_press_back_navigate_to_game_selection_fragment(){
-        val scenario = launchFragmentInContainer<GameConfigSurvivalFragment>()
+    fun whenPressBack_navigateToGameSelectionFragment() {
+        launchFragmentInContainer<GameConfigSurvivalFragment>()
 
-        Espresso.pressBack()
+        pressBack()
 
-        Espresso.onView(withId(R.id.gameModeSelectionConstraint)).check(matches(isDisplayed()))
+        onView(withId(R.id.gameModeSelectionConstraint)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun whenEuropeChipIsSelected_DisplaySeekBarsAndTextViews_numberOfCountriesAndTimeLimit() {
+        launchFragmentInContainer<GameConfigSurvivalFragment>()
+
+        onView(withId(R.id.europeSurvChip)).perform(click())
+
+//        onView(withId(R.id.countriesNumberSeekBar)).check(matches(isDisplayed()))
+//        onView(withId(R.id.selectCountriesNumberTv)).check(matches(isDisplayed()))
+//        onView(withId(R.id.selectedCountriesTV)).check(matches(isDisplayed()))
+//        onView(withId(R.id.timeLimitSeekBar)).check(matches(isDisplayed()))
+//        onView(withId(R.id.timeLimitTv)).check(matches(isDisplayed()))
+        onView(withId(R.id.selectTimeLimitTv)).check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
+    }
+
+    @Test
+    fun whenEuropeChipIsClicked_CheckIsSelected() {
+        launchFragmentInContainer<GameConfigSurvivalFragment>()
+
+        onView(withId(R.id.europeSurvChip)).perform(click())
+
+        onView(withId(R.id.europeSurvChip)).check(matches(isChecked()))
     }
 }
