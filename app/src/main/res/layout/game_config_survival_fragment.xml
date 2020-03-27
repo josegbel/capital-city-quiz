@@ -37,7 +37,7 @@
                     <com.google.android.material.chip.Chip
                             style="@style/Chip"
                             android:id="@+id/europeSurvChip" android:text="@string/europe"
-                            app:checkedIconVisible="false" />
+                            app:checkedIconVisible="false"/>
                     <com.google.android.material.chip.Chip
                             style="@style/Chip"
                             android:id="@+id/southAmericaSurvChip" android:text="@string/southAmerica"

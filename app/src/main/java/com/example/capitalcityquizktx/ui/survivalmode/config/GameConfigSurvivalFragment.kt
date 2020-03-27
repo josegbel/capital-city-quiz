@@ -1,6 +1,7 @@
 package com.example.capitalcityquizktx.ui.survivalmode.config
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +14,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
+import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.continents.*
 import kotlinx.android.synthetic.main.game_config_survival_fragment.*
@@ -202,9 +203,11 @@ class GameConfigSurvivalFragment : Fragment(),
             if (isChecked) {
                 counter.value = counter.value!!.plus(Europe.totalCountries)
                 continentsList.add(Europe)
+                Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
             } else {
                 counter.value = counter.value!!.minus(Europe.totalCountries)
                 continentsList.remove(Europe)
+                Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
             }
         }
 
@@ -230,7 +233,7 @@ class GameConfigSurvivalFragment : Fragment(),
 
         // Launch the game!
         binding.gameConfigSurvPlayBtn.setOnClickListener { v: View ->
-            if (continentsList.value!!.size == 0) {
+            if (continentsList.value!!.isEmpty()) {
                 Toast.makeText(context, getString(R.string.continents_different_to_zero), Toast.LENGTH_SHORT).show()
             }else if(countriesNumberSeekBar.progress == 0){
                 Toast.makeText(context, getString(R.string.countries_different_to_zero), Toast.LENGTH_SHORT).show()
