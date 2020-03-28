@@ -10,6 +10,6 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 
  */
 @Parcelize
-class SurvivalGameConfig (val continents: ArrayList<Continent>,
+open class SurvivalGameConfig (val continents: ArrayList<Continent>,
                           val numQuestions : Int,
                           val timeLimit: Int) : GameConfig, Parcelable
