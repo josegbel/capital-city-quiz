@@ -22,4 +22,11 @@ class GameConfigSurvivalPresenter(val view: GameConfigSurvivalView) {
             }
         }
     }
+
+    fun calculateRecommendedTimeLimit(countries : Int): Int {
+        if (countries <= 0){
+            throw IllegalArgumentException()
+        }
+        return 15 * countries
+    }
 }

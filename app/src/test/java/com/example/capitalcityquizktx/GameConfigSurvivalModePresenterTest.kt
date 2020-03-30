@@ -9,6 +9,7 @@ import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.verify
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -35,7 +36,8 @@ class GameConfigSurvivalModePresenterTest{
         presenter = GameConfigSurvivalPresenter(view)
     }
 
-    @Test fun `Should display number of questions selection when continents are selected`(){
+    @Test
+    fun `Should display number of questions selection when continents are selected`(){
         listLiveData.postValue(listOf(
             Continent("continentName", 10),
             Continent("continentName", 10),
@@ -47,7 +49,8 @@ class GameConfigSurvivalModePresenterTest{
         verify { view.showQuestionsNumberSelection() }
     }
 
-    @Test fun `Should display time set selection when continents are selected`(){
+    @Test
+    fun `Should display time set selection when continents are selected`(){
         listLiveData.postValue(listOf(
             Continent("continentName", 10),
             Continent("continentName", 10),
@@ -59,7 +62,8 @@ class GameConfigSurvivalModePresenterTest{
         verify { view.showTimeLimitSelection() }
     }
 
-    @Test fun `Should hide number of questions selection when no continents are selected`(){
+    @Test
+    fun `Should hide number of questions selection when no continents are selected`(){
         listLiveData.postValue(emptyList())
         every { view.continentsList } returns listLiveData
 
@@ -68,12 +72,45 @@ class GameConfigSurvivalModePresenterTest{
         verify { view.hideQuestionsNumberSelection()}
     }
 
-    @Test fun `Should hide time set selection when no continents are selected`(){
+    @Test
+    fun `Should hide time set selection when no continents are selected`(){
         listLiveData.postValue(emptyList())
         every { view.continentsList } returns listLiveData
 
         presenter.receiveContinentSelection()
 
         verify { view.hideTimeLimitSelection()}
+    }
+
+    @Test
+    fun `Should calculate recommended questions time limit given a number of countries part 1`(){
+        val countries = 10  // 15 sec per country, expected 150
+
+        val actual = presenter.calculateRecommendedTimeLimit(countries)
+
+        assertEquals(150, actual)
+    }
+
+    @Test
+    fun `Should calculate recommended questions time limit given a number of countries part 2`(){
+        val countries = 20  // 15 sec per country, expected 150
+
+        val actual = presenter.calculateRecommendedTimeLimit(countries)
+
+        assertEquals(300, actual)
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException::class)
+        fun `Should throw exception when calculating recommended questions time limit given 0 as number of countries`(){
+        val countries = 0
+
+        presenter.calculateRecommendedTimeLimit(countries)
+    }
+
+    @Test(expected = java.lang.IllegalArgumentException::class)
+    fun `Should throw exception when calculating recommended questions time limit given a negative number of countries`(){
+        val countries = -5
+
+        presenter.calculateRecommendedTimeLimit(countries)
     }
 }

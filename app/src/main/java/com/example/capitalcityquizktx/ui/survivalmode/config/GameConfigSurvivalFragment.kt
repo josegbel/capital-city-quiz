@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -31,6 +32,10 @@ class GameConfigSurvivalFragment : Fragment(),
     GameConfigSurvivalView {
 
     override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
+
+    private val _numberOfCountries = MutableLiveData<Int>().default(0)
+    override val numberOfCountries : LiveData<Int> = _numberOfCountries
+
     private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
     private val displayQuestionNumberSeekBar = MutableLiveData<Boolean>().default(false)
 

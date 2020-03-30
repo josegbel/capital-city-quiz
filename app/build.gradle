@@ -109,13 +109,13 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
     // Testing
-    implementation 'junit:junit:4.12'
+    implementation 'junit:junit:4.13'
     implementation 'io.mockk:mockk:1.9.3.kotlin12'
     implementation 'io.mockk:mockk-android:1.9.3.kotlin12'
     debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.0.0'
     testImplementation "org.koin:koin-test:$koin_version"
