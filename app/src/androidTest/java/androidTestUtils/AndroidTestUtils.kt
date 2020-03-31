@@ -20,7 +20,7 @@ class MainCoroutineRule : TestRule {
     val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
 
-    override fun apply(base: Statement, description: Description?) = object: Statement() {
+    override fun apply(base: Statement, description: Description?) = object : Statement() {
         @Throws(Throwable::class)
         override fun evaluate() {
             Dispatchers.setMain(testDispatcher)
@@ -37,7 +37,7 @@ class MainCoroutineRule : TestRule {
 }
 
 /* Copyright 2019 Google LLC.
- SPDX-License-Identifier: Apache-2.0 */
+SPDX-License-Identifier: Apache-2.0 */
 fun <T> LiveData<T>.getOrAwaitValue(
     time: Long = 2,
     timeUnit: TimeUnit = TimeUnit.SECONDS

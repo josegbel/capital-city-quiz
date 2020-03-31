@@ -11,6 +11,11 @@ import com.example.capitalcityquizktx.model.database.Continent
  */
 interface GameConfigSurvivalView {
 
+    //Minimum amount of seconds that will be added to timeLimitSeekbar
+    var minTimeLimit : Int
+
+    var maxTimeLimit : Int
+
     val continentsList : MutableLiveData<List<Continent>>
 
     val numberOfCountries : LiveData<Int>

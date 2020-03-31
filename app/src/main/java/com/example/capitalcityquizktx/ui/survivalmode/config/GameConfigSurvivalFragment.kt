@@ -30,13 +30,18 @@ import kotlinx.android.synthetic.main.game_config_survival_fragment.*
  */
 class GameConfigSurvivalFragment : Fragment(),
     GameConfigSurvivalView {
+    override var minTimeLimit = 5 // seconds per question
+
+    override var maxTimeLimit = 15 // seconds per question
 
     override val continentsList = MutableLiveData<List<Continent>>().default(arrayListOf())
 
     private val _numberOfCountries = MutableLiveData<Int>().default(0)
+
     override val numberOfCountries : LiveData<Int> = _numberOfCountries
 
     private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
+
     private val displayQuestionNumberSeekBar = MutableLiveData<Boolean>().default(false)
 
     override fun showQuestionsNumberSelection() {
@@ -66,8 +71,6 @@ class GameConfigSurvivalFragment : Fragment(),
         val presenter = GameConfigSurvivalPresenter(this)
         presenter.receiveContinentSelection()
 
-        //Minimum amount of seconds that will be added to timeLimitSeekbar
-        val minTimeLimit = 5
 
         // This counter is used to count the amount of countries to set up the seekBar acording to its value
         val counter = MutableLiveData<Int>()
@@ -143,6 +146,9 @@ class GameConfigSurvivalFragment : Fragment(),
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 binding.selectedCountriesTV.text = "${binding.countriesNumberSeekBar.progress}" +
                         " " + getString(R.string.countries_selected_seek_bar)
+                minTimeLimit = 5 * binding.countriesNumberSeekBar.progress
+                maxTimeLimit = 15 * binding.countriesNumberSeekBar.progress
+                timeLimitSeekBar.max = maxTimeLimit
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
