@@ -146,9 +146,14 @@ class GameConfigSurvivalFragment : Fragment(),
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 binding.selectedCountriesTV.text = "${binding.countriesNumberSeekBar.progress}" +
                         " " + getString(R.string.countries_selected_seek_bar)
-                minTimeLimit = 5 * binding.countriesNumberSeekBar.progress
-                maxTimeLimit = 15 * binding.countriesNumberSeekBar.progress
+
+                minTimeLimit = 10 * binding.countriesNumberSeekBar.progress
+
+                maxTimeLimit = (30 * binding.countriesNumberSeekBar.progress) - minTimeLimit
+
                 timeLimitSeekBar.max = maxTimeLimit
+
+                timeLimitSeekBar.progress = maxTimeLimit
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

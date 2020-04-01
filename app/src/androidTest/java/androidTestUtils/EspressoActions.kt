@@ -54,6 +54,26 @@ object SeekbarActions {
             }
         }
     }
+
+    fun getMax(matcher: ViewInteraction): Int {
+        var max = 0
+        matcher.perform(object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return ViewMatchers.isAssignableFrom(SeekBar::class.java)
+            }
+
+            override fun getDescription(): String {
+                return "Max of the seekbar"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                val sb = view as SeekBar
+                max = sb.max
+            }
+        })
+
+        return max
+    }
 }
 
 object TextViewActions{

@@ -13,7 +13,9 @@ import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.model.database.continents.Africa
-import org.junit.Assert
+import com.example.capitalcityquizktx.model.database.continents.Asia
+import com.example.capitalcityquizktx.model.database.continents.Europe
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -217,26 +219,41 @@ class GameConfigSurvivalFragmentTest {
     }
 
     @Test
-    fun selectingAfricaShouldDisplayMinimumTimeLimitOnTimeLimitSeekbar(){
-        val selectedCountries = 10
-
+    fun checkingAfricaChipShouldDisplayMaximumTimeLimitOnTimeLimitSeekbar(){
         onView(withId(R.id.africaSurvChip)).perform(click())
-
-//        onView(withId(R.id.countriesNumberSeekBar))
-//            .perform(SeekbarActions.setProgress(selectedCountries))
-
-//        onView(withId(R.id.timeLimitSeekBar))
-//            .perform(SeekbarActions.setProgress(25))
 
         val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        Assert.assertEquals("${Africa.totalCountries * 5} seconds", timeLimitTextView)
+        assertEquals("${Africa.totalCountries * 30} seconds", timeLimitTextView)
+    }
+
+    /**
+     * ViewInteraction helps to retrieve the state of the View.
+     * SeekbarActions class is used to retrieve those fields in the ViewInteraction
+     */
+    @Test
+    fun checkingAfricaChipShouldAndSettingTimeLimitSeekBarToMaxShouldDisplayMaxTimeLimitOnTimeLimitTV(){
+        onView(withId(R.id.africaSurvChip)).perform(click())
+
+        val timeLimitSeekBarVI : ViewInteraction = onView(withId(R.id.timeLimitSeekBar))
+
+        onView(withId(R.id.countriesNumberSeekBar)).perform(SeekbarActions.setProgress(Africa.totalCountries))
+
+        val max = SeekbarActions.getMax(timeLimitSeekBarVI)
+
+        onView(withId(R.id.timeLimitSeekBar)).perform(SeekbarActions.setProgress(max))
+
+        val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
+
+        val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
+
+        assertEquals("${Africa.totalCountries * 30} seconds", timeLimitTextView)
     }
 
     @Test
-    fun selectingAfricaAndSetProgressToMaxShouldDisplayMaximumTimeLimitOnTimeLimitSeekbar(){
+    fun checkingAChipAndSettingSeekBarProgressShouldDisplayCorrectInfoOnTimeLimitSeekBarTV(){
         val selectedCountries = 10
 
         onView(withId(R.id.africaSurvChip)).perform(click())
@@ -244,15 +261,43 @@ class GameConfigSurvivalFragmentTest {
         onView(withId(R.id.countriesNumberSeekBar))
             .perform(SeekbarActions.setProgress(selectedCountries))
 
-//        onView(withId(R.id.timeLimitSeekBar))
-//            .perform(SeekbarActions.setProgress(25))
-
         val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        Assert.assertEquals("50 seconds", timeLimitTextView)
+        assertEquals("300 seconds", timeLimitTextView)
     }
 
     //TODO Create a larger test that tests the seekbar with swipe left to right and checks the different states of the text views
+    @Test
+    fun selectingACoupleOfChipsShouldCheckMinAndMaxValuesOfSeekBarsTimeLimitText(){
+        onView(withId(R.id.europeSurvChip)).perform(click())
+
+        onView(withId(R.id.asiaSurvChip)).perform(click())
+
+        onView(withId(R.id.countriesNumberSeekBar)).perform(SeekbarActions.setProgress(1))
+
+        val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
+
+        var timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
+
+        assertEquals("30 seconds", timeLimitTextView)
+
+        val countriesNumberSeekBarVI : ViewInteraction = onView(withId(R.id.countriesNumberSeekBar))
+
+        val maxCountries = SeekbarActions.getMax(countriesNumberSeekBarVI)
+
+        onView(withId(R.id.countriesNumberSeekBar)).perform(SeekbarActions.setProgress(maxCountries))
+
+        val timeLimitSeekBarVI : ViewInteraction = onView(withId(R.id.timeLimitSeekBar))
+
+        val maxTimeLimit = SeekbarActions.getMax(timeLimitSeekBarVI)
+
+        onView(withId(R.id.timeLimitSeekBar)).perform(SeekbarActions.setProgress(maxTimeLimit))
+
+        timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
+
+        assertEquals(
+            "${(Europe.totalCountries + Asia.totalCountries) * 30} seconds", timeLimitTextView)
+    }
 }
