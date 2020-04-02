@@ -13,6 +13,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import kotlin.time.ExperimentalTime
 
 /*
 
@@ -112,5 +113,95 @@ class GameConfigSurvivalModePresenterTest{
         val countries = -5
 
         presenter.calculateRecommendedTimeLimit(countries)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given less than ten seconds in millis should return a formatted string mm(colon)ss`(){
+        val millis = 3000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("00:03", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given more than ten seconds in millis should return a formatted string mm(colon)ss`(){
+        val millis = 30000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("00:30", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given 60 seconds in millis should return a formatted string mm(colon)ss`(){
+        val millis = 60000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("01:00", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given more than 60 seconds in millis should return a formatted string mm(colon)ss`(){
+        val millis = 75000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("01:15", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given 10 minutes in millis should return a formatted string mm(colon)ss`(){
+        val millis = 600000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("10:00", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given more than 10 minutes in millis should return a formatted string mm(colon)ss`(){
+        val millis = 670000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("11:10", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given 60 minutes in millis should return a formatted string hh(colon)mm(colon)ss`(){
+        val millis = 3600000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("01:00:00", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given more than 1 hour in millis should return a formatted string hh(colon)mm(colon)ss`(){
+        val millis = 7260000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("02:01:00", actual)
+    }
+
+    @ExperimentalTime
+    @Test
+    fun `given more than 10 hour in millis should return a formatted string hh(colon)mm(colon)ss`(){
+        val millis = 72062000
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("20:01:02", actual)
     }
 }
