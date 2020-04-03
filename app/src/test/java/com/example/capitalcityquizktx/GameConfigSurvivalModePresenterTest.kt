@@ -204,4 +204,22 @@ class GameConfigSurvivalModePresenterTest{
 
         assertEquals("20:01:02", actual)
     }
+
+    @ExperimentalTime
+    @Test
+    fun `given zero millis should return a formatted string hh(colon)mm(colon)ss`(){
+        val millis = 0
+
+        val actual = presenter.formatTime(millis.toLong())
+
+        assertEquals("00:00", actual)
+    }
+
+    @ExperimentalTime
+    @Test (expected = IllegalArgumentException::class)
+    fun `given negative amount of millis should throw IllegalArgumentExpection`(){
+        val millis = -5
+
+        val actual = presenter.formatTime(millis.toLong())
+    }
 }

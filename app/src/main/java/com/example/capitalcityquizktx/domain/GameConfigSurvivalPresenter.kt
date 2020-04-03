@@ -59,6 +59,10 @@ class GameConfigSurvivalPresenter(val view: GameConfigSurvivalView) {
 
         var timeStr: String? = ""
 
+        if (seconds < 0){
+            throw IllegalArgumentException("Negative time is not supported")
+        }
+
         if(minutes >= 60){
             timeStr +=
                 if(hours < 10)
