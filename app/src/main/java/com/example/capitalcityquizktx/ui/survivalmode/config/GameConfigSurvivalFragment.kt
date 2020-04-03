@@ -22,6 +22,7 @@ import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.model.database.Continent
 import com.example.capitalcityquizktx.model.database.continents.*
 import kotlinx.android.synthetic.main.game_config_survival_fragment.*
+import kotlin.time.ExperimentalTime
 
 /**
 
@@ -60,6 +61,7 @@ class GameConfigSurvivalFragment : Fragment(),
         displayTimeLimitSeekBar.value = false
     }
 
+    @ExperimentalTime
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -116,11 +118,11 @@ class GameConfigSurvivalFragment : Fragment(),
         displayQuestionNumberSeekBar.observe(this,
             Observer { displayIt ->
                 if (displayIt){
+                    binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
                     binding.selectCountriesNumberTv.isVisible = true
                     binding.countriesNumberSeekBar.isVisible = true
                     binding.selectedCountriesTV.isVisible = true
                     binding.countriesNumberSeekBar.max = counter.value!!
-                    binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
                 }else{
                     binding.selectCountriesNumberTv.isVisible = false
                     binding.countriesNumberSeekBar.isVisible = false
@@ -166,8 +168,11 @@ class GameConfigSurvivalFragment : Fragment(),
         })
         binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.timeLimitTv.text = "${binding.timeLimitSeekBar.progress + minTimeLimit}" +
-                        " " + getString(R.string.time_limit_selected_seek_bar)
+//                Log.d("debugTime", )
+                val timeLimit = presenter
+                    .formatTime(((timeLimitSeekBar.progress + minTimeLimit)*1000).toLong())
+
+                binding.timeLimitTv.text = "$timeLimit"
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {

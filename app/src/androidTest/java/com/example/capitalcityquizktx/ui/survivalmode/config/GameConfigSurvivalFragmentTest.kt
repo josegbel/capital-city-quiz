@@ -13,8 +13,6 @@ import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.model.database.continents.Africa
-import com.example.capitalcityquizktx.model.database.continents.Asia
-import com.example.capitalcityquizktx.model.database.continents.Europe
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
@@ -226,7 +224,18 @@ class GameConfigSurvivalFragmentTest {
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("${Africa.totalCountries * 30} seconds", timeLimitTextView)
+        assertEquals("26:30", timeLimitTextView)
+    }
+
+    @Test
+    fun checkingAfricaChipShouldDisplayMaximumTimeLimitOnTimeLimitSeekbarTimeFomatted(){
+        onView(withId(R.id.africaSurvChip)).perform(click())
+
+        val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
+
+        val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
+
+        assertEquals("26:30", timeLimitTextView)
     }
 
     /**
@@ -249,7 +258,9 @@ class GameConfigSurvivalFragmentTest {
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("${Africa.totalCountries * 30} seconds", timeLimitTextView)
+//        assertEquals("${Africa.totalCountries * 30} seconds", timeLimitTextView)
+        assertEquals("26:30", timeLimitTextView)
+
     }
 
     @Test
@@ -265,7 +276,7 @@ class GameConfigSurvivalFragmentTest {
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("300 seconds", timeLimitTextView)
+        assertEquals("05:00", timeLimitTextView)
     }
 
     //TODO Create a larger test that tests the seekbar with swipe left to right and checks the different states of the text views
@@ -281,7 +292,7 @@ class GameConfigSurvivalFragmentTest {
 
         var timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("30 seconds", timeLimitTextView)
+        assertEquals("00:30", timeLimitTextView)
 
         val countriesNumberSeekBarVI : ViewInteraction = onView(withId(R.id.countriesNumberSeekBar))
 
@@ -298,6 +309,6 @@ class GameConfigSurvivalFragmentTest {
         timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
         assertEquals(
-            "${(Europe.totalCountries + Asia.totalCountries) * 30} seconds", timeLimitTextView)
+            "46:30", timeLimitTextView)
     }
 }
