@@ -168,7 +168,6 @@ class GameConfigSurvivalFragment : Fragment(),
         })
         binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-//                Log.d("debugTime", )
                 val timeLimit = presenter
                     .formatTime(((timeLimitSeekBar.progress + minTimeLimit)*1000).toLong())
 

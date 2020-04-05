@@ -220,6 +220,6 @@ class GameConfigSurvivalModePresenterTest{
     fun `given negative amount of millis should throw IllegalArgumentExpection`(){
         val millis = -5
 
-        val actual = presenter.formatTime(millis.toLong())
+        presenter.formatTime(millis.toLong())
     }
 }
