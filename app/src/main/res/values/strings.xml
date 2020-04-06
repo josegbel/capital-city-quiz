@@ -54,7 +54,7 @@
     <string name="select_countries_number">Select number of questions</string>
     <string name="countries_different_to_zero">Select at least one country</string>
     <string name="continents_different_to_zero">Select at least one continent</string>
-    <string name="countries_selected_seek_bar">countries</string>
+    <string name="countries">%1$d countries</string>
     <string name="time_limit_selected_seek_bar">seconds</string>
     <string name="password">Password</string>
     <string name="username">Username</string>
@@ -62,4 +62,6 @@
     <string name="twitter_button">Twitter Button</string>
     <string name="google_button">Google Button</string>
     <string name="logo">logo</string>
+    <string name="minutes">%1$s minutes</string>
+    <string name="seconds_per_question">%1$d seconds per question</string>
 </resources>

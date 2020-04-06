@@ -276,7 +276,7 @@ class GameConfigSurvivalFragmentTest {
 
         val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("05:00", timeLimitTextView)
+        assertEquals("26:30", timeLimitTextView)
     }
 
     //TODO Create a larger test that tests the seekbar with swipe left to right and checks the different states of the text views
@@ -292,7 +292,7 @@ class GameConfigSurvivalFragmentTest {
 
         var timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
 
-        assertEquals("00:30", timeLimitTextView)
+        assertEquals("46:30", timeLimitTextView)
 
         val countriesNumberSeekBarVI : ViewInteraction = onView(withId(R.id.countriesNumberSeekBar))
 
@@ -310,5 +310,18 @@ class GameConfigSurvivalFragmentTest {
 
         assertEquals(
             "46:30", timeLimitTextView)
+    }
+
+    @Test
+    fun selectingACoupleOfChipsShouldAlwaysShowTimeLimitSeekBarAtItsMaximum(){
+        onView(withId(R.id.europeSurvChip)).perform(click())
+
+        onView(withId(R.id.asiaSurvChip)).perform(click())
+
+        val timeLimitTextViewVI : ViewInteraction = onView(withId(R.id.timeLimitTv))
+
+        val timeLimitTextView = TextViewActions.getText(timeLimitTextViewVI)
+
+        assertEquals("46:30", timeLimitTextView)
     }
 }

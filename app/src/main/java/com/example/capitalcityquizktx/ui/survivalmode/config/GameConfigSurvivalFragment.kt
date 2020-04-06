@@ -31,6 +31,7 @@ import kotlin.time.ExperimentalTime
  */
 class GameConfigSurvivalFragment : Fragment(),
     GameConfigSurvivalView {
+
     override var minTimeLimit = 5 // seconds per question
 
     override var maxTimeLimit = 15 // seconds per question
@@ -83,34 +84,58 @@ class GameConfigSurvivalFragment : Fragment(),
         val continentsSelected = MutableLiveData<Int>()
         continentsSelected.value = 0
 
+        binding.timeLimitSeekBar.progress = maxTimeLimit
+
         // Change the check status of buttons if All continents are selected
         binding.allContinentsSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 binding.africaSurvChip.isChecked = true
+
                 binding.asiaSurvChip.isChecked = true
+
                 binding.australiaSurvChip.isChecked = true
+
                 binding.europeSurvChip.isChecked = true
+
                 binding.northAmericaSurvChip.isChecked = true
+
                 binding.southAmericaSurvChip.isChecked = true
+
                 binding.africaSurvChip.isCheckable = false
+
                 binding.asiaSurvChip.isCheckable = false
+
                 binding.australiaSurvChip.isCheckable = false
+
                 binding.europeSurvChip.isCheckable = false
+
                 binding.northAmericaSurvChip.isCheckable = false
+
                 binding.southAmericaSurvChip.isCheckable = false
             }
             if (!isChecked) {
                 binding.africaSurvChip.isCheckable = true
+
                 binding.asiaSurvChip.isCheckable = true
+
                 binding.australiaSurvChip.isCheckable = true
+
                 binding.europeSurvChip.isCheckable = true
+
                 binding.northAmericaSurvChip.isCheckable = true
+
                 binding.southAmericaSurvChip.isCheckable = true
+
                 binding.africaSurvChip.isChecked = false
+
                 binding.asiaSurvChip.isChecked = false
+
                 binding.australiaSurvChip.isChecked = false
+
                 binding.europeSurvChip.isChecked = false
+
                 binding.northAmericaSurvChip.isChecked = false
+
                 binding.southAmericaSurvChip.isChecked = false
             }
         }
@@ -118,14 +143,21 @@ class GameConfigSurvivalFragment : Fragment(),
         displayQuestionNumberSeekBar.observe(this,
             Observer { displayIt ->
                 if (displayIt){
-                    binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
                     binding.selectCountriesNumberTv.isVisible = true
+
                     binding.countriesNumberSeekBar.isVisible = true
+
                     binding.selectedCountriesTV.isVisible = true
+
                     binding.countriesNumberSeekBar.max = counter.value!!
-                }else{
+
+                    binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
+                }
+                else{
                     binding.selectCountriesNumberTv.isVisible = false
+
                     binding.countriesNumberSeekBar.isVisible = false
+
                     binding.selectedCountriesTV.isVisible = false
                 }
             })
@@ -134,11 +166,24 @@ class GameConfigSurvivalFragment : Fragment(),
             Observer { displayIt ->
                 if (displayIt){
                     binding.selectTimeLimitTv.isVisible = true
+
                     binding.timeLimitSeekBar.isVisible = true
+
                     binding.timeLimitTv.isVisible = true
-                }else{
+
+                    // *1000 = convertToMilliseconds     *5 = steps of SeekBar
+                    val timeLimit = presenter
+                        .formatTime(((binding.countriesNumberSeekBar.progress
+                                * (binding.timeLimitSeekBar.progress + minTimeLimit)*1000*5)
+                            .toLong()))
+
+                    binding.timeLimitTv.text = "$timeLimit"
+                }
+                else{
                     binding.selectTimeLimitTv.isVisible = false
+
                     binding.timeLimitSeekBar.isVisible = false
+
                     binding.timeLimitTv.isVisible = false
                 }
             })
@@ -146,16 +191,14 @@ class GameConfigSurvivalFragment : Fragment(),
         // These are the listeners that update the message displayed on how many countries and seconds were selected
         binding.countriesNumberSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                binding.selectedCountriesTV.text = "${binding.countriesNumberSeekBar.progress}" +
-                        " " + getString(R.string.countries_selected_seek_bar)
+                binding.selectedCountriesTV.text = getString(R.string.countries, progress)
 
-                minTimeLimit = 10 * binding.countriesNumberSeekBar.progress
+                minTimeLimit = 2
 
-                maxTimeLimit = (30 * binding.countriesNumberSeekBar.progress) - minTimeLimit
+                maxTimeLimit = 6 - minTimeLimit
 
                 timeLimitSeekBar.max = maxTimeLimit
 
-                timeLimitSeekBar.progress = maxTimeLimit
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -168,10 +211,15 @@ class GameConfigSurvivalFragment : Fragment(),
         })
         binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                val timeLimit = presenter
-                    .formatTime(((timeLimitSeekBar.progress + minTimeLimit)*1000).toLong())
 
-                binding.timeLimitTv.text = "$timeLimit"
+                val timeLimit = presenter
+                    .formatTime(((binding.countriesNumberSeekBar.progress
+                            * (binding.timeLimitSeekBar.progress + minTimeLimit)*1000*5).toLong()))
+
+                binding.timeLimitTv.text = getString(R.string.minutes, timeLimit)
+
+                // progress + minimum range value * steps of SeekBar
+                binding.selectTimeLimitTv.text = getString(R.string.seconds_per_question, ((progress+minTimeLimit)*5))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -255,9 +303,11 @@ class GameConfigSurvivalFragment : Fragment(),
         binding.gameConfigSurvPlayBtn.setOnClickListener { v: View ->
             if (continentsList.value!!.isEmpty()) {
                 Toast.makeText(context, getString(R.string.continents_different_to_zero), Toast.LENGTH_SHORT).show()
-            }else if(countriesNumberSeekBar.progress == 0){
+            }
+            else if (countriesNumberSeekBar.progress == 0){
                 Toast.makeText(context, getString(R.string.countries_different_to_zero), Toast.LENGTH_SHORT).show()
-            }else{
+            }
+            else {
                 val gameConfig = SurvivalGameConfig(continentsList.value as ArrayList<Continent>,
                     binding.countriesNumberSeekBar.progress,
                     binding.timeLimitSeekBar.progress + minTimeLimit)
@@ -282,12 +332,16 @@ private fun <T> MutableLiveData<T>.default(initialValue: T) = apply { value = in
 
 private fun <T> MutableLiveData<List<T>>.remove(item: T) {
     val updatedItems = this.value as ArrayList
+
     updatedItems.remove(item)
+
     this.value = updatedItems
 }
 
 private fun <T> MutableLiveData<List<T>>.add(item: T) {
     val updatedItems = this.value as ArrayList
+
     updatedItems.add(item)
+
     this.value = updatedItems
 }
