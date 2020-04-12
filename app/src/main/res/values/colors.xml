@@ -5,4 +5,5 @@
     <color name="colorAccent">#ED5350</color>
     <color name="colorWrongAnswer">#D10C10</color>
     <color name="colorRightAnswer">#2FD13D</color>
+    <color name="colorChipDefault">#E6E6EB</color>
 </resources>

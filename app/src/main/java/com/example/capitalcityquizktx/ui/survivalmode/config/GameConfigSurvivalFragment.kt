@@ -112,6 +112,8 @@ class GameConfigSurvivalFragment : Fragment(),
                 binding.northAmericaSurvChip.isCheckable = false
 
                 binding.southAmericaSurvChip.isCheckable = false
+
+                allContinentsSurvChip.chipStrokeWidth = 6.0f
             }
             if (!isChecked) {
                 binding.africaSurvChip.isCheckable = true
@@ -137,6 +139,8 @@ class GameConfigSurvivalFragment : Fragment(),
                 binding.northAmericaSurvChip.isChecked = false
 
                 binding.southAmericaSurvChip.isChecked = false
+
+                allContinentsSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
@@ -216,7 +220,7 @@ class GameConfigSurvivalFragment : Fragment(),
                     .formatTime(((binding.countriesNumberSeekBar.progress
                             * (binding.timeLimitSeekBar.progress + minTimeLimit)*1000*5).toLong()))
 
-                binding.timeLimitTv.text = getString(R.string.minutes, timeLimit)
+                binding.timeLimitTv.text = "$timeLimit"
 
                 // progress + minimum range value * steps of SeekBar
                 binding.selectTimeLimitTv.text = getString(R.string.seconds_per_question, ((progress+minTimeLimit)*5))
@@ -240,41 +244,67 @@ class GameConfigSurvivalFragment : Fragment(),
         binding.africaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Africa.totalCountries)
+
                 continentsList.add(Africa)
+
+                africaSurvChip.chipStrokeWidth = 6.0f
             }else {
                 counter.value = counter.value!!.minus(Africa.totalCountries)
+
                 continentsList.remove(Africa)
+
+                africaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
         binding.australiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Australia.totalCountries)
+
                 continentsList.add(Australia)
+
+                australiaSurvChip.chipStrokeWidth = 6.0f
             }else {
                 counter.value = counter.value!!.minus(Australia.totalCountries)
+
                 continentsList.remove(Australia)
+
+                australiaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
         binding.asiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Asia.totalCountries)
+
                 continentsList.add(Asia)
+
+                asiaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(Asia.totalCountries)
+
                 continentsList.remove(Asia)
+
+                asiaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
         binding.europeSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Europe.totalCountries)
+
                 continentsList.add(Europe)
+
+                europeSurvChip.chipStrokeWidth = 6.0f
+
                 Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
             } else {
                 counter.value = counter.value!!.minus(Europe.totalCountries)
+
                 continentsList.remove(Europe)
+
+                europeSurvChip.chipStrokeWidth = 0.0f
+
                 Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
             }
         }
@@ -282,20 +312,32 @@ class GameConfigSurvivalFragment : Fragment(),
         binding.northAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(NorthAmerica.totalCountries)
+
                 continentsList.add(NorthAmerica)
+
+                northAmericaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(NorthAmerica.totalCountries)
                 continentsList.remove(NorthAmerica)
+
+
+                northAmericaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
         binding.southAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(SouthAmerica.totalCountries)
+
                 continentsList.add(SouthAmerica)
+
+                southAmericaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(SouthAmerica.totalCountries)
+
                 continentsList.remove(SouthAmerica)
+
+                southAmericaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
