@@ -1,8 +1,6 @@
 package com.example.capitalcityquizktx.model.database
 
-import android.content.Context
 import androidx.room.Database
-import androidx.room.Room
 import androidx.room.RoomDatabase
 
 /**
@@ -14,7 +12,7 @@ import androidx.room.RoomDatabase
                       LearnedCountry::class,
                       LearningCountry::class,
                       User::class],
-          version = 5,
+          version = 6,
           exportSchema = true)
 abstract class CountryDatabase : RoomDatabase() {
 

@@ -1,8 +1,10 @@
 package com.example.capitalcityquizktx.model.database
 
 import android.os.Parcelable
-import androidx.annotation.NonNull
-import androidx.room.*
+import androidx.room.ColumnInfo
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -13,8 +15,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity(tableName = "countries")
 data class Country(
-    @PrimaryKey @NonNull
     @ColumnInfo(name = "country_name") var countryName: String,
     @Embedded                          var capitalCity: CapitalCity,
-    @Embedded                          var continent: Continent
-) : Parcelable
+    @Embedded                          var continent: Continent) : Parcelable {
+
+     @Transient @PrimaryKey(autoGenerate = true)
+     @ColumnInfo
+     var countryId : Long = 0
+}
