@@ -1,10 +1,10 @@
-[![JoseGbel](https://circleci.com/gh/josegbel/capital-city-quiz.svg?style=svg)](https://circleci.com/gh/JoseGbel/capital-city-quiz)
+[![JoseGbel](https://circleci.com/gh/JoseGbel/capital-city-quiz.svg?style=svg)](https://circleci.com/gh/JoseGbel/capital-city-quiz)
 
 # CapitalCityQuiz
 Android app that will boost your knowledge of the capital cities of the world.
 It makes use of a Spring Boot API connected to a Postgresql database deployed on AWS's RDS.
 
-You can find the API repository on:
+You can find the API repository on
 https://github.com/JoseGbel/capital-city-quiz-spring-api
 
 The api uses a docker container to run the application.
