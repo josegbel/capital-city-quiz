@@ -1,4 +1,4 @@
-[![JoseGbel](https://circleci.com/gh/JoseGbel/capital-city-quiz.svg?style=svg)](https://circleci.com/gh/JoseGbel/capital-city-quiz)
+[![JoseGbel](https://circleci.com/gh/JoseGbel/capital-city-quiz.svg?style=shield)](https://circleci.com/gh/JoseGbel/capital-city-quiz)
 
 # CapitalCityQuiz
 Android app that will boost your knowledge of the capital cities of the world.
