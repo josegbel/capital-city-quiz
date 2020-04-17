@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/signUpLayout"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent">
+
+     <EditText
+             android:hint="@string/username"
+             android:id="@+id/usernameRegET"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <EditText
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:id="@+id/passwordRegET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/usernameRegET"/>
+
+
+        <EditText
+                android:inputType="textPersonName"
+                android:hint="@string/first_name"
+                android:id="@+id/firstNameRegET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/passwordRegET" />
+
+
+        <EditText
+                android:inputType="textPersonName"
+                android:hint="@string/last_name"
+                android:id="@+id/lastNameRegET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/firstNameRegET"/>
+
+        <EditText
+                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:id="@+id/emailRegET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/lastNameRegET"/>
+
+        <Button
+                android:id="@+id/registerRegBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register"
+                app:layout_constraintTop_toBottomOf="@id/emailRegET" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
