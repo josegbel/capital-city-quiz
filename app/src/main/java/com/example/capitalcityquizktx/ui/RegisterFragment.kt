@@ -34,9 +34,10 @@ class RegisterFragment : Fragment(), IRegisterView {
     override fun submitUserData() {
         val user = UserDetails(binding.usernameRegET.text.toString(),
             binding.passwordRegET.text.toString(),
+            binding.emailRegET.text.toString(),
             binding.firstNameRegET.text.toString(),
-            binding.lastNameRegET.text.toString(),
-            binding.emailRegET.text.toString())
+            binding.lastNameRegET.text.toString()
+        )
 
         presenter.createNewUser(user)
     }

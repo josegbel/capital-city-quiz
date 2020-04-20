@@ -5,6 +5,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface IRegisterService {
-    @POST("/users/sign-up")
-    fun createUser(@Body userDetails: UserDetails) : Call<UserDetails>
+
+    @POST("users/sign-up")
+    fun createUser(@Body body: UserDetails) : Call<UserDetails>
 }

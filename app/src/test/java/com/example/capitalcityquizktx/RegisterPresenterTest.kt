@@ -5,7 +5,6 @@ import com.example.capitalcityquizktx.model.UserDetails
 import com.example.capitalcityquizktx.ui.IRegisterView
 import com.example.capitalcityquizktx.ui.RegisterPresenter
 import io.mockk.MockKAnnotations
-import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.verify
 import org.junit.Before
@@ -36,7 +35,7 @@ class RegisterPresenterTest {
     fun `shouldCreateNewUser`(){
         // given
         val userDetails = UserDetails(username = "user1", password = "123",
-            firstName = "Juan", lastName = "Doe", email = "user1@bbc.com")
+            email = "Juan", name = "Doe", surname = "user1@bbc.com")
 
         // when
         presenter.createNewUser(userDetails)
