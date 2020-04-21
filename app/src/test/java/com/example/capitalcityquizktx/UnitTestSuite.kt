@@ -9,5 +9,6 @@ import org.junit.runners.Suite
                     ContinentSelectorTest::class,
                     DatabaseUtilsTest::class,
                     GameConfigSurvivalModePresenterTest::class,
-                    SurvivalViewModelTest::class)
+                    SurvivalViewModelTest::class,
+                    RegisterPresenterTest::class)
 class UnitTestSuite
