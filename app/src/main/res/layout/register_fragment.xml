@@ -23,6 +23,13 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/usernameRegET"/>
 
+        <EditText
+                android:inputType="textPassword"
+                android:hint="@string/confirm_password"
+                android:id="@+id/confirmPasswordRegET"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/passwordRegET"/>
 
         <EditText
                 android:inputType="textPersonName"
@@ -30,7 +37,7 @@
                 android:id="@+id/firstNameRegET"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/passwordRegET" />
+                app:layout_constraintTop_toBottomOf="@id/confirmPasswordRegET" />
 
 
         <EditText
