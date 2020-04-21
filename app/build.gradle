@@ -112,6 +112,8 @@ dependencies {
     implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
 
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+
     // Testing
     implementation 'junit:junit:4.13'
     implementation 'io.mockk:mockk:1.9.3.kotlin12'
