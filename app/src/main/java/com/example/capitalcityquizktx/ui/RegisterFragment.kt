@@ -11,6 +11,7 @@ import com.basgeekball.awesomevalidation.ValidationStyle
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
 import com.example.capitalcityquizktx.model.UserDetails
+import kotlinx.android.synthetic.main.register_fragment.*
 
 class RegisterFragment : Fragment(), IRegisterView {
 
@@ -23,27 +24,7 @@ class RegisterFragment : Fragment(), IRegisterView {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        // username validation
-        awesomeValidation.addValidation(activity,
-            R.id.usernameRegET, "[A-Za-z0-9]+", R.string.err_username)
-
-        // password confirmation
-        awesomeValidation.addValidation(activity, R.id.confirmPasswordRegET,
-            R.id.passwordRegET, R.string.err_confirmation_pw)
-
-        // email validation
-        val regexEmail = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
-        awesomeValidation.addValidation(activity,
-            R.id.emailRegET, regexEmail, R.string.err_email)
-
-        // names validation
-        val regexName = "^([ \\u00c0-\\u01ffa-zA-Z\'\\-])+$"
-        awesomeValidation.addValidation(activity,
-            R.id.firstNameRegET, regexName, R.string.err_first_name)
-
-        // surname validation
-        awesomeValidation.addValidation(activity,
-            R.id.lastNameRegET, regexName, R.string.err_last_name)
+        addValidations()
 
         binding.registerRegBtn.setOnClickListener { view ->
             if(awesomeValidation.validate()){
@@ -61,6 +42,48 @@ class RegisterFragment : Fragment(), IRegisterView {
             inflater, R.layout.register_fragment, container, false)
 
         return binding.root
+    }
+
+    private fun addValidations() {
+        // username validation
+        awesomeValidation.addValidation(
+            activity,
+            R.id.usernameRegET, "[A-Za-z0-9]+", R.string.err_username
+        )
+
+        // password confirmation
+        awesomeValidation.addValidation(
+            activity, R.id.confirmPasswordRegET,
+            R.id.passwordRegET, R.string.err_confirmation_pw
+        )
+
+        // email validation
+        val regexEmail = "^([a-zA-Z0-9_\\-\\.]+)@([a-zA-Z0-9_\\-\\.]+)\\.([a-zA-Z]{2,5})$"
+        awesomeValidation.addValidation(
+            activity,
+            R.id.emailRegET, regexEmail, R.string.err_email
+        )
+
+        // names validation
+        val regexName = "^([ \\u00c0-\\u01ffa-zA-Z\'\\-])+$"
+        awesomeValidation.addValidation(
+            activity,
+            R.id.firstNameRegET, regexName, R.string.err_first_name
+        )
+
+        // surname validation
+        awesomeValidation.addValidation(
+            activity,
+            R.id.lastNameRegET, regexName, R.string.err_last_name
+        )
+    }
+
+    override fun emailIsInDatabaseValidation(){
+        emailRegET.error = "This email address is already being used"
+    }
+
+    override fun usernameInDatabaseValidation() {
+        usernameRegET.error= "This username is already being used"
     }
 
     override fun submitUserData() {

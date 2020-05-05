@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ServiceAPIFactory {
     private const val API_BASE_URL = "http://10.0.2.2:8080/"
 
-    fun createService(): IRegisterService {
+    fun createService(): IUserManagementService {
         val logging = HttpLoggingInterceptor()
         logging.apply { logging.level = HttpLoggingInterceptor.Level.BODY }
         val httpClient = OkHttpClient.Builder().addInterceptor(logging)
@@ -19,6 +19,6 @@ object ServiceAPIFactory {
 
         return builder
             .client(httpClient.build())
-            .build().create(IRegisterService::class.java)
+            .build().create(IUserManagementService::class.java)
     }
 }
