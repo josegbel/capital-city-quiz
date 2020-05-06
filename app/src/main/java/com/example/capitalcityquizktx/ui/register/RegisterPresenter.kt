@@ -1,9 +1,9 @@
-package com.example.capitalcityquizktx.ui
+package com.example.capitalcityquizktx.ui.register
 
 import android.util.Log
 import com.example.capitalcityquizktx.model.ServiceAPIFactory
-import com.example.capitalcityquizktx.model.UserDetails
-import com.example.capitalcityquizktx.model.UserExistence
+import com.example.capitalcityquizktx.model.register.UserDetails
+import com.example.capitalcityquizktx.model.register.UserExistence
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

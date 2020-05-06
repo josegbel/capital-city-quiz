@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
-import com.example.capitalcityquizktx.ui.RegisterFragment
+import com.example.capitalcityquizktx.ui.register.RegisterFragment
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith

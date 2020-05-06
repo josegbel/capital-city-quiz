@@ -1,5 +1,6 @@
 package com.example.capitalcityquizktx.model
 
+import com.example.capitalcityquizktx.model.register.IUserManagementService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

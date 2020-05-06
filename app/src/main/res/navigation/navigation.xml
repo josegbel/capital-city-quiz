@@ -65,7 +65,7 @@
     </fragment>
     <fragment
             android:id="@+id/registerFragment"
-            android:name="com.example.capitalcityquizktx.ui.RegisterFragment"
+            android:name="com.example.capitalcityquizktx.ui.register.RegisterFragment"
             android:label="RegisterFragment" />
 
 </navigation>

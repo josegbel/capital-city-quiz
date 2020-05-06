@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.ui
+package com.example.capitalcityquizktx.ui.register
 
 interface IRegisterView {
     fun submitUserData()

@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.ui
+package com.example.capitalcityquizktx.ui.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +10,14 @@ import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
-import com.example.capitalcityquizktx.model.UserDetails
+import com.example.capitalcityquizktx.model.register.UserDetails
 import kotlinx.android.synthetic.main.register_fragment.*
 
-class RegisterFragment : Fragment(), IRegisterView {
+class RegisterFragment : Fragment(),
+    IRegisterView {
 
-    val presenter : RegisterPresenter = RegisterPresenter(this)
+    val presenter : RegisterPresenter =
+        RegisterPresenter(this)
 
     val awesomeValidation = AwesomeValidation(ValidationStyle.BASIC)
 
@@ -87,7 +89,8 @@ class RegisterFragment : Fragment(), IRegisterView {
     }
 
     override fun submitUserData() {
-        val user = UserDetails(binding.usernameRegET.text.toString(),
+        val user = UserDetails(
+            binding.usernameRegET.text.toString(),
             binding.passwordRegET.text.toString(),
             binding.emailRegET.text.toString(),
             binding.firstNameRegET.text.toString(),

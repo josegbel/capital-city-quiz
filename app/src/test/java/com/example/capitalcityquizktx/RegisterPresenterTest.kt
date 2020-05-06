@@ -1,7 +1,7 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.ui.IRegisterView
-import com.example.capitalcityquizktx.ui.RegisterPresenter
+import com.example.capitalcityquizktx.ui.register.IRegisterView
+import com.example.capitalcityquizktx.ui.register.RegisterPresenter
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Assert
@@ -21,7 +21,8 @@ class RegisterPresenterTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
-        presenter = RegisterPresenter(viewMock)
+        presenter =
+            RegisterPresenter(viewMock)
     }
 
     @Test

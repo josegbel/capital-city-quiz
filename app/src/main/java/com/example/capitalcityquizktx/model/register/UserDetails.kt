@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.model
+package com.example.capitalcityquizktx.model.register
 
 data class UserDetails (val username : String,
                         val password : String,
