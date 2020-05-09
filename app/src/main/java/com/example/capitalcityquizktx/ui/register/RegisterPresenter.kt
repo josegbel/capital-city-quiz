@@ -37,29 +37,37 @@ class RegisterPresenter (val view : IRegisterView){
                             // NOTIFY THE UI ABOUT USERNAME
                             view.usernameInDatabaseValidation()
                         }
-                    }
 
+                        if(!response.body()!!.usernameInDatabase &&
+                            !response.body()!!.emailInDatabase){
+                            val call = service.createUser(userDetails)
+
+                            call.enqueue(object : Callback<Boolean?> {
+                                override fun onResponse(
+                                    call: Call<Boolean?>,
+                                    response: Response<Boolean?>
+                                ) {
+                                    if(response.body()!!) {
+                                        Log.d("RETRONET", "USER CREATED")
+                                        // go to success fragment
+                                    }
+                                    else {
+                                        Log.d("RETRONET", "USER WAS NOT CREATED")
+                                        view.displayAccountErrorDialog()
+                                    }
+                                }
+
+                                override fun onFailure(call: Call<Boolean?>, t: Throwable) {
+                                    call.cancel()
+                                    view.displayUnableToConntectDialog()
+                                    Log.d("RETRONET", "FAILED")
+                                }
+                            })
+                        }
+                    }
                 }
 
                 override fun onFailure(call: Call<UserExistence?>, t: Throwable) {
-                    call.cancel()
-                    Log.d("RETRONET", "FAILED")
-                }
-            })
-        }
-
-        GlobalScope.launch {
-            val call = service.createUser(userDetails)
-
-            call.enqueue(object : Callback<UserDetails?> {
-                override fun onResponse(
-                    call: Call<UserDetails?>,
-                    response: Response<UserDetails?>
-                ) {
-                    Log.d("RETRONET", "SUCCESS")
-                }
-
-                override fun onFailure(call: Call<UserDetails?>, t: Throwable) {
                     call.cancel()
                     Log.d("RETRONET", "FAILED")
                 }

@@ -88,6 +88,15 @@ class RegisterFragment : Fragment(),
         usernameRegET.error= "This username is already being used"
     }
 
+    override fun displayAccountErrorDialog() {
+        FailedRegisterFragment().show(activity!!.fragmentManager, "Error creating account")
+
+    }
+
+    override fun displayUnableToConntectDialog() {
+        FailedConnectionFragment().show(activity!!.fragmentManager, "Unable to connect")
+    }
+
     override fun submitUserData() {
         val user = UserDetails(
             binding.usernameRegET.text.toString(),

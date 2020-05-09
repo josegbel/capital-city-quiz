@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface IUserManagementService {
 
     @POST("users/sign-up")
-    fun createUser(@Body body: UserDetails) : Call<UserDetails>
+    fun createUser(@Body body: UserDetails) : Call<Boolean>
 
     @GET
     fun findByUsername(username: String) : Call<UserDetails>
