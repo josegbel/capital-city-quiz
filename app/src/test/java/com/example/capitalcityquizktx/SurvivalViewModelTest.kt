@@ -2,21 +2,14 @@ package com.example.capitalcityquizktx
 
 import TestUtil.MainCoroutineRule
 import android.app.Activity
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.GameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.model.database.CapitalCity
-import com.example.capitalcityquizktx.model.database.Country
 import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
-import com.example.capitalcityquizktx.model.database.continents.*
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
-import io.mockk.*
+import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.reactivex.rxkotlin.toObservable
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -27,7 +20,6 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
-import java.util.*
 
 class SurvivalViewModelTest : KoinTest {
     @get:Rule

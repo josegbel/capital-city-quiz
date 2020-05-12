@@ -27,14 +27,14 @@ class RegisterPresenter (val view : IRegisterView){
                     call: Call<UserExistence?>,
                     response: Response<UserExistence?>
                 ) {
-                    if(response.body() != null) {
+                    if(response.isSuccessful) {
                         if (response.body()!!.emailInDatabase) {
-                            // NOTIFY THE UI ABOUT EMAIL
+                            // Notify UI about existing email
                             view.emailIsInDatabaseValidation()
                         }
 
                         if (response.body()!!.usernameInDatabase) {
-                            // NOTIFY THE UI ABOUT USERNAME
+                            // Notify UI about existing username
                             view.usernameInDatabaseValidation()
                         }
 
@@ -58,9 +58,9 @@ class RegisterPresenter (val view : IRegisterView){
                                 }
 
                                 override fun onFailure(call: Call<Boolean?>, t: Throwable) {
-                                    call.cancel()
                                     view.displayUnableToConntectDialog()
-                                    Log.d("RETRONET", "FAILED")
+                                    Log.d("RETRONET", "FAILED TO CONNECT CREATING USER")
+                                    call.cancel()
                                 }
                             })
                         }
@@ -69,7 +69,8 @@ class RegisterPresenter (val view : IRegisterView){
 
                 override fun onFailure(call: Call<UserExistence?>, t: Throwable) {
                     call.cancel()
-                    Log.d("RETRONET", "FAILED")
+                    Log.d("RETRONET", "FAILED TO CONNECT CHECKING USER EXISTENCE")
+                    view.displayUnableToConntectDialog()
                 }
             })
         }

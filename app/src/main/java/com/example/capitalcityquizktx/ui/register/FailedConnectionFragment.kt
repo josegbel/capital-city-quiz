@@ -10,13 +10,9 @@ class FailedConnectionFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return activity?.let {
             val builder = AlertDialog.Builder(it)
-            builder.setMessage("""
-                Possible causes: 
-                    - You are not connected to the internet. 
-                    - The server is not responding. 
-            """.trimIndent())
+            builder.setMessage(getString(R.string.possible_causes))
                 .setPositiveButton(getString(R.string.ok)) { dialog, id -> dialog.dismiss() }
-                .setTitle("Unable to connect")
+                .setTitle(getString(R.string.unable_to_connect))
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")
     }
