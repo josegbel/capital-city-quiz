@@ -75,8 +75,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation "net.bytebuddy:byte-buddy:1.10.5"
 
-    // Retrofit's Gson
-    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    // Retrofit's
+    implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
 
     // DI
     implementation "org.koin:koin-androidx-scope:$koin_version"

@@ -1,78 +1,56 @@
 package com.example.capitalcityquizktx.ui.register
 
-import android.util.Log
-import com.example.capitalcityquizktx.model.ServiceAPIFactory
 import com.example.capitalcityquizktx.model.register.UserDetails
 import com.example.capitalcityquizktx.model.register.UserExistence
+import com.example.capitalcityquizktx.model.register.UserManagementServiceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import java.net.ConnectException
 
 
-class RegisterPresenter (val view : IRegisterView){
+class RegisterPresenter(val view: IRegisterView) {
 
-    private val service = ServiceAPIFactory.createService()
+    private val userManagementServiceImpl = UserManagementServiceImpl()
 
     fun createNewUser(userDetails: UserDetails) {
 
-        GlobalScope.launch (Dispatchers.Default) {
-            // confirm email and username does not exist in database
-            val call = service.verifyUserIsNotInDatabase(userDetails.username, userDetails.email)
+        // verify the user does not exist in database
+        var userExistence: UserExistence? = null
+        GlobalScope.launch(Dispatchers.Default) {
+            try {
+                userExistence = userManagementServiceImpl
+                    .verifyUserIsNotInDatabase(userDetails.username, userDetails.email)
+            } catch (e: ConnectException) {
+                view.displayUnableToConntectDialog()
+            }
+        }
 
-            call.enqueue(object : Callback<UserExistence?> {
-                override fun onResponse(
-                    call: Call<UserExistence?>,
-                    response: Response<UserExistence?>
-                ) {
-                    if(response.isSuccessful) {
-                        if (response.body()!!.emailInDatabase) {
-                            // Notify UI about existing email
-                            view.emailIsInDatabaseValidation()
-                        }
+        if (userExistence != null) {
+            if (userExistence!!.emailInDatabase) {
+                view.displayEmailInDatabaseError()
+            }
 
-                        if (response.body()!!.usernameInDatabase) {
-                            // Notify UI about existing username
-                            view.usernameInDatabaseValidation()
-                        }
+            if (userExistence!!.usernameInDatabase) {
+                view.displayUsernameInDatabaseError()
+            }
 
-                        if(!response.body()!!.usernameInDatabase &&
-                            !response.body()!!.emailInDatabase){
-                            val call = service.createUser(userDetails)
+            if (!userExistence!!.usernameInDatabase && !userExistence!!.emailInDatabase) {
+                var userCreated: Boolean? = null
 
-                            call.enqueue(object : Callback<Boolean?> {
-                                override fun onResponse(
-                                    call: Call<Boolean?>,
-                                    response: Response<Boolean?>
-                                ) {
-                                    if(response.body()!!) {
-                                        Log.d("RETRONET", "USER CREATED")
-                                        // go to success fragment
-                                    }
-                                    else {
-                                        Log.d("RETRONET", "USER WAS NOT CREATED")
-                                        view.displayAccountErrorDialog()
-                                    }
-                                }
-
-                                override fun onFailure(call: Call<Boolean?>, t: Throwable) {
-                                    view.displayUnableToConntectDialog()
-                                    Log.d("RETRONET", "FAILED TO CONNECT CREATING USER")
-                                    call.cancel()
-                                }
-                            })
-                        }
+                GlobalScope.launch(Dispatchers.Default) {
+                    try {
+                        userCreated = userManagementServiceImpl.createNewUser(userDetails)
+                    } catch (e: ConnectException) {
+                        view.displayUnableToConntectDialog()
                     }
                 }
 
-                override fun onFailure(call: Call<UserExistence?>, t: Throwable) {
-                    call.cancel()
-                    Log.d("RETRONET", "FAILED TO CONNECT CHECKING USER EXISTENCE")
-                    view.displayUnableToConntectDialog()
+                when (userCreated) {
+                    true -> 1 // TODO Go to user successfully created screen
+                    false -> view.displayAccountErrorDialog()
                 }
-            })
+            }
         }
     }
 }

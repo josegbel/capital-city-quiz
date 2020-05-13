@@ -9,12 +9,12 @@ import retrofit2.http.Query
 interface IUserManagementService {
 
     @POST("users/sign-up")
-    fun createUser(@Body body: UserDetails) : Call<Boolean>
+    suspend fun createUser(@Body body: UserDetails) : Boolean
 
     @GET
     fun findByUsername(username: String) : Call<UserDetails>
 
     @GET("users/verify")
-    fun verifyUserIsNotInDatabase(@Query("username") username: String,
-                                  @Query("email") email: String) : Call<UserExistence>
+    suspend fun verifyUserIsNotInDatabase(@Query("username") username: String,
+                                  @Query("email") email: String) : UserExistence
 }

@@ -16,10 +16,10 @@ import kotlinx.android.synthetic.main.register_fragment.*
 class RegisterFragment : Fragment(),
     IRegisterView {
 
-    val presenter : RegisterPresenter =
+    private val presenter : RegisterPresenter =
         RegisterPresenter(this)
 
-    val awesomeValidation = AwesomeValidation(ValidationStyle.BASIC)
+    private val awesomeValidation = AwesomeValidation(ValidationStyle.BASIC)
 
     lateinit var binding : RegisterFragmentBinding
 
@@ -80,11 +80,11 @@ class RegisterFragment : Fragment(),
         )
     }
 
-    override fun emailIsInDatabaseValidation(){
+    override fun displayEmailInDatabaseError(){
         emailRegET.error = "This email address is already being used"
     }
 
-    override fun usernameInDatabaseValidation() {
+    override fun displayUsernameInDatabaseError() {
         usernameRegET.error= "This username is already being used"
     }
 
