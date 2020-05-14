@@ -3,13 +3,16 @@ package com.example.capitalcityquizktx.ui.register
 import com.example.capitalcityquizktx.model.register.UserDetails
 import com.example.capitalcityquizktx.model.register.UserExistence
 import com.example.capitalcityquizktx.model.register.UserManagementServiceImpl
-import kotlinx.coroutines.Dispatchers
+import com.example.capitalcityquizktx.utils.DefaultDispatcherProvider
+import com.example.capitalcityquizktx.utils.DispatcherProvider
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.net.ConnectException
 
 
-class RegisterPresenter(val view: IRegisterView) {
+class RegisterPresenter(val view: IRegisterView,
+                        private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()){
 
     private val userManagementServiceImpl = UserManagementServiceImpl()
 
@@ -17,39 +20,41 @@ class RegisterPresenter(val view: IRegisterView) {
 
         // verify the user does not exist in database
         var userExistence: UserExistence? = null
-        GlobalScope.launch(Dispatchers.Default) {
+        GlobalScope.launch(dispatchers.default()) {
             try {
                 userExistence = userManagementServiceImpl
                     .verifyUserIsNotInDatabase(userDetails.username, userDetails.email)
-            } catch (e: ConnectException) {
-                view.displayUnableToConntectDialog()
-            }
-        }
 
-        if (userExistence != null) {
-            if (userExistence!!.emailInDatabase) {
-                view.displayEmailInDatabaseError()
-            }
+                withContext(dispatchers.main()) {
+                    if (userExistence != null) {
+                        if (userExistence!!.emailInDatabase) {
+                            view.displayEmailInDatabaseError()
+                        }
 
-            if (userExistence!!.usernameInDatabase) {
-                view.displayUsernameInDatabaseError()
-            }
+                        if (userExistence!!.usernameInDatabase) {
+                            view.displayUsernameInDatabaseError()
+                        }
 
-            if (!userExistence!!.usernameInDatabase && !userExistence!!.emailInDatabase) {
-                var userCreated: Boolean? = null
+                        if (!userExistence!!.usernameInDatabase && !userExistence!!.emailInDatabase) {
+                            GlobalScope.launch(dispatchers.default()) {
+                                try {
+                                    val userCreated = userManagementServiceImpl.createNewUser(userDetails)
 
-                GlobalScope.launch(Dispatchers.Default) {
-                    try {
-                        userCreated = userManagementServiceImpl.createNewUser(userDetails)
-                    } catch (e: ConnectException) {
-                        view.displayUnableToConntectDialog()
+                                    withContext(dispatchers.main()) {
+                                        when (userCreated) {
+                                            true -> 1 // TODO Go to user successfully created screen
+                                            false -> view.displayAccountErrorDialog()
+                                        }
+                                    }
+                                } catch (e: ConnectException) {
+                                    view.displayUnableToConntectDialog()
+                                }
+                            }
+                        }
                     }
                 }
-
-                when (userCreated) {
-                    true -> 1 // TODO Go to user successfully created screen
-                    false -> view.displayAccountErrorDialog()
-                }
+            } catch (e: ConnectException) {
+                view.displayUnableToConntectDialog()
             }
         }
     }

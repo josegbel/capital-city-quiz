@@ -117,8 +117,8 @@ dependencies {
 
     // Testing
     implementation 'junit:junit:4.13'
-    implementation 'io.mockk:mockk:1.9.3.kotlin12'
-    implementation 'io.mockk:mockk-android:1.9.3.kotlin12'
+    implementation 'io.mockk:mockk:1.10.0'
+    implementation 'io.mockk:mockk-android:1.10.0'
     debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'

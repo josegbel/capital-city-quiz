@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx
 
-import TestUtil.MainCoroutineRule
+import testUtil.MainCoroutineRule
 import android.app.Activity
 import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.GameUseCasesModule

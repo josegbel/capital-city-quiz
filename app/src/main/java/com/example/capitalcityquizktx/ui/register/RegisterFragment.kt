@@ -13,8 +13,7 @@ import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
 import com.example.capitalcityquizktx.model.register.UserDetails
 import kotlinx.android.synthetic.main.register_fragment.*
 
-class RegisterFragment : Fragment(),
-    IRegisterView {
+class RegisterFragment : Fragment(), IRegisterView {
 
     private val presenter : RegisterPresenter =
         RegisterPresenter(this)
@@ -82,10 +81,12 @@ class RegisterFragment : Fragment(),
 
     override fun displayEmailInDatabaseError(){
         emailRegET.error = "This email address is already being used"
+        emailRegET.requestFocus()
     }
 
     override fun displayUsernameInDatabaseError() {
         usernameRegET.error= "This username is already being used"
+        usernameRegET.requestFocus()
     }
 
     override fun displayAccountErrorDialog() {
