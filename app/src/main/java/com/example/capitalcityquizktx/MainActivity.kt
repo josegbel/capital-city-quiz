@@ -1,11 +1,10 @@
 package com.example.capitalcityquizktx
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.capitalcityquizktx.databinding.MainActivityBinding
 import com.example.capitalcityquizktx.di.HomeModules
-import com.example.capitalcityquizktx.ui.HomeViewModel
+import com.example.capitalcityquizktx.business.HomeViewModel
 import org.koin.android.ext.android.inject
 
 /**

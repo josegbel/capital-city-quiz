@@ -90,61 +90,37 @@ class GameConfigSurvivalFragment : Fragment(),
         binding.allContinentsSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 binding.africaSurvChip.isChecked = true
-
                 binding.asiaSurvChip.isChecked = true
-
                 binding.australiaSurvChip.isChecked = true
-
                 binding.europeSurvChip.isChecked = true
-
                 binding.northAmericaSurvChip.isChecked = true
-
                 binding.southAmericaSurvChip.isChecked = true
-
                 binding.africaSurvChip.isCheckable = false
-
                 binding.asiaSurvChip.isCheckable = false
-
                 binding.australiaSurvChip.isCheckable = false
-
                 binding.europeSurvChip.isCheckable = false
-
                 binding.northAmericaSurvChip.isCheckable = false
-
                 binding.southAmericaSurvChip.isCheckable = false
-
                 allContinentsSurvChip.chipStrokeWidth = 6.0f
             }
             if (!isChecked) {
                 binding.africaSurvChip.isCheckable = true
-
                 binding.asiaSurvChip.isCheckable = true
-
                 binding.australiaSurvChip.isCheckable = true
-
                 binding.europeSurvChip.isCheckable = true
-
                 binding.northAmericaSurvChip.isCheckable = true
-
                 binding.southAmericaSurvChip.isCheckable = true
-
                 binding.africaSurvChip.isChecked = false
-
                 binding.asiaSurvChip.isChecked = false
-
                 binding.australiaSurvChip.isChecked = false
-
                 binding.europeSurvChip.isChecked = false
-
                 binding.northAmericaSurvChip.isChecked = false
-
                 binding.southAmericaSurvChip.isChecked = false
-
                 allContinentsSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        displayQuestionNumberSeekBar.observe(this,
+        displayQuestionNumberSeekBar.observe(viewLifecycleOwner,
             Observer { displayIt ->
                 if (displayIt){
                     binding.selectCountriesNumberTv.isVisible = true
@@ -166,7 +142,7 @@ class GameConfigSurvivalFragment : Fragment(),
                 }
             })
 
-        displayTimeLimitSeekBar.observe(this,
+        displayTimeLimitSeekBar.observe(viewLifecycleOwner,
             Observer { displayIt ->
                 if (displayIt){
                     binding.selectTimeLimitTv.isVisible = true

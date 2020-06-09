@@ -90,12 +90,12 @@ class RegisterFragment : Fragment(), IRegisterView {
     }
 
     override fun displayAccountErrorDialog() {
-        FailedRegisterFragment().show(activity!!.fragmentManager, "Error creating account")
+        FailedRegisterFragment().show(requireActivity().supportFragmentManager, "Error creating account")
 
     }
 
     override fun displayUnableToConntectDialog() {
-        FailedConnectionFragment().show(activity!!.fragmentManager, "Unable to connect")
+        FailedConnectionFragment().show(requireActivity().supportFragmentManager, "Unable to connect")
     }
 
     override fun submitUserData() {

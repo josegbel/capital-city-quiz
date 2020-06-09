@@ -15,7 +15,7 @@ import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.model.database.*
 import com.example.capitalcityquizktx.model.database.continents.*
-import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import com.example.capitalcityquizktx.business.SurvivalViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Assert.*
@@ -40,7 +40,8 @@ class SurvivalViewModelAndroidTest : KoinTest {
     private lateinit var countryDao : CountryDatabaseDao
     private lateinit var db: CountryDatabase
     private lateinit var context : Context
-    private val survivalViewModel = SurvivalViewModel(get(), get())
+    private val survivalViewModel =
+        SurvivalViewModel(get(), get())
 
     companion object{
         const val TAG : String = "JUnit4"
@@ -89,14 +90,14 @@ class SurvivalViewModelAndroidTest : KoinTest {
     fun given_list_continents_when_getCountriesByContinent_return_all_their_countries() {
         val continents = listOf(Europe, Africa, Asia)
         val expectedSizeList = Europe.totalCountries + Africa.totalCountries + Asia.totalCountries
-        val countries: MutableLiveData<MutableList<Country>>
+        val countries: List<Country>
 
         survivalViewModel.populateDatabase()
         Thread.sleep(1500)
         countries = survivalViewModel.gameUseCases.getCountriesIn(continents)
         Thread.sleep(1500)
 
-        assertEquals(expectedSizeList, countries.getOrAwaitValue().size)
+        assertEquals(expectedSizeList, countries.size)
     }
 
     @Test
@@ -105,22 +106,18 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Europe.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))[i].countryName)
     }
 
     @Test
     fun should_print_all_european_countries_in_shuffled_fashion() = coroutineRule.runBlockingTest{
-        val countries : LiveData<List<Country>>? = Transformations.map(survivalViewModel.gameUseCases
-            .getCountriesIn(listOf(Europe))){
-            it.shuffled(Random(System.currentTimeMillis()))
-        }
+        val countries : List<Country>? = survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))
 
         survivalViewModel.populateDatabase()
         Thread.sleep(1500)
 
         for (i in 0 until Europe.totalCountries)
-            println(countries!!.getOrAwaitValue()[i].countryName)
+            println(countries!![i].countryName)
     }
 
     @Test
@@ -129,8 +126,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until NorthAmerica.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(NorthAmerica))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(NorthAmerica))[i].countryName)
     }
 
     @Test
@@ -139,8 +135,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until SouthAmerica.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(SouthAmerica))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(SouthAmerica))[i].countryName)
     }
 
     @Test
@@ -149,8 +144,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Australia.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Australia))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Australia))[i].countryName)
     }
 
     @Test
@@ -159,8 +153,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Africa.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Africa))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Africa))[i].countryName)
     }
 
     @Test
@@ -169,8 +162,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Thread.sleep(1500)
 
         for (i in 0 until Asia.totalCountries)
-            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Asia))
-                .getOrAwaitValue()[i].countryName)
+            println(survivalViewModel.gameUseCases.getCountriesIn(listOf(Asia))[i].countryName)
     }
 
     @Test

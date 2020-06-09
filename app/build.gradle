@@ -109,8 +109,8 @@ dependencies {
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
 
     // Navigation
-    implementation "android.arch.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "android.arch.navigation:navigation-ui-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
 
     implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
     implementation 'com.basgeekball:awesome-validation:4.2'
@@ -135,5 +135,7 @@ dependencies {
     }
     androidTestImplementation("io.mockk:mockk-android:1.9.3.kotlin12")
     androidTestImplementation 'org.mockito:mockito-android:3.2.4'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
 
 }

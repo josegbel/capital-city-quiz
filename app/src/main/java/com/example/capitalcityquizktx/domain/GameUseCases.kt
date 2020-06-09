@@ -15,7 +15,7 @@ interface GameUseCases {
 //    fun getLearnedCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
 //    fun getLearningCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
     fun getAllCountries() : Single<List<Country>>
-    fun getCountriesIn(continents: List<Continent>) : MutableLiveData<MutableList<Country>>
+    fun getCountriesIn(continents: List<Continent>) : List<Country>
     fun destroyCountries()
     fun insertAllCountries(countries: List<Country>)
     fun getDataFieldsCount(): Int

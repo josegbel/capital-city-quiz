@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx.di
 
-import com.example.capitalcityquizktx.ui.HomeViewModel
+import com.example.capitalcityquizktx.business.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module

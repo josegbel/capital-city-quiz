@@ -73,8 +73,8 @@
     <string name="err_first_name">Only letters are permitted</string>
     <string name="err_last_name">Only letters are permitted</string>
     <string name="error_account_dialog_message">There was an error creating your account.</string>
-    <string name="ok">OK</string>
     <string name="error_account_dialog_title">Account not created</string>
+    <string name="ok">OK</string>
     <string name="unable_to_connect">Unable to connect</string>
     <string name="possible_causes">
         Possible causes:

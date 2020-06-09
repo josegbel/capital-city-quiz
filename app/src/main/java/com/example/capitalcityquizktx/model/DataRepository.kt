@@ -13,7 +13,7 @@ import io.reactivex.Single
  */
 interface DataRepository {
     fun getCountryList() : Single<List<Country>>
-    fun getCountryListBy(continents: List<Continent>) : MutableLiveData<MutableList<Country>>
+    fun getCountryListBy(continents: List<Continent>) : List<Country>
     fun getFieldsCount() : Int
     fun insertCountries(countries: List<Country>)
     fun getCountriesFromFile(): List<Country>

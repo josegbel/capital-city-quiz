@@ -11,7 +11,7 @@ import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
 import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import com.example.capitalcityquizktx.business.SurvivalViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -37,7 +37,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
         val binding : SurvivalGameFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.survival_game_fragment, container, false)
 
-        val args = SurvivalGameFragmentArgs.fromBundle(arguments!!)
+        val args = SurvivalGameFragmentArgs.fromBundle(requireArguments())
 
         if (gameConfig == null)
             gameConfig = args.survivalGameConfig
@@ -52,15 +52,16 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
         binding.lifecycleOwner = this
         binding.survivalViewModel = survivalViewModel
 
+        val myObserver = Observer<List<Country>>{ countries ->
+            if (countries != null && countries.isNotEmpty()) {
+                binding.countryTextView.text = countries[0].countryName
+            }
+        }
+        survivalViewModel.countries.observe(viewLifecycleOwner, myObserver)
+
         survivalViewModel.populateDatabase()
 
-        val myObserver = Observer<MutableList<Country>>{ country ->
-            binding.countryTextView.text = country[0].countryName
-
-        }
-        survivalViewModel.list.observe(this, myObserver)
-
-//            val list = survivalViewModel.getCountriesFrom(gameConfig!!.continents)
+        survivalViewModel.getCountriesFrom(gameConfig!!.continents)
 
             //survivalViewModel.gameUseCases.getNextQuestion(list)
         //    Log.d("listOfCountries", list[0].countryName)

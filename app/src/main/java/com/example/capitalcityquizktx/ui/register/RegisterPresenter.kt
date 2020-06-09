@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.net.ConnectException
 
-
 class RegisterPresenter(val view: IRegisterView,
                         private val dispatchers: DispatcherProvider = DefaultDispatcherProvider()){
 

@@ -35,18 +35,14 @@ class GameInteractor(
         return dataRepository.getCountryList()
     }
 
-    override fun getCountriesIn(continents: List<Continent>): MutableLiveData<MutableList<Country>> {
-
-//        countries.let {
-//            it.addAll(getCountriesBy(continents))
-//            shuffle(it)
-//        }
-        return Transformations.map(getCountriesBy(continents)){
-            it.shuffled(Random(System.currentTimeMillis()))
-        } as MutableLiveData<MutableList<Country>>
+    override fun getCountriesIn(continents: List<Continent>): List<Country> {
+        return  getCountriesBy(continents).shuffled()
+//        return Transformations.map(getCountriesBy(continents)){
+//            it.shuffled(Random(System.currentTimeMillis()))
+//        } as MutableLiveData<MutableList<Country>>
     }
 
-    private fun getCountriesBy(continents :List<Continent>): MutableLiveData<MutableList<Country>>{
+    private fun getCountriesBy(continents :List<Continent>): List<Country>{
         return  dataRepository.getCountryListBy(continents)
     }
 
