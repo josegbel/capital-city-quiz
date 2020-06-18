@@ -16,11 +16,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.config.SurvivalGameConfig
+import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
 import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
-import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.model.database.continents.*
+import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import kotlinx.android.synthetic.main.game_config_survival_fragment.*
 import kotlin.time.ExperimentalTime
 

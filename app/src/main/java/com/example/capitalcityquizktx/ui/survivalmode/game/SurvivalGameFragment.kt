@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.config.SurvivalGameConfig
+import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
-import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.business.SurvivalViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

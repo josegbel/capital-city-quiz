@@ -1,8 +1,8 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.model.database.continents.*
-import com.example.capitalcityquizktx.utils.ContinentSelector
+import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
+import com.example.capitalcityquizktx.common.utils.ContinentSelector
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 

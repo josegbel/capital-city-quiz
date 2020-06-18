@@ -1,10 +1,10 @@
 package com.example.capitalcityquizktx.ui.register
 
-import com.example.capitalcityquizktx.model.register.UserDetails
-import com.example.capitalcityquizktx.model.register.UserExistence
-import com.example.capitalcityquizktx.model.register.UserManagementServiceImpl
-import com.example.capitalcityquizktx.utils.DefaultDispatcherProvider
-import com.example.capitalcityquizktx.utils.DispatcherProvider
+import com.example.capitalcityquizktx.data.models.user.UserDetailsSchema
+import com.example.capitalcityquizktx.data.models.user.UserExistenceSchema
+import com.example.capitalcityquizktx.data.network.register.UserManagementServiceImpl
+import com.example.capitalcityquizktx.common.utils.DefaultDispatcherProvider
+import com.example.capitalcityquizktx.common.utils.DispatcherProvider
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,29 +15,29 @@ class RegisterPresenter(val view: IRegisterView,
 
     private val userManagementServiceImpl = UserManagementServiceImpl()
 
-    fun createNewUser(userDetails: UserDetails) {
+    fun createNewUser(userDetailsSchema: UserDetailsSchema) {
 
         // verify the user does not exist in database
-        var userExistence: UserExistence? = null
+        var userExistenceSchema: UserExistenceSchema? = null
         GlobalScope.launch(dispatchers.default()) {
             try {
-                userExistence = userManagementServiceImpl
-                    .verifyUserIsNotInDatabase(userDetails.username, userDetails.email)
+                userExistenceSchema = userManagementServiceImpl
+                    .verifyUserIsNotInDatabase(userDetailsSchema.username, userDetailsSchema.email)
 
                 withContext(dispatchers.main()) {
-                    if (userExistence != null) {
-                        if (userExistence!!.emailInDatabase) {
+                    if (userExistenceSchema != null) {
+                        if (userExistenceSchema!!.emailInDatabase) {
                             view.displayEmailInDatabaseError()
                         }
 
-                        if (userExistence!!.usernameInDatabase) {
+                        if (userExistenceSchema!!.usernameInDatabase) {
                             view.displayUsernameInDatabaseError()
                         }
 
-                        if (!userExistence!!.usernameInDatabase && !userExistence!!.emailInDatabase) {
+                        if (!userExistenceSchema!!.usernameInDatabase && !userExistenceSchema!!.emailInDatabase) {
                             GlobalScope.launch(dispatchers.default()) {
                                 try {
-                                    val userCreated = userManagementServiceImpl.createNewUser(userDetails)
+                                    val userCreated = userManagementServiceImpl.createNewUser(userDetailsSchema)
 
                                     withContext(dispatchers.main()) {
                                         when (userCreated) {

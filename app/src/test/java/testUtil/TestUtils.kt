@@ -1,6 +1,6 @@
 package testUtil
 
-import com.example.capitalcityquizktx.utils.DispatcherProvider
+import com.example.capitalcityquizktx.common.utils.DispatcherProvider
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

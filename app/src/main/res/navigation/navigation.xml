@@ -53,7 +53,7 @@
             android:label="SurvivalGameFragment">
         <argument
                 android:name="survivalGameConfig"
-                app:argType="com.example.capitalcityquizktx.config.SurvivalGameConfig" />
+                app:argType="com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig" />
         <action
                 android:id="@+id/action_survivalGameFragment_to_gameModeSelectionFragment"
                 app:destination="@id/gameModeSelectionFragment"

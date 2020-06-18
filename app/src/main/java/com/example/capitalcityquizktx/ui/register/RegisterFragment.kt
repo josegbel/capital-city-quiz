@@ -10,7 +10,7 @@ import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
-import com.example.capitalcityquizktx.model.register.UserDetails
+import com.example.capitalcityquizktx.data.models.user.UserDetailsSchema
 import kotlinx.android.synthetic.main.register_fragment.*
 
 class RegisterFragment : Fragment(), IRegisterView {
@@ -99,7 +99,7 @@ class RegisterFragment : Fragment(), IRegisterView {
     }
 
     override fun submitUserData() {
-        val user = UserDetails(
+        val user = UserDetailsSchema(
             binding.usernameRegET.text.toString(),
             binding.passwordRegET.text.toString(),
             binding.emailRegET.text.toString(),

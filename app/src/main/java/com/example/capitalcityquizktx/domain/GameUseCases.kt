@@ -1,9 +1,8 @@
 package com.example.capitalcityquizktx.domain
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.data.models.geographical.Country
 import io.reactivex.Single
 
 /**

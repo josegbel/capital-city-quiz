@@ -2,19 +2,15 @@ package com.example.capitalcityquizktx.domain
 
 import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import assertk.assertThat
-import com.example.capitalcityquizktx.di.DatabaseModule
-import com.example.capitalcityquizktx.di.GameUseCasesModule
-import com.example.capitalcityquizktx.di.RepositoryModule
-import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.model.database.CapitalCity
-import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.model.database.continents.*
-import io.mockk.Called
+import com.example.capitalcityquizktx.common.di.DatabaseModule
+import com.example.capitalcityquizktx.common.di.GameUseCasesModule
+import com.example.capitalcityquizktx.common.di.RepositoryModule
+import com.example.capitalcityquizktx.common.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
+import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verify
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
@@ -58,12 +54,42 @@ class GameInteractorTest : KoinTest {
 
     @Test
     fun given_list_getNextQuestion_should_return_question() {
-        val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
-        val country2 = Country("Senegal", CapitalCity("Dakar"), Africa)
-        val country3 = Country("China", CapitalCity("Beijin"), Asia)
-        val country4 = Country("Australia", CapitalCity("Sidney"), Australia)
-        val country5 = Country("USA", CapitalCity("Washington"), NorthAmerica)
-        val country6 = Country("Peru", CapitalCity("Lima"), SouthAmerica)
+        val country1 =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
+        val country2 =
+            Country(
+                "Senegal",
+                CapitalCity("Dakar"),
+                Africa
+            )
+        val country3 =
+            Country(
+                "China",
+                CapitalCity("Beijin"),
+                Asia
+            )
+        val country4 =
+            Country(
+                "Australia",
+                CapitalCity("Sidney"),
+                Australia
+            )
+        val country5 =
+            Country(
+                "USA",
+                CapitalCity("Washington"),
+                NorthAmerica
+            )
+        val country6 =
+            Country(
+                "Peru",
+                CapitalCity("Lima"),
+                SouthAmerica
+            )
         val list = mutableListOf(country1, country2, country3, country4, country5, country6)
         val expectedSizeList = list.size - 1
         val countries = mutableListOf<Country>()

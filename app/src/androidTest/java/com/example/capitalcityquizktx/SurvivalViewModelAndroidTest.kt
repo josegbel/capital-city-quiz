@@ -4,17 +4,18 @@ import androidTestUtils.MainCoroutineRule
 import androidTestUtils.getOrAwaitValue
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.capitalcityquizktx.di.GameUseCasesModule
-import com.example.capitalcityquizktx.di.RepositoryModule
-import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.model.database.*
-import com.example.capitalcityquizktx.model.database.continents.*
+import com.example.capitalcityquizktx.common.di.GameUseCasesModule
+import com.example.capitalcityquizktx.common.di.RepositoryModule
+import com.example.capitalcityquizktx.common.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.data.local.*
+import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
+import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.data.models.user.LearnedCountry
+import com.example.capitalcityquizktx.data.models.user.User
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import com.example.capitalcityquizktx.business.SurvivalViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
@@ -28,7 +29,6 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.get
 import java.io.IOException
-import kotlin.random.Random
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
@@ -74,7 +74,12 @@ class SurvivalViewModelAndroidTest : KoinTest {
     @Test
     @Throws (Exception::class)
     fun should_write_and_read_entry_from_db_in_counties_table(){
-        val country = Country("Spain", CapitalCity("Madrid"), Europe)
+        val country =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
         countryDao.insertAllCountries(listOf(country))
         Log.d(TAG, "writeDb")
 
@@ -168,12 +173,42 @@ class SurvivalViewModelAndroidTest : KoinTest {
     @Test
     @Throws (Exception::class)
     fun should_write_and_read_many_entries_from_db_in_counties_table(){
-        val country1 = Country("Spain", CapitalCity("Madrid"), Europe)
-        val country2 = Country("Senegal", CapitalCity("Dakar"), Africa)
-        val country3 = Country("China", CapitalCity("Beijin"), Asia)
-        val country4 = Country("Australia", CapitalCity("Sidney"), Australia)
-        val country5 = Country("USA", CapitalCity("Washington"), NorthAmerica)
-        val country6 = Country("Peru", CapitalCity("Lima"), SouthAmerica)
+        val country1 =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
+        val country2 =
+            Country(
+                "Senegal",
+                CapitalCity("Dakar"),
+                Africa
+            )
+        val country3 =
+            Country(
+                "China",
+                CapitalCity("Beijin"),
+                Asia
+            )
+        val country4 =
+            Country(
+                "Australia",
+                CapitalCity("Sidney"),
+                Australia
+            )
+        val country5 =
+            Country(
+                "USA",
+                CapitalCity("Washington"),
+                NorthAmerica
+            )
+        val country6 =
+            Country(
+                "Peru",
+                CapitalCity("Lima"),
+                SouthAmerica
+            )
         val expected = listOf(country1, country2, country3,
                                             country4, country5, country6)
         countryDao.insertAllCountries(expected)
@@ -196,15 +231,27 @@ class SurvivalViewModelAndroidTest : KoinTest {
     @Test
     @Throws (Exception::class)
     fun should_write_and_read_entry_from_db_in_countriesLearned_table(){
-        val country = Country("Spain", CapitalCity("Madrid"), Europe)
-        val user = User(1,
-                     "johnDoe",
-                     "pw",
-                     "john",
-                      "doe",
-                         "john@doe.com")
+        val country =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
+        val user = User(
+            1,
+            "johnDoe",
+            "pw",
+            "john",
+            "doe",
+            "john@doe.com"
+        )
 
-        countryDao.insertLearnedCountry(LearnedCountry(user.userId, country))
+        countryDao.insertLearnedCountry(
+            LearnedCountry(
+                user.userId,
+                country
+            )
+        )
         Log.d(TAG, "writeToLearnedTable")
         val countries = countryDao.getLearnedCountries()
         Log.d(TAG, "readFromLearnedTable")
@@ -218,7 +265,12 @@ class SurvivalViewModelAndroidTest : KoinTest {
     fun should_delete_entries_in_countries_table(){
 
         // insert Country
-        val country = Country("Spain", CapitalCity("Madrid"), Europe)
+        val country =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
         countryDao.insertAllCountries(listOf(country))
         Log.d(TAG, "writeDb")
         var countries = countryDao.getCountries()
@@ -242,9 +294,24 @@ class SurvivalViewModelAndroidTest : KoinTest {
         survivalViewModel.gameUseCases.destroyCountries()
         Thread.sleep(1000)
 
-        val country1 = Country(   "Spain", CapitalCity("Madrid"), Europe)
-        val country2 = Country(  "France", CapitalCity("Paris"),  Europe)
-        val country3 = Country("Portugal", CapitalCity("Lisbon"), Europe)
+        val country1 =
+            Country(
+                "Spain",
+                CapitalCity("Madrid"),
+                Europe
+            )
+        val country2 =
+            Country(
+                "France",
+                CapitalCity("Paris"),
+                Europe
+            )
+        val country3 =
+            Country(
+                "Portugal",
+                CapitalCity("Lisbon"),
+                Europe
+            )
         val expectedCountries = listOf(country1, country2, country3)
         survivalViewModel.gameUseCases.insertAllCountries(expectedCountries)
         Log.d(TAG, "write3EntriesInDb")

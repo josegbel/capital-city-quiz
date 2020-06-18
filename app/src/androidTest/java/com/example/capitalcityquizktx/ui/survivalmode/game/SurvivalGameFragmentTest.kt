@@ -10,7 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.config.SurvivalGameConfig
+import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

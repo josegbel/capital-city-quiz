@@ -1,7 +1,7 @@
 package com.example.capitalcityquizktx.ui.survivalmode
 
-import com.example.capitalcityquizktx.config.GameConfig
-import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.data.models.config.GameConfig
+import com.example.capitalcityquizktx.data.models.geographical.Country
 
 /**
 

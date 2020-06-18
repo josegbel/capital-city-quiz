@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.model.register.UserManagementServiceImpl
+import com.example.capitalcityquizktx.data.network.register.UserManagementServiceImpl
 import com.example.capitalcityquizktx.ui.register.IRegisterView
 import com.example.capitalcityquizktx.ui.register.RegisterPresenter
 import io.mockk.MockKAnnotations

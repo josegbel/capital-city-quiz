@@ -12,7 +12,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.model.database.continents.Africa
+import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule

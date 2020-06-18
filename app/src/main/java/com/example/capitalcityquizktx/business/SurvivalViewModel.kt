@@ -3,8 +3,8 @@ package com.example.capitalcityquizktx.business
 import androidx.lifecycle.*
 import com.example.capitalcityquizktx.domain.GameUseCases
 import com.example.capitalcityquizktx.domain.ISurvivalGame
-import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.data.models.geographical.Country
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
@@ -91,8 +91,8 @@ class SurvivalViewModel(
 //import com.example.capitalcityquizktx.model.DataRepository
 //import com.example.capitalcityquizktx.model.database.Country
 //import com.example.capitalcityquizktx.model.database.CountryDatabaseDao
-//import com.example.capitalcityquizktx.utils.ContinentSelector
-//import com.example.capitalcityquizktx.utils.DatabaseUtils
+//import com.example.capitalcityquizktx.common.utils.ContinentSelector
+//import com.example.capitalcityquizktx.common.utils.DatabaseUtils
 //import kotlinx.coroutines.*
 //import kotlin.coroutines.CoroutineContext
 //

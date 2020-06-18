@@ -1,11 +1,11 @@
 package com.example.capitalcityquizktx
 
 import assertk.assertThat
-import com.example.capitalcityquizktx.model.database.CapitalCity
-import com.example.capitalcityquizktx.model.database.continents.Europe
-import com.example.capitalcityquizktx.model.database.Country
-import com.example.capitalcityquizktx.utils.ContinentSelector
-import com.example.capitalcityquizktx.utils.DatabaseUtils
+import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
+import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
+import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.common.utils.ContinentSelector
+import com.example.capitalcityquizktx.common.utils.DatabaseUtils
 import junit.framework.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -31,8 +31,20 @@ class DatabaseUtilsTest{
                 |France,Paris,Europe""".trimMargin()
         val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
         val expected = listOf(
-            Country("Spain", CapitalCity("Madrid"), Europe),
-            Country("France", CapitalCity("Paris"), Europe)
+            Country(
+                "Spain",
+                CapitalCity(
+                    "Madrid"
+                ),
+                Europe
+            ),
+            Country(
+                "France",
+                CapitalCity(
+                    "Paris"
+                ),
+                Europe
+            )
         )
 
         val actual = DatabaseUtils.getCountriesFromStream(targetStream, continentSelector)

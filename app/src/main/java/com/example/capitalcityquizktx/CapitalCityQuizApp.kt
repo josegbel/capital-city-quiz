@@ -1,7 +1,7 @@
 package com.example.capitalcityquizktx
 
 import android.app.Application
-import com.example.capitalcityquizktx.di.*
+import com.example.capitalcityquizktx.common.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

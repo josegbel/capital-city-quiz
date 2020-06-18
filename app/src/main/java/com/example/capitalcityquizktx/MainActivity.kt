@@ -3,7 +3,7 @@ package com.example.capitalcityquizktx
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.capitalcityquizktx.databinding.MainActivityBinding
-import com.example.capitalcityquizktx.di.HomeModules
+import com.example.capitalcityquizktx.common.di.HomeModules
 import com.example.capitalcityquizktx.business.HomeViewModel
 import org.koin.android.ext.android.inject
 

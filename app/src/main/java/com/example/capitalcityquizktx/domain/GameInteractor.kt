@@ -1,13 +1,10 @@
 package com.example.capitalcityquizktx.domain
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.example.capitalcityquizktx.model.DataRepository
-import com.example.capitalcityquizktx.model.database.Continent
-import com.example.capitalcityquizktx.model.database.Country
+import com.example.capitalcityquizktx.data.CountryRepository
+import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.data.models.geographical.Country
 import io.reactivex.Single
-import kotlin.random.Random
 
 /**
 
@@ -15,7 +12,7 @@ import kotlin.random.Random
 
  */
 class GameInteractor(
-    private val dataRepository: DataRepository
+    private val countryRepository: CountryRepository
 ) : GameUseCases{
 
     override fun getNextQuestion(list: MutableList<Country>): MutableLiveData<Country>? {
@@ -32,7 +29,7 @@ class GameInteractor(
     }
 
     override fun getAllCountries(): Single<List<Country>> {
-        return dataRepository.getCountryList()
+        return countryRepository.getCountryList()
     }
 
     override fun getCountriesIn(continents: List<Continent>): List<Country> {
@@ -43,25 +40,25 @@ class GameInteractor(
     }
 
     private fun getCountriesBy(continents :List<Continent>): List<Country>{
-        return  dataRepository.getCountryListBy(continents)
+        return  countryRepository.getCountryListBy(continents)
     }
 
     override fun destroyCountries() {
-        dataRepository.removeCountries()
+        countryRepository.removeCountries()
     }
 
     override fun insertAllCountries(countries: List<Country>) {
-        dataRepository.insertCountries(countries)
+        countryRepository.insertCountries(countries)
     }
 
     override fun getDataFieldsCount(): Int {
-        return dataRepository.getFieldsCount()
+        return countryRepository.getFieldsCount()
     }
 
     override fun getCountriesFromStream(): List<Country> {
 //        DatabaseUtils.getCountriesFromStream(applicationContext
 //            .resources.openRawResource(R.raw.allcountries), ContinentSelector() )
-         return dataRepository.getCountriesFromFile()
+         return countryRepository.getCountriesFromFile()
     }
 
 //    override fun getLearnedCountryListBy(user: User): LiveData<List<PracticeViewModel>> {
