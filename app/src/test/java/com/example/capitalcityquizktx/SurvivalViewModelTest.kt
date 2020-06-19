@@ -7,7 +7,7 @@ import com.example.capitalcityquizktx.common.di.GameUseCasesModule
 import com.example.capitalcityquizktx.common.di.RepositoryModule
 import com.example.capitalcityquizktx.common.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
-import com.example.capitalcityquizktx.business.SurvivalViewModel
+import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.RelaxedMockK
 import org.junit.After

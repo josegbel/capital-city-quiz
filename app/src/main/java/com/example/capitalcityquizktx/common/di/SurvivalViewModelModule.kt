@@ -1,6 +1,6 @@
 package com.example.capitalcityquizktx.common.di
 
-import com.example.capitalcityquizktx.business.SurvivalViewModel
+import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module

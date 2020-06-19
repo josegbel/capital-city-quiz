@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.capitalcityquizktx.databinding.MainActivityBinding
 import com.example.capitalcityquizktx.common.di.HomeModules
-import com.example.capitalcityquizktx.business.HomeViewModel
+import com.example.capitalcityquizktx.domain.viewmodels.HomeViewModel
 import org.koin.android.ext.android.inject
 
 /**

@@ -16,7 +16,7 @@ import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.data.models.user.LearnedCountry
 import com.example.capitalcityquizktx.data.models.user.User
 import com.example.capitalcityquizktx.data.models.geographical.continents.*
-import com.example.capitalcityquizktx.business.SurvivalViewModel
+import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.After
 import org.junit.Assert.*
@@ -41,7 +41,10 @@ class SurvivalViewModelAndroidTest : KoinTest {
     private lateinit var db: CountryDatabase
     private lateinit var context : Context
     private val survivalViewModel =
-        SurvivalViewModel(get(), get())
+        SurvivalViewModel(
+            get(),
+            get()
+        )
 
     companion object{
         const val TAG : String = "JUnit4"

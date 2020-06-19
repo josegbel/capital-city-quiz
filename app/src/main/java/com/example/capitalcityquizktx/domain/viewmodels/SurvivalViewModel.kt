@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.business
+package com.example.capitalcityquizktx.domain.viewmodels
 
 import androidx.lifecycle.*
 import com.example.capitalcityquizktx.domain.GameUseCases
