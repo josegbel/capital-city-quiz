@@ -34,9 +34,6 @@ class GameInteractor(
 
     override fun getCountriesIn(continents: List<Continent>): List<Country> {
         return  getCountriesBy(continents).shuffled()
-//        return Transformations.map(getCountriesBy(continents)){
-//            it.shuffled(Random(System.currentTimeMillis()))
-//        } as MutableLiveData<MutableList<Country>>
     }
 
     private fun getCountriesBy(continents :List<Continent>): List<Country>{
