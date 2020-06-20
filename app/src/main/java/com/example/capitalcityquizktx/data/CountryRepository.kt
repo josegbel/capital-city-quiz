@@ -16,4 +16,5 @@ interface CountryRepository {
     fun insertCountries(countries: List<Country>)
     fun getCountriesFromFile(): List<Country>
     fun removeCountries()
+    fun removeCountry(country: Country)
 }

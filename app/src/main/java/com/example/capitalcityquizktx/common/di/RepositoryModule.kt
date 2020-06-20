@@ -24,7 +24,7 @@ object RepositoryModule {
             return DataDownloader(dataCsvLoader, dao, context)
         }
         single { provideCountryRepository(get(), get(), get()) }
-        single { DataCsvLoader() }
-        single { CountryDatabaseDao_Impl(get()) }
+        factory { DataCsvLoader() }
+//        factory { CountryDatabaseDao_Impl(get()) }
     }
 }

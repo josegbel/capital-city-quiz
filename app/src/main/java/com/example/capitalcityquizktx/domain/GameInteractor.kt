@@ -1,10 +1,10 @@
 package com.example.capitalcityquizktx.domain
 
-import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.data.CountryRepository
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.data.models.geographical.Country
 import io.reactivex.Single
+import java.util.*
 
 /**
 
@@ -15,17 +15,26 @@ class GameInteractor(
     private val countryRepository: CountryRepository
 ) : GameUseCases{
 
-    override fun getNextQuestion(list: MutableList<Country>): MutableLiveData<Country>? {
-        val country = MutableLiveData<Country>()
-        if (list.isEmpty()) {
+    override fun getNextQuestion(countries: MutableList<Country>): Country? {
+        if (countries.isEmpty()) {
             return null
         }
-        country.postValue(list[0])
-        list.removeAt(0)
-        return country
+        return countries[0]
     }
 
     override fun shuffleList(list: MutableList<Country>) {
+    }
+
+    override fun checkAnswer(question: Country, answer: String): Boolean {
+        if (question.capitalCity
+                .name.toLowerCase(Locale.getDefault()) == answer.toLowerCase(Locale.getDefault())) {
+            return true
+        }
+        return false
+    }
+
+    override fun removeCountry(country: Country) {
+        countryRepository.removeCountry(country)
     }
 
     override fun getAllCountries(): Single<List<Country>> {

@@ -19,6 +19,8 @@ interface GameUseCases {
     fun insertAllCountries(countries: List<Country>)
     fun getDataFieldsCount(): Int
     fun getCountriesFromStream() : List<Country>
-    fun getNextQuestion(list: MutableList<Country>) : MutableLiveData<Country>?
+    fun getNextQuestion(list: MutableList<Country>) : Country?
     fun shuffleList(list: MutableList<Country>)
+    fun checkAnswer(question: Country, answer: String): Boolean
+    fun removeCountry(country: Country)
 }

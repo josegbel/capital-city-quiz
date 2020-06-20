@@ -21,6 +21,10 @@ class DataDownloader(private val dataCsvLoader : DataCsvLoader,
         database.destroyCountries()
     }
 
+    override fun removeCountry(country: Country) {
+
+    }
+
     override fun getCountriesFromFile(): List<Country> {
         return dataCsvLoader.getCountryList(context.resources.openRawResource(R.raw.allcountries),
             ContinentSelector())
