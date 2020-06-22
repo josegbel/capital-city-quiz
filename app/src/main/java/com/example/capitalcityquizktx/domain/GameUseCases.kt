@@ -13,14 +13,13 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 interface GameUseCases {
 //    fun getLearnedCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
 //    fun getLearningCountryListBy(user: User) : LiveData<List<PracticeViewModel>>
-    fun getAllCountries() : Single<List<Country>>
+    fun getAllCountries() : Single<MutableList<Country>>
     fun getCountriesIn(continents: List<Continent>) : List<Country>
     fun destroyCountries()
     fun insertAllCountries(countries: List<Country>)
     fun getDataFieldsCount(): Int
     fun getCountriesFromStream() : List<Country>
     fun getNextQuestion(list: MutableList<Country>) : Country?
-    fun shuffleList(list: MutableList<Country>)
     fun checkAnswer(question: Country, answer: String): Boolean
     fun removeCountry(country: Country)
 }

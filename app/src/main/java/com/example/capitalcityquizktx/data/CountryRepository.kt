@@ -10,7 +10,7 @@ import io.reactivex.Single
 
  */
 interface CountryRepository {
-    fun getCountryList() : Single<List<Country>>
+    fun getCountryList() : Single<MutableList<Country>>
     fun getCountryListBy(continents: List<Continent>) : List<Country>
     fun getFieldsCount() : Int
     fun insertCountries(countries: List<Country>)

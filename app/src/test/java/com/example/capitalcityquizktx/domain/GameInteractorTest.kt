@@ -2,20 +2,25 @@ package com.example.capitalcityquizktx.domain
 
 import com.example.capitalcityquizktx.data.CountryRepository
 import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
+import com.example.capitalcityquizktx.data.models.geographical.continents.Asia
+import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
+import io.reactivex.Single
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
-import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import testUtil.TestData
 
 class GameInteractorTest : KoinTest {
 
+    private val FIELDSCOUNT: Int = 10
     private lateinit var interactor : GameInteractor
 
     // Read comment below to understand why this object is not being injected
@@ -99,5 +104,50 @@ class GameInteractorTest : KoinTest {
         every { repository.removeCountry(capture(slot)) } just Runs
         interactor.removeCountry(country)
         assertEquals(country, slot.captured)
+    }
+
+    @Test
+    fun getCountriesIn_listOfContinents_returnsCountryList() {
+        every { repository.getCountryListBy(any()) } returns TestData.COUNTRIES
+        val actual = interactor.getCountriesIn(listOf(Europe, Africa, Asia))
+        assertTrue(actual.size == TestData.COUNTRIES.size
+                && actual.containsAll(TestData.COUNTRIES) && TestData.COUNTRIES.containsAll(actual))
+    }
+
+    @Test
+    fun destroyCountries_callsMethodInRepository() {
+        every { repository.removeCountries() } just Runs
+        interactor.destroyCountries()
+        verify(exactly = 1) { repository.removeCountries() }
+    }
+
+    @Test
+    fun insertAllCountries_callsRepositoryWithRightParams() {
+        val slot = slot<List<Country>>()
+        every { repository.insertCountries(capture(slot)) } just Runs
+        interactor.insertAllCountries(TestData.COUNTRIES)
+        assertEquals(slot.captured, TestData.COUNTRIES)
+    }
+
+    @Test
+    fun getDataFieldCount_returnsDataFieldCount() {
+        every { repository.getFieldsCount() } returns FIELDSCOUNT
+        val actual = interactor.getDataFieldsCount()
+        assertEquals(FIELDSCOUNT, actual)
+    }
+
+    @Test
+    fun getCountriesFromStream_returnsCountryList() {
+        every { repository.getCountriesFromFile() } returns TestData.COUNTRIES
+        val actual = interactor.getCountriesFromStream()
+        assertEquals(TestData.COUNTRIES, actual)
+    }
+
+    @Test
+    fun getAllCountries_returnsSingleCountryList() {
+        val expected = Single.just(TestData.COUNTRIES)
+        every { repository.getCountryList() } returns expected
+        val actual = interactor.getAllCountries()
+        assertEquals(expected, actual)
     }
 }

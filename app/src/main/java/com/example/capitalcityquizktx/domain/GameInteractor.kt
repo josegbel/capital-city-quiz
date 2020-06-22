@@ -22,9 +22,6 @@ class GameInteractor(
         return countries[0]
     }
 
-    override fun shuffleList(list: MutableList<Country>) {
-    }
-
     override fun checkAnswer(question: Country, answer: String): Boolean {
         if (question.capitalCity
                 .name.toLowerCase(Locale.getDefault()) == answer.toLowerCase(Locale.getDefault())) {
@@ -37,7 +34,7 @@ class GameInteractor(
         countryRepository.removeCountry(country)
     }
 
-    override fun getAllCountries(): Single<List<Country>> {
+    override fun getAllCountries(): Single<MutableList<Country>> {
         return countryRepository.getCountryList()
     }
 

@@ -38,7 +38,7 @@ class DataDownloader(private val dataCsvLoader : DataCsvLoader,
         return database.dataFieldsCount()
     }
 
-    override fun getCountryList(): Single<List<Country>> {
+    override fun getCountryList(): Single<MutableList<Country>> {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
