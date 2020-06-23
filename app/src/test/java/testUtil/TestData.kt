@@ -7,6 +7,7 @@ import java.util.*
 
 class TestData {
     companion object {
+        val CONTINENTS = listOf(Europe, Africa, Asia)
         val COUNTRY1 =
             Country(
                 "Spain",
