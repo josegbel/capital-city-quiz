@@ -8,8 +8,6 @@ import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
-import io.mockk.MockKAnnotations
-import io.mockk.impl.annotations.RelaxedMockK
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -20,22 +18,25 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.koin.test.mock.declareMock
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 
 class SurvivalViewModelTest : KoinTest {
     @get:Rule
     val coroutineRule = MainCoroutineRule()
 
-    @RelaxedMockK
+    @Mock
     lateinit var activity: Activity
 
-    @RelaxedMockK
+    @Mock
     lateinit var dataSource: CountryDatabaseDao
 
     private val survivalViewModel : SurvivalViewModel by inject()
+    private lateinit var mocks: AutoCloseable
 
     @Before
     fun setUp(){
-        MockKAnnotations.init(this)
+        mocks = MockitoAnnotations.openMocks(this)
 
         val application = requireNotNull(activity).application
 
@@ -55,6 +56,7 @@ class SurvivalViewModelTest : KoinTest {
     @After
     fun tearDown(){
         stopKoin()
+        mocks.close()
     }
 
     @Test

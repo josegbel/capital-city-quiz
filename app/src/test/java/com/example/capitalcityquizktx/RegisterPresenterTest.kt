@@ -3,14 +3,11 @@ package com.example.capitalcityquizktx
 import com.example.capitalcityquizktx.data.network.register.UserManagementServiceImpl
 import com.example.capitalcityquizktx.ui.register.IRegisterView
 import com.example.capitalcityquizktx.ui.register.RegisterPresenter
-import io.mockk.MockKAnnotations
-import io.mockk.impl.annotations.MockK
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import testUtil.CoroutineTestRule
 
 @RunWith(JUnit4::class)
@@ -19,19 +16,25 @@ class RegisterPresenterTest {
     @get:Rule
     var coroutinesTestRule = CoroutineTestRule()
 
-    @MockK
+    @Mock
     lateinit var viewMock: IRegisterView
 
-    @MockK
+    @Mock
     lateinit var service : UserManagementServiceImpl
 
     private lateinit var presenter: RegisterPresenter
+    private lateinit var mocks: AutoCloseable
 
     @Before
     fun setUp() {
-        MockKAnnotations.init(this)
+        mocks = MockitoAnnotations.openMocks(this)
         presenter =
             RegisterPresenter(viewMock, coroutinesTestRule.testDispatcherProvider)
+    }
+
+    @After
+    fun tearDown() {
+        mocks.close()
     }
 
     @Test

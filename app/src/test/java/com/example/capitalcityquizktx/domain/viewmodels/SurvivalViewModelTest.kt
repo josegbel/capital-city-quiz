@@ -1,26 +1,18 @@
 package com.example.capitalcityquizktx.domain.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import assertk.assertThat
 import com.example.capitalcityquizktx.domain.GameUseCases
-import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.verify
-import com.nhaarman.mockitokotlin2.whenever
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.hamcrest.CoreMatchers
-import org.junit.Assert
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import org.mockito.stubbing.Answer
 import testUtil.CoroutineTestRule
 import testUtil.TestData
-import testUtil.getOrAwaitValue
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
@@ -43,16 +35,23 @@ class SurvivalViewModelTest {
     // endregion helper fields
     private lateinit var SUT : SurvivalViewModel
 
+    private lateinit var mocks: AutoCloseable
+
     @Before
     fun setUp() {
-        MockitoAnnotations.initMocks(this)
+        mocks = MockitoAnnotations.openMocks(this)
         SUT = SurvivalViewModel(useCases, testCoroutineTestRule.testDispatcherProvider.io())
     }
 
+    @After
+    fun tearDown() {
+        mocks.close()
+    }
+
     @Test
-    fun getCountriesFrom_succesfullyPostCountriesToLiveData()
+    fun getCountriesFrom_successfullyPostCountriesToLiveData()
             = testCoroutineTestRule.testDispatcher.runBlockingTest {
-        whenever(useCases.getCountriesIn(any())).thenReturn(TestData.COUNTRIES)
+        Mockito.`when`(useCases.getCountriesIn(any())).thenReturn(TestData.COUNTRIES)
         SUT.getCountriesFrom(TestData.CONTINENTS)
         Assert.assertEquals(SUT.countries.value, TestData.COUNTRIES)
     }

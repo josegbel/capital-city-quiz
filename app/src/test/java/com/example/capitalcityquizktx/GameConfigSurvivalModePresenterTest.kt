@@ -2,17 +2,19 @@ package com.example.capitalcityquizktx
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.data.models.geographical.Continent
+import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalView
-import io.mockk.MockKAnnotations
-import io.mockk.every
-import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.verify
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.mockito.Mock
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
+import org.mockito.MockitoAnnotations
+import org.mockito.internal.verification.Times
 import kotlin.time.ExperimentalTime
 
 /*
@@ -20,91 +22,102 @@ import kotlin.time.ExperimentalTime
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
  */
-class GameConfigSurvivalModePresenterTest{
+class GameConfigSurvivalModePresenterTest {
 
-    private lateinit var presenter : GameConfigSurvivalPresenter
+    private lateinit var presenter: GameConfigSurvivalPresenter
     private val listLiveData = MutableLiveData<List<Continent>>()
 
     @get:Rule
     val rule = InstantTaskExecutorRule()
 
-    @RelaxedMockK
+    @Mock
     lateinit var view: GameConfigSurvivalView
+
+    lateinit var mocks : AutoCloseable
 
     @Before
     fun setup() {
-        MockKAnnotations.init(this)
+        mocks = MockitoAnnotations.openMocks(this)
         presenter = GameConfigSurvivalPresenter(view)
     }
 
+    @After
+    fun tearDown() {
+        mocks.close()
+    }
+
     @Test
-    fun `Should display number of questions selection when continents are selected`(){
-        listLiveData.postValue(listOf(
-            Continent(
-                "continentName",
-                10
-            ),
-            Continent(
-                "continentName",
-                10
-            ),
-            Continent(
-                "continentName",
-                10
+    fun `Should display number of questions selection when continents are selected`() {
+        listLiveData.postValue(
+            listOf(
+                Continent(
+                    "continentName",
+                    10
+                ),
+                Continent(
+                    "continentName",
+                    10
+                ),
+                Continent(
+                    "continentName",
+                    10
+                )
             )
-        ))
-        every { view.continentsList } returns listLiveData
+        )
+        `when`(view.continentsList).thenReturn(listLiveData)
 
         presenter.receiveContinentSelection()
 
-        verify { view.showQuestionsNumberSelection() }
+        verify(view, Times(1)).showQuestionsNumberSelection()
     }
 
     @Test
-    fun `Should display time set selection when continents are selected`(){
-        listLiveData.postValue(listOf(
-            Continent(
-                "continentName",
-                10
-            ),
-            Continent(
-                "continentName",
-                10
-            ),
-            Continent(
-                "continentName",
-                10
+    fun `Should display time set selection when continents are selected`() {
+        listLiveData.postValue(
+            listOf(
+                Continent(
+                    "continentName",
+                    10
+                ),
+                Continent(
+                    "continentName",
+                    10
+                ),
+                Continent(
+                    "continentName",
+                    10
+                )
             )
-        ))
-        every { view.continentsList } returns listLiveData
+        )
+        `when`(view.continentsList).thenReturn(listLiveData)
 
         presenter.receiveContinentSelection()
 
-        verify { view.showTimeLimitSelection() }
+        verify(view, Times(1)).showQuestionsNumberSelection()
     }
 
     @Test
-    fun `Should hide number of questions selection when no continents are selected`(){
+    fun `Should hide number of questions selection when no continents are selected`() {
         listLiveData.postValue(emptyList())
-        every { view.continentsList } returns listLiveData
+        `when`(view.continentsList).thenReturn(listLiveData)
 
         presenter.receiveContinentSelection()
 
-        verify { view.hideQuestionsNumberSelection()}
+        verify(view, Times(1)).hideQuestionsNumberSelection()
     }
 
     @Test
-    fun `Should hide time set selection when no continents are selected`(){
+    fun `Should hide time set selection when no continents are selected`() {
         listLiveData.postValue(emptyList())
-        every { view.continentsList } returns listLiveData
+        `when`(view.continentsList).thenReturn(listLiveData)
 
         presenter.receiveContinentSelection()
 
-        verify { view.hideTimeLimitSelection()}
+        verify(view, Times(1)).hideTimeLimitSelection()
     }
 
     @Test
-    fun `Should calculate recommended questions time limit given a number of countries part 1`(){
+    fun `Should calculate recommended questions time limit given a number of countries part 1`() {
         val countries = 10  // 15 sec per country, expected 150
 
         val actual = presenter.calculateRecommendedTimeLimit(countries)
@@ -113,7 +126,7 @@ class GameConfigSurvivalModePresenterTest{
     }
 
     @Test
-    fun `Should calculate recommended questions time limit given a number of countries part 2`(){
+    fun `Should calculate recommended questions time limit given a number of countries part 2`() {
         val countries = 20  // 15 sec per country, expected 150
 
         val actual = presenter.calculateRecommendedTimeLimit(countries)
@@ -122,14 +135,14 @@ class GameConfigSurvivalModePresenterTest{
     }
 
     @Test(expected = java.lang.IllegalArgumentException::class)
-        fun `Should throw exception when calculating recommended questions time limit given 0 as number of countries`(){
+    fun `Should throw exception when calculating recommended questions time limit given 0 as number of countries`() {
         val countries = 0
 
         presenter.calculateRecommendedTimeLimit(countries)
     }
 
     @Test(expected = java.lang.IllegalArgumentException::class)
-    fun `Should throw exception when calculating recommended questions time limit given a negative number of countries`(){
+    fun `Should throw exception when calculating recommended questions time limit given a negative number of countries`() {
         val countries = -5
 
         presenter.calculateRecommendedTimeLimit(countries)
@@ -137,7 +150,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given less than ten seconds in millis should return a formatted string mm(colon)ss`(){
+    fun `given less than ten seconds in millis should return a formatted string mm(colon)ss`() {
         val millis = 3000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -147,7 +160,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given more than ten seconds in millis should return a formatted string mm(colon)ss`(){
+    fun `given more than ten seconds in millis should return a formatted string mm(colon)ss`() {
         val millis = 30000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -157,7 +170,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given 60 seconds in millis should return a formatted string mm(colon)ss`(){
+    fun `given 60 seconds in millis should return a formatted string mm(colon)ss`() {
         val millis = 60000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -167,7 +180,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given more than 60 seconds in millis should return a formatted string mm(colon)ss`(){
+    fun `given more than 60 seconds in millis should return a formatted string mm(colon)ss`() {
         val millis = 75000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -177,7 +190,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given 10 minutes in millis should return a formatted string mm(colon)ss`(){
+    fun `given 10 minutes in millis should return a formatted string mm(colon)ss`() {
         val millis = 600000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -187,7 +200,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given more than 10 minutes in millis should return a formatted string mm(colon)ss`(){
+    fun `given more than 10 minutes in millis should return a formatted string mm(colon)ss`() {
         val millis = 670000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -197,7 +210,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given 60 minutes in millis should return a formatted string hh(colon)mm(colon)ss`(){
+    fun `given 60 minutes in millis should return a formatted string hh(colon)mm(colon)ss`() {
         val millis = 3600000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -207,7 +220,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given more than 1 hour in millis should return a formatted string hh(colon)mm(colon)ss`(){
+    fun `given more than 1 hour in millis should return a formatted string hh(colon)mm(colon)ss`() {
         val millis = 7260000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -217,7 +230,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given more than 10 hour in millis should return a formatted string hh(colon)mm(colon)ss`(){
+    fun `given more than 10 hour in millis should return a formatted string hh(colon)mm(colon)ss`() {
         val millis = 72062000
 
         val actual = presenter.formatTime(millis.toLong())
@@ -227,7 +240,7 @@ class GameConfigSurvivalModePresenterTest{
 
     @ExperimentalTime
     @Test
-    fun `given zero millis should return a formatted string hh(colon)mm(colon)ss`(){
+    fun `given zero millis should return a formatted string hh(colon)mm(colon)ss`() {
         val millis = 0
 
         val actual = presenter.formatTime(millis.toLong())
@@ -236,8 +249,8 @@ class GameConfigSurvivalModePresenterTest{
     }
 
     @ExperimentalTime
-    @Test (expected = IllegalArgumentException::class)
-    fun `given negative amount of millis should throw IllegalArgumentExpection`(){
+    @Test(expected = IllegalArgumentException::class)
+    fun `given negative amount of millis should throw IllegalArgumentExpection`() {
         val millis = -5
 
         presenter.formatTime(millis.toLong())

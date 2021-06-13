@@ -60,7 +60,7 @@ class DatabaseUtilsTest{
     }
 
     @Test (expected = RuntimeException::class)
-    fun `should throw exeption when inputstream is empty`(){
+    fun `should throw exception when inputStream is empty`(){
         val fakeInput =
             """""".trimMargin()
         val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
