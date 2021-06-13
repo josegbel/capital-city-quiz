@@ -7,9 +7,9 @@ import android.util.Log
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.capitalcityquizktx.common.di.GameUseCasesModule
-import com.example.capitalcityquizktx.common.di.RepositoryModule
-import com.example.capitalcityquizktx.common.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.RepositoryModule
+import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.data.local.*
 import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
 import com.example.capitalcityquizktx.data.models.geographical.Country

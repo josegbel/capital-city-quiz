@@ -2,10 +2,10 @@ package com.example.capitalcityquizktx
 
 import testUtil.MainCoroutineRule
 import android.app.Activity
-import com.example.capitalcityquizktx.common.di.DatabaseModule
-import com.example.capitalcityquizktx.common.di.GameUseCasesModule
-import com.example.capitalcityquizktx.common.di.RepositoryModule
-import com.example.capitalcityquizktx.common.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.di.DatabaseModule
+import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.RepositoryModule
+import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
 import io.mockk.MockKAnnotations

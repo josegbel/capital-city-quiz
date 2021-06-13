@@ -9,26 +9,25 @@ import androidx.fragment.app.Fragment
 import com.basgeekball.awesomevalidation.AwesomeValidation
 import com.basgeekball.awesomevalidation.ValidationStyle
 import com.example.capitalcityquizktx.R
-import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
 import com.example.capitalcityquizktx.data.models.user.UserDetailsSchema
-import kotlinx.android.synthetic.main.register_fragment.*
+import com.example.capitalcityquizktx.databinding.RegisterFragmentBinding
 
 class RegisterFragment : Fragment(), IRegisterView {
 
-    private val presenter : RegisterPresenter =
+    private val presenter: RegisterPresenter =
         RegisterPresenter(this)
 
     private val awesomeValidation = AwesomeValidation(ValidationStyle.BASIC)
 
-    lateinit var binding : RegisterFragmentBinding
+    lateinit var binding: RegisterFragmentBinding
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         addValidations()
 
-        binding.registerRegBtn.setOnClickListener { view ->
-            if(awesomeValidation.validate()){
+        binding.registerRegBtn.setOnClickListener {
+            if (awesomeValidation.validate()) {
                 submitUserData()
             }
         }
@@ -38,9 +37,10 @@ class RegisterFragment : Fragment(), IRegisterView {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = DataBindingUtil.inflate(
-            inflater, R.layout.register_fragment, container, false)
+            inflater, R.layout.register_fragment, container, false
+        )
 
         return binding.root
     }
@@ -79,23 +79,29 @@ class RegisterFragment : Fragment(), IRegisterView {
         )
     }
 
-    override fun displayEmailInDatabaseError(){
-        emailRegET.error = "This email address is already being used"
-        emailRegET.requestFocus()
+    override fun displayEmailInDatabaseError() {
+        binding.emailRegET.error = "This email address is already being used"
+        binding.emailRegET.requestFocus()
     }
 
     override fun displayUsernameInDatabaseError() {
-        usernameRegET.error= "This username is already being used"
-        usernameRegET.requestFocus()
+        binding.usernameRegET.error = "This username is already being used"
+        binding.usernameRegET.requestFocus()
     }
 
     override fun displayAccountErrorDialog() {
-        FailedRegisterFragment().show(requireActivity().supportFragmentManager, "Error creating account")
+        FailedRegisterFragment().show(
+            requireActivity().supportFragmentManager,
+            "Error creating account"
+        )
 
     }
 
     override fun displayUnableToConntectDialog() {
-        FailedConnectionFragment().show(requireActivity().supportFragmentManager, "Unable to connect")
+        FailedConnectionFragment().show(
+            requireActivity().supportFragmentManager,
+            "Unable to connect"
+        )
     }
 
     override fun submitUserData() {

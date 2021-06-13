@@ -1,11 +1,10 @@
-package com.example.capitalcityquizktx.common.di
+package com.example.capitalcityquizktx.di
 
 import android.content.Context
 import com.example.capitalcityquizktx.data.DataCsvLoader
 import com.example.capitalcityquizktx.data.DataDownloader
 import com.example.capitalcityquizktx.data.CountryRepository
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
-import com.example.capitalcityquizktx.data.local.CountryDatabaseDao_Impl
 import org.koin.core.module.Module
 import org.koin.dsl.module
 

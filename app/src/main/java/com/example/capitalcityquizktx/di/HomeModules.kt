@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.common.di
+package com.example.capitalcityquizktx.di
 
 import com.example.capitalcityquizktx.domain.viewmodels.HomeViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel

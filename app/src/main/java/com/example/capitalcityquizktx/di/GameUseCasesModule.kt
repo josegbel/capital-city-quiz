@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.common.di
+package com.example.capitalcityquizktx.di
 
 import com.example.capitalcityquizktx.domain.GameInteractor
 import com.example.capitalcityquizktx.domain.GameUseCases

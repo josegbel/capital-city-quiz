@@ -13,20 +13,18 @@ import androidx.databinding.DataBindingUtil.inflate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
-import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
-import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.data.models.geographical.continents.*
-import kotlinx.android.synthetic.main.game_config_survival_fragment.*
+import com.example.capitalcityquizktx.databinding.GameConfigSurvivalFragmentBinding
+import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import kotlin.time.ExperimentalTime
 
 /**
 
-    J. Garcia CapitalCityQuiz in Kotlin 2019
+J. Garcia CapitalCityQuiz in Kotlin 2019
 
  */
 class GameConfigSurvivalFragment : Fragment(),
@@ -40,7 +38,7 @@ class GameConfigSurvivalFragment : Fragment(),
 
     private val _numberOfCountries = MutableLiveData<Int>().default(0)
 
-    override val numberOfCountries : LiveData<Int> = _numberOfCountries
+    override val numberOfCountries: LiveData<Int> = _numberOfCountries
 
     private val displayTimeLimitSeekBar = MutableLiveData<Boolean>().default(false)
 
@@ -66,7 +64,7 @@ class GameConfigSurvivalFragment : Fragment(),
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding: GameConfigSurvivalFragmentBinding = inflate(
             inflater, R.layout.game_config_survival_fragment, container, false
         )
@@ -75,7 +73,7 @@ class GameConfigSurvivalFragment : Fragment(),
         presenter.receiveContinentSelection()
 
 
-        // This counter is used to count the amount of countries to set up the seekBar acording to its value
+        // This counter is used to count the amount of countries to set up the seekBar according to its value
         val counter = MutableLiveData<Int>()
         counter.value = 0
 
@@ -87,7 +85,7 @@ class GameConfigSurvivalFragment : Fragment(),
         binding.timeLimitSeekBar.progress = maxTimeLimit
 
         // Change the check status of buttons if All continents are selected
-        binding.allContinentsSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.allContinentsSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 binding.africaSurvChip.isChecked = true
                 binding.asiaSurvChip.isChecked = true
@@ -101,7 +99,7 @@ class GameConfigSurvivalFragment : Fragment(),
                 binding.europeSurvChip.isCheckable = false
                 binding.northAmericaSurvChip.isCheckable = false
                 binding.southAmericaSurvChip.isCheckable = false
-                allContinentsSurvChip.chipStrokeWidth = 6.0f
+                binding.allContinentsSurvChip.chipStrokeWidth = 6.0f
             }
             if (!isChecked) {
                 binding.africaSurvChip.isCheckable = true
@@ -116,60 +114,58 @@ class GameConfigSurvivalFragment : Fragment(),
                 binding.europeSurvChip.isChecked = false
                 binding.northAmericaSurvChip.isChecked = false
                 binding.southAmericaSurvChip.isChecked = false
-                allContinentsSurvChip.chipStrokeWidth = 0.0f
+                binding.allContinentsSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        displayQuestionNumberSeekBar.observe(viewLifecycleOwner,
-            Observer { displayIt ->
-                if (displayIt){
-                    binding.selectCountriesNumberTv.isVisible = true
+        displayQuestionNumberSeekBar.observe(viewLifecycleOwner) { displayIt ->
+            if (displayIt) {
+                binding.selectCountriesNumberTv.isVisible = true
 
-                    binding.countriesNumberSeekBar.isVisible = true
+                binding.countriesNumberSeekBar.isVisible = true
 
-                    binding.selectedCountriesTV.isVisible = true
+                binding.selectedCountriesTV.isVisible = true
 
-                    binding.countriesNumberSeekBar.max = counter.value!!
+                binding.countriesNumberSeekBar.max = counter.value!!
 
-                    binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
-                }
-                else{
-                    binding.selectCountriesNumberTv.isVisible = false
+                binding.countriesNumberSeekBar.progress = binding.countriesNumberSeekBar.max
+            } else {
+                binding.selectCountriesNumberTv.isVisible = false
 
-                    binding.countriesNumberSeekBar.isVisible = false
+                binding.countriesNumberSeekBar.isVisible = false
 
-                    binding.selectedCountriesTV.isVisible = false
-                }
-            })
+                binding.selectedCountriesTV.isVisible = false
+            }
+        }
 
-        displayTimeLimitSeekBar.observe(viewLifecycleOwner,
-            Observer { displayIt ->
-                if (displayIt){
-                    binding.selectTimeLimitTv.isVisible = true
+        displayTimeLimitSeekBar.observe(viewLifecycleOwner) { displayIt ->
+            if (displayIt) {
+                binding.selectTimeLimitTv.isVisible = true
 
-                    binding.timeLimitSeekBar.isVisible = true
+                binding.timeLimitSeekBar.isVisible = true
 
-                    binding.timeLimitTv.isVisible = true
+                binding.timeLimitTv.isVisible = true
 
-                    // *1000 = convertToMilliseconds     *5 = steps of SeekBar
-                    val timeLimit = presenter
-                        .formatTime(((binding.countriesNumberSeekBar.progress
-                                * (binding.timeLimitSeekBar.progress + minTimeLimit)*1000*5)
-                            .toLong()))
+                // *1000 = convertToMilliseconds     *5 = steps of SeekBar
+                val timeLimit = presenter
+                    .formatTime(
+                        ((binding.countriesNumberSeekBar.progress
+                                * (binding.timeLimitSeekBar.progress + minTimeLimit) * 1000 * 5)
+                            .toLong())
+                    )
 
-                    binding.timeLimitTv.text = "$timeLimit"
-                }
-                else{
-                    binding.selectTimeLimitTv.isVisible = false
+                binding.timeLimitTv.text = "$timeLimit"
+            } else {
+                binding.selectTimeLimitTv.isVisible = false
 
-                    binding.timeLimitSeekBar.isVisible = false
+                binding.timeLimitSeekBar.isVisible = false
 
-                    binding.timeLimitTv.isVisible = false
-                }
-            })
+                binding.timeLimitTv.isVisible = false
+            }
+        }
 
         // These are the listeners that update the message displayed on how many countries and seconds were selected
-        binding.countriesNumberSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+        binding.countriesNumberSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 binding.selectedCountriesTV.text = getString(R.string.countries, progress)
 
@@ -177,7 +173,7 @@ class GameConfigSurvivalFragment : Fragment(),
 
                 maxTimeLimit = 6 - minTimeLimit
 
-                timeLimitSeekBar.max = maxTimeLimit
+                binding.timeLimitSeekBar.max = maxTimeLimit
 
             }
 
@@ -189,17 +185,20 @@ class GameConfigSurvivalFragment : Fragment(),
                 // Not implemented
             }
         })
-        binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener{
+        binding.timeLimitSeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
                 val timeLimit = presenter
-                    .formatTime(((binding.countriesNumberSeekBar.progress
-                            * (binding.timeLimitSeekBar.progress + minTimeLimit)*1000*5).toLong()))
+                    .formatTime(
+                        ((binding.countriesNumberSeekBar.progress
+                                * (binding.timeLimitSeekBar.progress + minTimeLimit) * 1000 * 5).toLong())
+                    )
 
                 binding.timeLimitTv.text = "$timeLimit"
 
                 // progress + minimum range value * steps of SeekBar
-                binding.selectTimeLimitTv.text = getString(R.string.seconds_per_question, ((progress+minTimeLimit)*5))
+                binding.selectTimeLimitTv.text =
+                    getString(R.string.seconds_per_question, ((progress + minTimeLimit) * 5))
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
@@ -217,124 +216,142 @@ class GameConfigSurvivalFragment : Fragment(),
         /* The following listeners check the state of the chips whether they are checked or not,
         in order to count the amount of countries and to count the amount of continents selected */
 
-        binding.africaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.africaSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Africa.totalCountries)
 
                 continentsList.add(Africa)
 
-                africaSurvChip.chipStrokeWidth = 6.0f
-            }else {
+                binding.africaSurvChip.chipStrokeWidth = 6.0f
+            } else {
                 counter.value = counter.value!!.minus(Africa.totalCountries)
 
                 continentsList.remove(Africa)
 
-                africaSurvChip.chipStrokeWidth = 0.0f
+                binding.africaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        binding.australiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.australiaSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Australia.totalCountries)
 
                 continentsList.add(Australia)
 
-                australiaSurvChip.chipStrokeWidth = 6.0f
-            }else {
+                binding.australiaSurvChip.chipStrokeWidth = 6.0f
+            } else {
                 counter.value = counter.value!!.minus(Australia.totalCountries)
 
                 continentsList.remove(Australia)
 
-                australiaSurvChip.chipStrokeWidth = 0.0f
+                binding.australiaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        binding.asiaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.asiaSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Asia.totalCountries)
 
                 continentsList.add(Asia)
 
-                asiaSurvChip.chipStrokeWidth = 6.0f
+                binding.asiaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(Asia.totalCountries)
 
                 continentsList.remove(Asia)
 
-                asiaSurvChip.chipStrokeWidth = 0.0f
+                binding.asiaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        binding.europeSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.europeSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(Europe.totalCountries)
 
                 continentsList.add(Europe)
 
-                europeSurvChip.chipStrokeWidth = 6.0f
+                binding.europeSurvChip.chipStrokeWidth = 6.0f
 
-                Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
+                Log.d(
+                    "ChipSelected",
+                    "EuropeChipSelected: isChecked: ${binding.europeSurvChip.isChecked}"
+                )
             } else {
                 counter.value = counter.value!!.minus(Europe.totalCountries)
 
                 continentsList.remove(Europe)
 
-                europeSurvChip.chipStrokeWidth = 0.0f
+                binding.europeSurvChip.chipStrokeWidth = 0.0f
 
-                Log.d("ChipSelected", "EuropeChipSelected: isChecked: ${europeSurvChip.isChecked}")
+                Log.d(
+                    "ChipSelected",
+                    "EuropeChipSelected: isChecked: ${binding.europeSurvChip.isChecked}"
+                )
             }
         }
 
-        binding.northAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.northAmericaSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(NorthAmerica.totalCountries)
 
                 continentsList.add(NorthAmerica)
 
-                northAmericaSurvChip.chipStrokeWidth = 6.0f
+                binding.northAmericaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(NorthAmerica.totalCountries)
                 continentsList.remove(NorthAmerica)
 
 
-                northAmericaSurvChip.chipStrokeWidth = 0.0f
+                binding.northAmericaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
-        binding.southAmericaSurvChip.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.southAmericaSurvChip.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 counter.value = counter.value!!.plus(SouthAmerica.totalCountries)
 
                 continentsList.add(SouthAmerica)
 
-                southAmericaSurvChip.chipStrokeWidth = 6.0f
+                binding.southAmericaSurvChip.chipStrokeWidth = 6.0f
             } else {
                 counter.value = counter.value!!.minus(SouthAmerica.totalCountries)
 
                 continentsList.remove(SouthAmerica)
 
-                southAmericaSurvChip.chipStrokeWidth = 0.0f
+                binding.southAmericaSurvChip.chipStrokeWidth = 0.0f
             }
         }
 
         // Launch the game!
-        binding.gameConfigSurvPlayBtn.setOnClickListener { v: View ->
-            if (continentsList.value!!.isEmpty()) {
-                Toast.makeText(context, getString(R.string.continents_different_to_zero), Toast.LENGTH_SHORT).show()
-            }
-            else if (countriesNumberSeekBar.progress == 0){
-                Toast.makeText(context, getString(R.string.countries_different_to_zero), Toast.LENGTH_SHORT).show()
-            }
-            else {
-                val gameConfig = SurvivalGameConfig(continentsList.value as ArrayList<Continent>,
-                    binding.countriesNumberSeekBar.progress,
-                    binding.timeLimitSeekBar.progress + minTimeLimit)
-
-                view?.findNavController()?.navigate(
-                    GameConfigSurvivalFragmentDirections.actionGameConfigSurvivalFragmentToSurvivalGameFragment(
-                        gameConfig
+        binding.gameConfigSurvPlayBtn.setOnClickListener {
+            when {
+                continentsList.value!!.isEmpty() -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.continents_different_to_zero),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                binding.countriesNumberSeekBar.progress == 0 -> {
+                    Toast.makeText(
+                        context,
+                        getString(R.string.countries_different_to_zero),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else -> {
+                    val gameConfig = SurvivalGameConfig(
+                        continentsList.value as ArrayList<Continent>,
+                        binding.countriesNumberSeekBar.progress,
+                        binding.timeLimitSeekBar.progress + minTimeLimit
                     )
-                )
+
+                    view?.findNavController()?.navigate(
+                        GameConfigSurvivalFragmentDirections.actionGameConfigSurvivalFragmentToSurvivalGameFragment(
+                            gameConfig
+                        )
+                    )
+                }
             }
         }
         return binding.root

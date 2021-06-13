@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.common.di
+package com.example.capitalcityquizktx.di
 
 import android.content.Context
 import androidx.room.Room
