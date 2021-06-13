@@ -5,11 +5,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
 import com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalView
-import org.junit.After
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -33,15 +34,15 @@ class GameConfigSurvivalModePresenterTest {
     @Mock
     lateinit var view: GameConfigSurvivalView
 
-    lateinit var mocks : AutoCloseable
+    private lateinit var mocks : AutoCloseable
 
-    @Before
+    @BeforeEach
     fun setup() {
         mocks = MockitoAnnotations.openMocks(this)
         presenter = GameConfigSurvivalPresenter(view)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         mocks.close()
     }
@@ -134,18 +135,22 @@ class GameConfigSurvivalModePresenterTest {
         assertEquals(300, actual)
     }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
+    @Test
     fun `Should throw exception when calculating recommended questions time limit given 0 as number of countries`() {
         val countries = 0
 
-        presenter.calculateRecommendedTimeLimit(countries)
+        assertThrows<IllegalArgumentException> {
+            presenter.calculateRecommendedTimeLimit(countries)
+        }
     }
 
-    @Test(expected = java.lang.IllegalArgumentException::class)
+    @Test
     fun `Should throw exception when calculating recommended questions time limit given a negative number of countries`() {
         val countries = -5
 
-        presenter.calculateRecommendedTimeLimit(countries)
+        assertThrows<IllegalArgumentException> {
+            presenter.calculateRecommendedTimeLimit(countries)
+        }
     }
 
     @ExperimentalTime
@@ -249,10 +254,12 @@ class GameConfigSurvivalModePresenterTest {
     }
 
     @ExperimentalTime
-    @Test(expected = IllegalArgumentException::class)
-    fun `given negative amount of millis should throw IllegalArgumentExpection`() {
+    @Test
+    fun `given negative amount of millis should throw IllegalArgumentException`() {
         val millis = -5
 
-        presenter.formatTime(millis.toLong())
+        assertThrows<IllegalArgumentException> {
+            presenter.formatTime(millis.toLong())
+        }
     }
 }

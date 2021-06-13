@@ -13,11 +13,11 @@ import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito
 
-@RunWith(AndroidJUnit4::class)
 class SurvivalGameFragmentTest {
 
     private val bundle = Bundle()
@@ -26,7 +26,7 @@ class SurvivalGameFragmentTest {
     @JvmField
     var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
-    @Before
+    @BeforeEach
     fun setUp(){
         // fragment argument mock
         val survivalGameConfigMock = Mockito.mock(SurvivalGameConfig::class.java)

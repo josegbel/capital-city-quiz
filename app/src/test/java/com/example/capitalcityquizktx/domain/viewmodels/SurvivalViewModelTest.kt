@@ -4,7 +4,11 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.capitalcityquizktx.domain.GameUseCases
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
-import org.junit.*
+import org.junit.Assert
+import org.junit.Rule
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
@@ -37,13 +41,13 @@ class SurvivalViewModelTest {
 
     private lateinit var mocks: AutoCloseable
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
         SUT = SurvivalViewModel(useCases, testCoroutineTestRule.testDispatcherProvider.io())
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         mocks.close()
     }

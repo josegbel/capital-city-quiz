@@ -3,6 +3,7 @@ apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
+apply plugin: 'de.mannodermaus.android-junit5'
 
 kapt {
     correctErrorTypes true
@@ -17,6 +18,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunnerArgument("runnerBuilder", "de.mannodermaus.junit5.AndroidJUnit5Builder")
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true
     }
@@ -45,6 +47,7 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         dataBinding true
         viewBinding true
@@ -62,6 +65,11 @@ android {
             force("net.bytebuddy:byte-buddy-agent:1.9.10")
             force("org.objenesis:objenesis:2.6")
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE.md'
+        exclude 'META-INF/LICENSE-notice.md'
     }
 }
 
@@ -121,24 +129,26 @@ dependencies {
     implementation 'com.basgeekball:awesome-validation:4.2'
 
     // Testing
-    implementation 'junit:junit:4.13'
     debugImplementation "androidx.fragment:fragment-testing:$version_fragment"
     testImplementation 'com.willowtreeapps.assertk:assertk-jvm:0.20'
     testImplementation 'com.github.marcinOz:TestCoroutineRule:1.0.1'
-    testImplementation 'junit:junit:4.13'
     testImplementation 'android.arch.core:core-testing:1.1.1'
     testImplementation 'android.arch.persistence.room:testing:1.0.0'
     testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
     testImplementation 'org.mockito:mockito-core:3.7.7'
+//    testImplementation "org.junit.jupiter:junit-jupiter-api:5.7.2"
+//    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:5.7.2"
+    testImplementation(platform('org.junit:junit-bom:5.7.2'))
+    testImplementation('org.junit.jupiter:junit-jupiter')
     androidTestImplementation 'org.mockito:mockito-android:3.7.7'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
-    androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test:rules:1.1.0'
     androidTestImplementation ("io.insert-koin:koin-test-junit5:$koin_version") {
         exclude group: 'org.mockito', module: 'mockito-inline'
     }
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
-
+    androidTestImplementation("androidx.test:runner:1.3.0")
+    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
+    androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.2.2")
+    androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.2")
 }

@@ -1,14 +1,15 @@
 package com.example.capitalcityquizktx
 
 import assertk.assertThat
-import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
-import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
-import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.common.utils.ContinentSelector
 import com.example.capitalcityquizktx.common.utils.DatabaseUtils
-import junit.framework.Assert.assertEquals
-import org.junit.Before
-import org.junit.Test
+import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
+import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.assertThrows
 import java.io.ByteArrayInputStream
 
 /**
@@ -17,9 +18,9 @@ import java.io.ByteArrayInputStream
  */
 class DatabaseUtilsTest{
 
-    lateinit var continentSelector : ContinentSelector
+    private lateinit var continentSelector : ContinentSelector
 
-    @Before
+    @BeforeEach
     fun setUp(){
         continentSelector = ContinentSelector()
     }
@@ -59,12 +60,14 @@ class DatabaseUtilsTest{
         }
     }
 
-    @Test (expected = RuntimeException::class)
+    @Test
     fun `should throw exception when inputStream is empty`(){
         val fakeInput =
             """""".trimMargin()
         val targetStream = ByteArrayInputStream(fakeInput.toByteArray())
 
-        DatabaseUtils.getCountriesFromStream(targetStream, continentSelector)
+        assertThrows<RuntimeException> {
+            DatabaseUtils.getCountriesFromStream(targetStream, continentSelector)
+        }
     }
 }

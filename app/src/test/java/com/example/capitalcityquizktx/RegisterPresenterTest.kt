@@ -3,7 +3,11 @@ package com.example.capitalcityquizktx
 import com.example.capitalcityquizktx.data.network.register.UserManagementServiceImpl
 import com.example.capitalcityquizktx.ui.register.IRegisterView
 import com.example.capitalcityquizktx.ui.register.RegisterPresenter
-import org.junit.*
+import org.junit.Assert
+import org.junit.Rule
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
@@ -25,14 +29,14 @@ class RegisterPresenterTest {
     private lateinit var presenter: RegisterPresenter
     private lateinit var mocks: AutoCloseable
 
-    @Before
+    @BeforeEach
     fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
         presenter =
             RegisterPresenter(viewMock, coroutinesTestRule.testDispatcherProvider)
     }
 
-    @After
+    @AfterEach
     fun tearDown() {
         mocks.close()
     }

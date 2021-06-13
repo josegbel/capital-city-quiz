@@ -8,11 +8,12 @@ import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
 import io.reactivex.Single
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.mockito.ArgumentCaptor
 import org.mockito.Captor
@@ -29,10 +30,10 @@ class GameInteractorTest : KoinTest {
     private lateinit var interactor : GameInteractor
 
     // Read comment below to understand why this object is not being injected
-    //    private val interactor : GameInteractor by inject()
+//        private val interactor : GameInteractor by inject()
     // Also this activity is not needed
-    //    @RelaxedMockK
-    //    private lateinit var activity: Activity
+//    @Mock
+//    private lateinit var activity: Activity
 
     @Mock
     private lateinit var repository: CountryRepository
@@ -42,9 +43,9 @@ class GameInteractorTest : KoinTest {
 
     private lateinit var mocks: AutoCloseable
 
-    @Before
+    @BeforeEach
     fun setUp(){
-        MockitoAnnotations.openMocks(this)
+        mocks = MockitoAnnotations.openMocks(this)
         interactor = GameInteractor(repository)
         /** This code is commented out due to an issue with the argument captor not being initialised
          * my intuition is with the fact that I am injecting the dependencies in the wrong way.
@@ -63,9 +64,9 @@ class GameInteractorTest : KoinTest {
 //        }
     }
 
-    @After
+    @AfterEach
     fun tearDown(){
-//        stopKoin()
+        stopKoin()
         mocks.close()
     }
 
@@ -134,7 +135,7 @@ class GameInteractorTest : KoinTest {
 
     @Test
     fun insertAllCountries_callsRepositoryWithRightParams() {
-        `when`(repository.insertCountries(countryListCaptor.capture())).thenAnswer { Answer { } }
+        `when`(repository.insertCountries(countryListCaptor.capture())).thenAnswer { Answer{ emptyList<Country>() } }
         interactor.insertAllCountries(TestData.COUNTRIES)
         assertEquals(countryListCaptor.value, TestData.COUNTRIES)
     }

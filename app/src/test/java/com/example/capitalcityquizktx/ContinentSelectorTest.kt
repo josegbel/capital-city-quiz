@@ -1,105 +1,100 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.data.models.geographical.Continent
-import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import com.example.capitalcityquizktx.common.utils.ContinentSelector
-import junit.framework.Assert.assertEquals
-import org.junit.Test
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 
 class ContinentSelectorTest {
 
     @Test
     fun `when Europe is passed as String should return Europe object` (){
-        //given
+        // given
         val aString = "Europe"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, Europe)
     }
 
     @Test
     fun `when Asia is passed as String should return Asia object` (){
-        //given
+        // given
         val aString = "Asia"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, Asia)
     }
 
     @Test
     fun `when North America is passed as String should return NorthAmerica object` (){
-        //given
+        // given
         val aString = "North America"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, NorthAmerica)
     }
 
     @Test
     fun `when South America is passed as String should return SouthAmerica object` (){
-        //given
+        // given
         val aString = "South America"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, SouthAmerica)
     }
 
     @Test
     fun `when Australia is passed as String should return Australia object` (){
-        //given
+        // given
         val aString = "Australia"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, Australia)
     }
 
     @Test
     fun `when Africa is passed as String should return Africa object` (){
-        //given
+        // given
         val aString = "Africa"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continent = continentSelector.getContinent(aString)
+        // when
+        val continent = continentSelector.getContinent(aString)
 
-        //then
+        // then
         assertEquals (continent, Africa)
     }
 
-    @Test(expected = IllegalArgumentException::class)
+    @Test
     fun `when wrong input is passed as String should throw Exception` (){
-        //given
+        // given
         val aString = "Euro"
         val continentSelector = ContinentSelector()
-        lateinit var continent : Continent
 
-        //when
-        continentSelector.getContinent(aString)
+        assertThrows<java.lang.IllegalArgumentException>{
+            // when
+            continentSelector.getContinent(aString)
+        }
     }
 }

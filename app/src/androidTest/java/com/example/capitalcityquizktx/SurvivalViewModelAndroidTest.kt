@@ -1,29 +1,29 @@
 package com.example.capitalcityquizktx
 
-import androidTestUtils.MainCoroutineRule
-import androidTestUtils.getOrAwaitValue
 import android.content.Context
 import android.util.Log
+import androidTestUtils.MainCoroutineRule
+import androidTestUtils.getOrAwaitValue
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.capitalcityquizktx.data.local.CountryDatabase
+import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
+import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
+import com.example.capitalcityquizktx.data.models.geographical.Country
+import com.example.capitalcityquizktx.data.models.geographical.continents.*
+import com.example.capitalcityquizktx.data.models.user.LearnedCountry
+import com.example.capitalcityquizktx.data.models.user.User
 import com.example.capitalcityquizktx.di.GameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.data.local.*
-import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
-import com.example.capitalcityquizktx.data.models.geographical.Country
-import com.example.capitalcityquizktx.data.models.user.LearnedCountry
-import com.example.capitalcityquizktx.data.models.user.User
-import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.After
-import org.junit.Assert.*
-import org.junit.Before
+import org.junit.Assert.assertEquals
 import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
@@ -31,7 +31,6 @@ import org.koin.test.get
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
 class SurvivalViewModelAndroidTest : KoinTest {
 
     @get:Rule
@@ -50,7 +49,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         const val TAG : String = "JUnit4"
     }
 
-    @Before
+    @BeforeEach
     fun setUp() {
         context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, CountryDatabase::class.java)
@@ -67,7 +66,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
         })
     }
 
-    @After
+    @AfterEach
     @Throws (IOException::class)
     fun closeDb() {
         db.close()
@@ -119,13 +118,13 @@ class SurvivalViewModelAndroidTest : KoinTest {
 
     @Test
     fun should_print_all_european_countries_in_shuffled_fashion() = coroutineRule.runBlockingTest{
-        val countries : List<Country>? = survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))
+        val countries : List<Country> = survivalViewModel.gameUseCases.getCountriesIn(listOf(Europe))
 
         survivalViewModel.populateDatabase()
         Thread.sleep(1500)
 
         for (i in 0 until Europe.totalCountries)
-            println(countries!![i].countryName)
+            println(countries[i].countryName)
     }
 
     @Test
@@ -333,7 +332,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
             for (i in 0..194){
                 println("${countries[i].countryName}," +
                         "${countries[i].capitalCity.name}," +
-                        "${countries[i].continent.continentName}"
+                        countries[i].continent.continentName
                 )
             }
         }

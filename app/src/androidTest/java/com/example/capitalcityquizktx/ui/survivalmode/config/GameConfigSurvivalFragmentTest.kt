@@ -14,20 +14,18 @@ import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 
 
-@RunWith(AndroidJUnit4::class)
 class GameConfigSurvivalFragmentTest {
 
     @Rule
     @JvmField
     val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
 
-    @Before
+    @BeforeEach
     fun setUp(){
         launchFragmentInContainer<GameConfigSurvivalFragment>()
     }

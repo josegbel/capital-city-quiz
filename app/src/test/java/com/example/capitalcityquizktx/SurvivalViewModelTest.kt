@@ -1,17 +1,16 @@
 package com.example.capitalcityquizktx
 
-import testUtil.MainCoroutineRule
 import android.app.Activity
+import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.GameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
-import org.junit.After
-import org.junit.Before
 import org.junit.Rule
-import org.junit.Test
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.core.context.stopKoin
@@ -20,6 +19,7 @@ import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
+import testUtil.MainCoroutineRule
 
 class SurvivalViewModelTest : KoinTest {
     @get:Rule
@@ -34,7 +34,7 @@ class SurvivalViewModelTest : KoinTest {
     private val survivalViewModel : SurvivalViewModel by inject()
     private lateinit var mocks: AutoCloseable
 
-    @Before
+    @BeforeEach
     fun setUp(){
         mocks = MockitoAnnotations.openMocks(this)
 
@@ -53,7 +53,7 @@ class SurvivalViewModelTest : KoinTest {
 
     }
 
-    @After
+    @AfterEach
     fun tearDown(){
         stopKoin()
         mocks.close()

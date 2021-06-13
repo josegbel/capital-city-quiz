@@ -33,7 +33,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding : SurvivalGameFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.survival_game_fragment, container, false)
 
