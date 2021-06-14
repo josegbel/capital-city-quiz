@@ -15,8 +15,8 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import testUtil.CoroutineTestRule
-import testUtil.TestData
+import com.example.capitalcityquizktx.testUtil.CoroutineTestRule
+import com.example.capitalcityquizktx.testUtil.TestData
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)

@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding : LoginFragmentBinding = DataBindingUtil.inflate(
             inflater, R.layout.login_fragment, container, false)
 

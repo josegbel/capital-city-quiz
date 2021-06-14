@@ -20,6 +20,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
  */
 class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
+
+    private lateinit var binding : SurvivalGameFragmentBinding
+
     override fun gameWon() {
         // Navigate to gameWon fragment
     }
@@ -34,20 +37,20 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val binding : SurvivalGameFragmentBinding = DataBindingUtil.inflate(
+        binding = DataBindingUtil.inflate(
             inflater, R.layout.survival_game_fragment, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
 
         val args = SurvivalGameFragmentArgs.fromBundle(requireArguments())
 
         if (gameConfig == null)
             gameConfig = args.survivalGameConfig
 
-//        val application = requireNotNull(this.activity).application
-//        val dataSource = CountryDatabase.getInstance(application).countryDatabaseDao
-//        val viewModelFactory = SurvivalModeViewModelFactory(dataSource, application)
-//
-//        val survivalModeViewModel =
-//            ViewModelProviders.of(this, viewModelFactory).getModule(SurvivalModeViewModel::class.java)
         val survivalViewModel by viewModel<SurvivalViewModel>()
         binding.lifecycleOwner = this
         binding.survivalViewModel = survivalViewModel
@@ -58,19 +61,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
             }
         }
         survivalViewModel.countries.observe(viewLifecycleOwner, myObserver)
-
         survivalViewModel.populateDatabase()
-
-        survivalViewModel.getCountriesFrom(gameConfig!!.continents)
-
-            //survivalViewModel.gameUseCases.getNextQuestion(list)
-        //    Log.d("listOfCountries", list[0].countryName)
-//            val country = survivalViewModel.lista[0]
-////            country.postValue(list[0])
-//            .observe(this, Observer<Country>{
-//                binding.countryTextView.text = country.value?.countryName
-//            })
-
-        return binding.root
+        survivalViewModel.getCountriesFrom(gameConfig?.continents ?: emptyList())
     }
 }

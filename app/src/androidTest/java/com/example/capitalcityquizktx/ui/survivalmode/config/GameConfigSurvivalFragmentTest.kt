@@ -1,14 +1,13 @@
 package com.example.capitalcityquizktx.ui.survivalmode.config
 
-import androidTestUtils.SeekbarActions
-import androidTestUtils.TextViewActions
+import com.example.capitalcityquizktx.androidTestUtils.SeekbarActions
+import com.example.capitalcityquizktx.androidTestUtils.TextViewActions
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R

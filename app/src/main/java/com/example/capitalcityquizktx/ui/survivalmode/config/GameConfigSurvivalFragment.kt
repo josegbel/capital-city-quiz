@@ -341,7 +341,7 @@ class GameConfigSurvivalFragment : Fragment(),
                 }
                 else -> {
                     val gameConfig = SurvivalGameConfig(
-                        continentsList.value as ArrayList<Continent>,
+                        continentsList.value,
                         binding.countriesNumberSeekBar.progress,
                         binding.timeLimitSeekBar.progress + minTimeLimit
                     )

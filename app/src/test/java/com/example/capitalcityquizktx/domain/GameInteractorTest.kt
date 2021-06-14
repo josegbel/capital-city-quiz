@@ -22,7 +22,7 @@ import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.mockito.internal.verification.Times
 import org.mockito.stubbing.Answer
-import testUtil.TestData
+import com.example.capitalcityquizktx.testUtil.TestData
 
 class GameInteractorTest : KoinTest {
 

@@ -19,7 +19,7 @@ import org.koin.test.inject
 import org.koin.test.mock.declareMock
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import testUtil.MainCoroutineRule
+import com.example.capitalcityquizktx.testUtil.MainCoroutineRule
 
 class SurvivalViewModelTest : KoinTest {
     @get:Rule

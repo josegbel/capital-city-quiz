@@ -1,4 +1,4 @@
-package androidTestUtils
+package com.example.capitalcityquizktx.androidTestUtils
 
 import android.view.View
 import android.widget.SeekBar

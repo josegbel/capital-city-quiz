@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
-@LargeTest
 class GameModeSelectionFragmentTest {
 
     @Rule
@@ -25,13 +24,10 @@ class GameModeSelectionFragmentTest {
     fun when_survival_mode_button_clicked_navigates_to_game_config_fragment(){
         val scenario = launchFragmentInContainer<GameModeSelectionFragment>()
         val mockNavController = mock(NavController::class.java)
-
         scenario.onFragment {
             Navigation.setViewNavController(it.requireView(), mockNavController)
         }
-
         onView(withId(R.id.GMSFsurvivalModeBtn)).perform(click())
-
         verify(mockNavController).navigate(R.id.action_gameModeSelectionFragment_to_gameConfigSurvivalFragment)
     }
 }

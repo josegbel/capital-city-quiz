@@ -5,22 +5,32 @@ import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.MainActivity
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
+import com.example.capitalcityquizktx.data.models.geographical.Continent
 import org.junit.Before
 import org.junit.Rule
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 
 class SurvivalGameFragmentTest {
 
     private val bundle = Bundle()
+
+    @Mock
+    private lateinit var survivalGameConfigMock : SurvivalGameConfig
+
+    private lateinit var mocks: AutoCloseable
 
     @Rule
     @JvmField
@@ -28,41 +38,45 @@ class SurvivalGameFragmentTest {
 
     @BeforeEach
     fun setUp(){
-        // fragment argument mock
-        val survivalGameConfigMock = Mockito.mock(SurvivalGameConfig::class.java)
+        mocks = MockitoAnnotations.openMocks(this)
         // added to bundle
         bundle.putParcelable("survivalGameConfig", survivalGameConfigMock)
         // launch fragment with args
         launchFragmentInContainer<SurvivalGameFragment>(fragmentArgs = bundle)
     }
 
+    @AfterEach
+    fun tearDown() {
+        mocks.close()
+    }
+
     @Test
     fun checkTimerTextView_isDisplayed(){
-        onView(withId(R.id.timerTextView)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.timerTextView)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkDivider_isDisplayed(){
-        onView(withId(R.id.survival_game_divider)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.survival_game_divider)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkCounterTextView_isDisplayed(){
-        onView(withId(R.id.counterTextView)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.counterTextView)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkCountryTextView_isDisplayed(){
-        onView(withId(R.id.countryTextView)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.countryTextView)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkCapitalEditText_isDisplayed(){
-        onView(withId(R.id.capitalEditText)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.capitalEditText)).check(matches(isDisplayed()))
     }
 
     @Test
     fun checkEnterBtn_isDisplayed(){
-        onView(withId(R.id.enterBtn)).check(matches(ViewMatchers.isDisplayed()))
+        onView(withId(R.id.enterBtn)).check(matches(isDisplayed()))
     }
 }
