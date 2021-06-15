@@ -2,7 +2,10 @@ package com.example.capitalcityquizktx.domain.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.capitalcityquizktx.domain.GameUseCases
+import com.example.capitalcityquizktx.testUtil.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
 import org.junit.Rule
@@ -10,29 +13,26 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentMatchers.any
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnitRunner
-import com.example.capitalcityquizktx.testUtil.CoroutineTestRule
-import com.example.capitalcityquizktx.testUtil.TestData
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.kotlin.any
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class SurvivalViewModelTest {
-
-    @get: Rule
-    val testCoroutineTestRule = CoroutineTestRule()
-
-    @get: Rule
-    val instantTaskExecutorRule = InstantTaskExecutorRule()
+@ExtendWith(InstantExecutorExtension::class)
+class SurvivalViewModelTest : CoroutineTest {
 
     // region constants
 
     // endregion constants
 
     // region helper fields
+    override lateinit var testScope: TestCoroutineScope
+    override lateinit var testDispatcher: TestCoroutineDispatcher
+
     @Mock
     lateinit var useCases : GameUseCases
 
@@ -44,7 +44,7 @@ class SurvivalViewModelTest {
     @BeforeEach
     fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
-        SUT = SurvivalViewModel(useCases, testCoroutineTestRule.testDispatcherProvider.io())
+        SUT = SurvivalViewModel(useCases, testDispatcher)
     }
 
     @AfterEach
@@ -53,8 +53,7 @@ class SurvivalViewModelTest {
     }
 
     @Test
-    fun getCountriesFrom_successfullyPostCountriesToLiveData()
-            = testCoroutineTestRule.testDispatcher.runBlockingTest {
+    fun getCountriesFrom_successfullyPostCountriesToLiveData() = testDispatcher.runBlockingTest {
         Mockito.`when`(useCases.getCountriesIn(any())).thenReturn(TestData.COUNTRIES)
         SUT.getCountriesFrom(TestData.CONTINENTS)
         Assert.assertEquals(SUT.countries.value, TestData.COUNTRIES)

@@ -1,21 +1,19 @@
 package com.example.capitalcityquizktx
 
-import com.example.capitalcityquizktx.data.network.register.UserManagementServiceImpl
+import com.example.capitalcityquizktx.data.network.register.UserManagementService
+import com.example.capitalcityquizktx.testUtil.CoroutineTestRule
 import com.example.capitalcityquizktx.ui.register.IRegisterView
 import com.example.capitalcityquizktx.ui.register.RegisterPresenter
 import org.junit.Assert
 import org.junit.Rule
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
+import org.junit.jupiter.api.Test
+import org.koin.test.KoinTest
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
-import com.example.capitalcityquizktx.testUtil.CoroutineTestRule
 
-@RunWith(JUnit4::class)
-class RegisterPresenterTest {
+class RegisterPresenterTest() : KoinTest {
 
     @get:Rule
     var coroutinesTestRule = CoroutineTestRule()
@@ -24,7 +22,7 @@ class RegisterPresenterTest {
     lateinit var viewMock: IRegisterView
 
     @Mock
-    lateinit var service : UserManagementServiceImpl
+    lateinit var service: UserManagementService
 
     private lateinit var presenter: RegisterPresenter
     private lateinit var mocks: AutoCloseable
@@ -43,7 +41,7 @@ class RegisterPresenterTest {
 
     @Test
     fun shouldDoTheTrickForThisClass() {
-       Assert.assertEquals(1,1)
+        Assert.assertEquals(1, 1)
     }
 
 //    @Test
@@ -64,8 +62,8 @@ class RegisterPresenterTest {
 //        coVerify(exactly = 1) { service.createNewUser(userDetails) }
 //    }
 
-    @Test
-    fun `shouldVerifyEmailExistsWhenCreatingNewUser`() {
+//    @Test
+//    fun shouldVerifyEmailExistsWhenCreatingNewUser() {
 //        // given
 //        val userDetails = UserDetails(
 //            username = "user1", password = "123",
@@ -88,5 +86,5 @@ class RegisterPresenterTest {
 //                userDetails.email
 //            )
 //        }
-    }
+//    }
 }

@@ -39,7 +39,8 @@ class DataDownloader(private val dataCsvLoader : DataCsvLoader,
     }
 
     override fun getCountryList(): Single<MutableList<Country>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        // TODO needs doing
+        return Single.just(mutableListOf())
     }
 
     override fun getCountryListBy(continents: List<Continent>): List<Country> {

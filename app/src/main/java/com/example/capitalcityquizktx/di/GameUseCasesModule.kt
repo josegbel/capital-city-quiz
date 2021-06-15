@@ -13,10 +13,6 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
  */
 object GameUseCasesModule {
     fun getModules() : Module =  module {
-        fun provideGameInteractor(countryRepository: CountryRepository) : GameUseCases {
-            return GameInteractor(countryRepository)
-        }
-        single { provideGameInteractor(get()) }
-        single { GameInteractor (get())}
+        single { GameInteractor(get()) }
     }
 }

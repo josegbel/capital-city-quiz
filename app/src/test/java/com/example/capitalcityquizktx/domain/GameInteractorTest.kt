@@ -1,10 +1,13 @@
 package com.example.capitalcityquizktx.domain
 
+import android.app.Application
 import com.example.capitalcityquizktx.data.CountryRepository
+import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
 import com.example.capitalcityquizktx.data.models.geographical.continents.Asia
 import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
+import com.example.capitalcityquizktx.di.GameUseCasesModule
 import io.reactivex.Single
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
@@ -15,57 +18,67 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
-import org.mockito.ArgumentCaptor
-import org.mockito.Captor
-import org.mockito.Mock
-import org.mockito.Mockito.*
-import org.mockito.MockitoAnnotations
 import org.mockito.internal.verification.Times
 import org.mockito.stubbing.Answer
 import com.example.capitalcityquizktx.testUtil.TestData
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.startKoin
+import org.koin.dsl.module
+import org.koin.test.inject
+import org.mockito.*
+import org.mockito.kotlin.*
 
 class GameInteractorTest : KoinTest {
 
-    private val FIELDSCOUNT: Int = 10
-    private lateinit var interactor : GameInteractor
+    companion object {
+        private const val FIELD_COUNT = 10
+    }
 
-    // Read comment below to understand why this object is not being injected
-//        private val interactor : GameInteractor by inject()
-    // Also this activity is not needed
-//    @Mock
-//    private lateinit var activity: Activity
+    private val interactor: GameInteractor by inject()
+
+    @Mock
+    private lateinit var application: Application
 
     @Mock
     private lateinit var repository: CountryRepository
 
-    @Captor
-    private lateinit var countryListCaptor: ArgumentCaptor<List<Country>>
+    @Mock
+    lateinit var countryDatabaseDaoMock: CountryDatabaseDao
+
+    private lateinit var countryListCaptor: KArgumentCaptor<List<Country>>
 
     private lateinit var mocks: AutoCloseable
 
+    private val mockedDbModule by lazy {
+        module {
+            single { countryDatabaseDaoMock }
+        }
+    }
+    private val mockedRepositoryModule by lazy {
+        module {
+            single { repository }
+        }
+    }
+
     @BeforeEach
-    fun setUp(){
+    fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
-        interactor = GameInteractor(repository)
-        /** This code is commented out due to an issue with the argument captor not being initialised
-         * my intuition is with the fact that I am injecting the dependencies in the wrong way.
-         * As it can be seen, I am currently initialising the "interactor" manually and the
-         * argument captor is working ... I tried to use Mockito but I get an issue with
-         * the "application" being null, which makes me think there is an issue with the way
-         * I am using Koin Dependency Injection                                                   */
-//        val application = activity.application
-//        startKoin {
-//            androidContext(application)
-//            modules(listOf(
-//                DatabaseModule.getModule(),
-//                RepositoryModule.getModule(),
-//                SurvivalViewModelModule.getModule(),
-//                GameUseCasesModule.getModules()))
-//        }
+        countryListCaptor = argumentCaptor()
+
+        startKoin {
+            androidContext(application)
+            modules(
+                listOf(
+                    mockedRepositoryModule,
+                    mockedDbModule,
+                    GameUseCasesModule.getModules()
+                )
+            )
+        }
     }
 
     @AfterEach
-    fun tearDown(){
+    fun tearDown() {
         stopKoin()
         mocks.close()
     }
@@ -78,7 +91,7 @@ class GameInteractorTest : KoinTest {
     }
 
     @Test
-    fun getNextQuestion_emptyList_returnsNull(){
+    fun getNextQuestion_emptyList_returnsNull() {
         val countries = mutableListOf<Country>()
         val country = interactor.getNextQuestion(countries)
         assertEquals(null, country)
@@ -112,44 +125,49 @@ class GameInteractorTest : KoinTest {
     @Throws(Exception::class)
     fun removeCountry_success_repositoryIsCalledWithCorrectData() {
         val country = TestData.COUNTRY1
-        val argumentCaptor = ArgumentCaptor.forClass(Country::class.java)
-        doNothing().`when`(repository.removeCountry(argumentCaptor.capture()))
+        val argumentCaptor = argumentCaptor<Country>()
         interactor.removeCountry(country)
-        assertEquals(country, argumentCaptor.value)
+        verify(repository, Times(1)).removeCountry(argumentCaptor.capture())
+        assertEquals(country, argumentCaptor.firstValue)
     }
 
     @Test
     fun getCountriesIn_listOfContinents_returnsCountryList() {
-        `when`(repository.getCountryListBy(any())).thenReturn(TestData.COUNTRIES)
+        whenever(repository.getCountryListBy(any())).thenReturn(TestData.COUNTRIES)
         val actual = interactor.getCountriesIn(listOf(Europe, Africa, Asia))
-        assertTrue(actual.size == TestData.COUNTRIES.size
-                && actual.containsAll(TestData.COUNTRIES) && TestData.COUNTRIES.containsAll(actual))
+        assertTrue(
+            actual.size == TestData.COUNTRIES.size
+                    && actual.containsAll(TestData.COUNTRIES) && TestData.COUNTRIES.containsAll(
+                actual
+            )
+        )
     }
 
     @Test
     fun destroyCountries_callsMethodInRepository() {
-        `when`(repository.removeCountries()).thenAnswer { Answer { } }
+        whenever(repository.removeCountries()).thenAnswer { Answer { } }
         interactor.destroyCountries()
-        verify(repository.removeCountries(), Times(1))
+        verify(repository, Times(1)).removeCountries()
     }
 
     @Test
     fun insertAllCountries_callsRepositoryWithRightParams() {
-        `when`(repository.insertCountries(countryListCaptor.capture())).thenAnswer { Answer{ emptyList<Country>() } }
+        whenever(repository.insertCountries(any())).thenAnswer { Answer { emptyList<Country>() } }
         interactor.insertAllCountries(TestData.COUNTRIES)
-        assertEquals(countryListCaptor.value, TestData.COUNTRIES)
+        verify(repository, Times(1)).insertCountries(countryListCaptor.capture())
+        assertEquals(countryListCaptor.firstValue, TestData.COUNTRIES)
     }
 
     @Test
     fun getDataFieldCount_returnsDataFieldCount() {
-        `when`(repository.getFieldsCount()).thenReturn(FIELDSCOUNT)
+        whenever(repository.getFieldsCount()).thenReturn(FIELD_COUNT)
         val actual = interactor.getDataFieldsCount()
-        assertEquals(FIELDSCOUNT, actual)
+        assertEquals(FIELD_COUNT, actual)
     }
 
     @Test
     fun getCountriesFromStream_returnsCountryList() {
-        `when`(repository.getCountriesFromFile()).thenReturn(TestData.COUNTRIES)
+        whenever(repository.getCountriesFromFile()).thenReturn(TestData.COUNTRIES)
         val actual = interactor.getCountriesFromStream()
         assertEquals(TestData.COUNTRIES, actual)
     }
@@ -157,7 +175,7 @@ class GameInteractorTest : KoinTest {
     @Test
     fun getAllCountries_returnsSingleCountryList() {
         val expected = Single.just(TestData.COUNTRIES)
-        `when`(repository.getCountryList()).thenReturn(expected)
+        whenever(repository.getCountryList()).thenReturn(expected)
         val actual = interactor.getAllCountries()
         assertEquals(expected, actual)
     }

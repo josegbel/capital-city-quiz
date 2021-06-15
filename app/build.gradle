@@ -1,9 +1,14 @@
+import com.android.build.gradle.tasks.factory.AndroidUnitTest
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 apply plugin: 'com.android.application'
 apply plugin: 'androidx.navigation.safeargs'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-parcelize'
 apply plugin: 'de.mannodermaus.android-junit5'
+apply plugin: 'org.barfuin.gradle.taskinfo'
 
 kapt {
     correctErrorTypes true
@@ -137,8 +142,9 @@ dependencies {
     testImplementation 'android.arch.persistence.room:testing:1.0.0'
     testImplementation "io.insert-koin:koin-test-junit5:$koin_version"
     testImplementation 'org.mockito:mockito-core:3.7.7'
-    testImplementation(platform('org.junit:junit-bom:5.7.2'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation "org.mockito.kotlin:mockito-kotlin:3.2.0"
+    testImplementation platform('org.junit:junit-bom:5.7.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'org.mockito:mockito-android:3.7.7'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
@@ -150,4 +156,40 @@ dependencies {
     androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.2.2")
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.2")
+}
+
+tasks.withType(AndroidUnitTest) {
+    testLogging {
+        // set options for log level LIFECYCLE
+        events TestLogEvent.FAILED,
+                TestLogEvent.PASSED,
+                TestLogEvent.SKIPPED,
+                TestLogEvent.STANDARD_OUT
+        exceptionFormat TestExceptionFormat.FULL
+        showExceptions true
+        showCauses true
+        showStackTraces true
+
+        // set options for log level DEBUG and INFO
+        debug {
+            events TestLogEvent.STARTED,
+                    TestLogEvent.FAILED,
+                    TestLogEvent.PASSED,
+                    TestLogEvent.SKIPPED,
+                    TestLogEvent.STANDARD_ERROR,
+                    TestLogEvent.STANDARD_OUT
+            exceptionFormat TestExceptionFormat.FULL
+        }
+        info.events = debug.events
+        info.exceptionFormat = debug.exceptionFormat
+
+        afterSuite { desc, result ->
+            if (!desc.parent) { // will match the outermost suite
+                def output = "Results: ${result.resultType} (${result.testCount} tests, ${result.successfulTestCount} passed, ${result.failedTestCount} failed, ${result.skippedTestCount} skipped)"
+                def startItem = '|  ', endItem = '  |'
+                def repeatLength = startItem.length() + output.length() + endItem.length()
+                println('\n' + ('-' * repeatLength) + '\n' + startItem + output + endItem + '\n' + ('-' * repeatLength))
+            }
+        }
+    }
 }

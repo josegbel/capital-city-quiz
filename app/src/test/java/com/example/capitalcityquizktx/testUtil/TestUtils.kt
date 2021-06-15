@@ -7,6 +7,12 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.*
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.extension.AfterEachCallback
+import org.junit.jupiter.api.extension.BeforeEachCallback
+import org.junit.jupiter.api.extension.Extension
+import org.junit.jupiter.api.extension.ExtensionContext
 import org.junit.rules.TestRule
 import org.junit.rules.TestWatcher
 import org.junit.runner.Description
@@ -24,7 +30,7 @@ class MainCoroutineRule : TestRule {
     val testDispatcher = TestCoroutineDispatcher()
     private val testCoroutineScope = TestCoroutineScope(testDispatcher)
 
-    override fun apply(base: Statement, description: Description?) = object: Statement() {
+    override fun apply(base: Statement, description: Description?) = object : Statement() {
         @Throws(Throwable::class)
         override fun evaluate() {
             Dispatchers.setMain(testDispatcher)
@@ -41,7 +47,8 @@ class MainCoroutineRule : TestRule {
 }
 
 @ExperimentalCoroutinesApi
-class CoroutineTestRule(val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) : TestWatcher() {
+class CoroutineTestRule(val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()) :
+    TestWatcher() {
 
     val testDispatcherProvider = object : DispatcherProvider {
         override fun default(): CoroutineDispatcher = testDispatcher
@@ -88,3 +95,4 @@ fun <T> LiveData<T>.getOrAwaitValue(
     @Suppress("UNCHECKED_CAST")
     return data as T
 }
+

@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.domain.GameConfigSurvivalPresenter
+import com.example.capitalcityquizktx.testUtil.InstantExecutorExtension
 import com.example.capitalcityquizktx.ui.survivalmode.config.GameConfigSurvivalView
 import org.junit.Assert.assertEquals
 import org.junit.Rule
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.Mockito.verify
@@ -23,13 +25,11 @@ import kotlin.time.ExperimentalTime
     J. Garcia CapitalCityQuiz in Kotlin 2019
 
  */
+@ExtendWith(InstantExecutorExtension::class)
 class GameConfigSurvivalModePresenterTest {
 
     private lateinit var presenter: GameConfigSurvivalPresenter
     private val listLiveData = MutableLiveData<List<Continent>>()
-
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
 
     @Mock
     lateinit var view: GameConfigSurvivalView
