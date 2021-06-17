@@ -28,10 +28,6 @@ interface CountryDatabaseDao {
     @Query("select COUNT(*) from countries")
     fun dataFieldsCount() : Int
 
-//    @Transaction
-//    @Query ("select * from users")
-//    fun getLearnedCountries(): LiveData<UserLearnedJoint>
-
     @Transaction
     @Query ("select * from learned_countries")
     fun getLearnedCountries(): LiveData<List<LearnedCountry>>

@@ -11,9 +11,8 @@ import java.io.*
 
  */
 class DataCsvLoader {
-    fun getCountryList(file: InputStream,
-                               continentSelector : ContinentSelector
-    ): List<Country> {
+
+    fun getCountryList(file: InputStream, continentSelector : ContinentSelector): List<Country> {
         val countries : MutableList<Country> = mutableListOf()
         try {
             val reader = InputStreamReader(file)

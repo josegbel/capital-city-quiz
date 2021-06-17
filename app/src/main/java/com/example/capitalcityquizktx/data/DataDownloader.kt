@@ -13,7 +13,7 @@ import io.reactivex.Single
     J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 
  */
-class DataDownloader(private val dataCsvLoader : DataCsvLoader,
+open class DataDownloader(private val dataCsvLoader : DataCsvLoader,
                      private val database: CountryDatabaseDao,
                      private val context : Context
 ) : CountryRepository {
@@ -44,16 +44,12 @@ class DataDownloader(private val dataCsvLoader : DataCsvLoader,
     }
 
     override fun getCountryListBy(continents: List<Continent>): List<Country> {
-//        val countries = MutableLiveData<MutableList<Country>>()
         val tempList = mutableListOf<Country>()
 
         // collect all the countries in a temporary list
         for (i in continents.indices){
             tempList.addAll(database.getCountriesBy(continents[i].continentName))
         }
-//
-//        // post the countries to a liveData
-//        countries.postValue(tempList)
         return tempList
     }
 }

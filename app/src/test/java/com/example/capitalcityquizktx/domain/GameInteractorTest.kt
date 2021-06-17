@@ -40,7 +40,7 @@ class GameInteractorTest : KoinTest {
     private lateinit var application: Application
 
     @Mock
-    private lateinit var repository: CountryRepository
+    private lateinit var repositoryMock: CountryRepository
 
     @Mock
     lateinit var countryDatabaseDaoMock: CountryDatabaseDao
@@ -56,7 +56,7 @@ class GameInteractorTest : KoinTest {
     }
     private val mockedRepositoryModule by lazy {
         module {
-            single { repository }
+            single { repositoryMock }
         }
     }
 
@@ -127,13 +127,13 @@ class GameInteractorTest : KoinTest {
         val country = TestData.COUNTRY1
         val argumentCaptor = argumentCaptor<Country>()
         interactor.removeCountry(country)
-        verify(repository, Times(1)).removeCountry(argumentCaptor.capture())
+        verify(repositoryMock, Times(1)).removeCountry(argumentCaptor.capture())
         assertEquals(country, argumentCaptor.firstValue)
     }
 
     @Test
     fun getCountriesIn_listOfContinents_returnsCountryList() {
-        whenever(repository.getCountryListBy(any())).thenReturn(TestData.COUNTRIES)
+        whenever(repositoryMock.getCountryListBy(any())).thenReturn(TestData.COUNTRIES)
         val actual = interactor.getCountriesIn(listOf(Europe, Africa, Asia))
         assertTrue(
             actual.size == TestData.COUNTRIES.size
@@ -145,29 +145,29 @@ class GameInteractorTest : KoinTest {
 
     @Test
     fun destroyCountries_callsMethodInRepository() {
-        whenever(repository.removeCountries()).thenAnswer { Answer { } }
+        whenever(repositoryMock.removeCountries()).thenAnswer { Answer { } }
         interactor.destroyCountries()
-        verify(repository, Times(1)).removeCountries()
+        verify(repositoryMock, Times(1)).removeCountries()
     }
 
     @Test
     fun insertAllCountries_callsRepositoryWithRightParams() {
-        whenever(repository.insertCountries(any())).thenAnswer { Answer { emptyList<Country>() } }
+        whenever(repositoryMock.insertCountries(any())).thenAnswer { Answer { emptyList<Country>() } }
         interactor.insertAllCountries(TestData.COUNTRIES)
-        verify(repository, Times(1)).insertCountries(countryListCaptor.capture())
+        verify(repositoryMock, Times(1)).insertCountries(countryListCaptor.capture())
         assertEquals(countryListCaptor.firstValue, TestData.COUNTRIES)
     }
 
     @Test
     fun getDataFieldCount_returnsDataFieldCount() {
-        whenever(repository.getFieldsCount()).thenReturn(FIELD_COUNT)
+        whenever(repositoryMock.getFieldsCount()).thenReturn(FIELD_COUNT)
         val actual = interactor.getDataFieldsCount()
         assertEquals(FIELD_COUNT, actual)
     }
 
     @Test
     fun getCountriesFromStream_returnsCountryList() {
-        whenever(repository.getCountriesFromFile()).thenReturn(TestData.COUNTRIES)
+        whenever(repositoryMock.getCountriesFromFile()).thenReturn(TestData.COUNTRIES)
         val actual = interactor.getCountriesFromStream()
         assertEquals(TestData.COUNTRIES, actual)
     }
@@ -175,7 +175,7 @@ class GameInteractorTest : KoinTest {
     @Test
     fun getAllCountries_returnsSingleCountryList() {
         val expected = Single.just(TestData.COUNTRIES)
-        whenever(repository.getCountryList()).thenReturn(expected)
+        whenever(repositoryMock.getCountryList()).thenReturn(expected)
         val actual = interactor.getAllCountries()
         assertEquals(expected, actual)
     }

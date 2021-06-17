@@ -1,11 +1,16 @@
 package com.example.capitalcityquizktx
 
+import android.app.Application
 import android.content.Context
+import android.provider.ContactsContract
 import android.util.Log
 import com.example.capitalcityquizktx.androidTestUtils.MainCoroutineRule
 import com.example.capitalcityquizktx.androidTestUtils.getOrAwaitValue
 import androidx.room.Room
 import androidx.test.platform.app.InstrumentationRegistry
+import com.example.capitalcityquizktx.data.CountryRepository
+import com.example.capitalcityquizktx.data.DataCsvLoader
+import com.example.capitalcityquizktx.data.DataDownloader
 import com.example.capitalcityquizktx.data.local.CountryDatabase
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
@@ -14,23 +19,30 @@ import com.example.capitalcityquizktx.data.models.geographical.continents.*
 import com.example.capitalcityquizktx.data.models.user.LearnedCountry
 import com.example.capitalcityquizktx.data.models.user.User
 import com.example.capitalcityquizktx.di.GameUseCasesModule
-import com.example.capitalcityquizktx.di.RepositoryModule
-import com.example.capitalcityquizktx.di.SurvivalViewModelModule
+import com.example.capitalcityquizktx.domain.GameInteractor
+import com.example.capitalcityquizktx.domain.GameUseCases
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.koin.core.context.loadKoinModules
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.loadKoinModules
+import org.koin.core.context.startKoin
+import org.koin.core.context.stopKoin
 import org.koin.dsl.module
 import org.koin.test.KoinTest
+import org.koin.test.get
 import org.koin.test.inject
+import org.mockito.Mock
+import org.mockito.MockitoAnnotations
 import java.io.IOException
 
 @ExperimentalCoroutinesApi
-class SurvivalViewModelAndroidTest : KoinTest {
+class SurvivalViewModelAndroidTest {
 
     @get:Rule
     val coroutineRule = MainCoroutineRule()
@@ -38,7 +50,11 @@ class SurvivalViewModelAndroidTest : KoinTest {
     private lateinit var countryDao: CountryDatabaseDao
     private lateinit var db: CountryDatabase
     private lateinit var context: Context
-    private val survivalViewModel: SurvivalViewModel by inject()
+    private lateinit var survivalViewModel: SurvivalViewModel
+    private lateinit var gameUseCases: GameUseCases
+    private lateinit var countryRepository: CountryRepository
+
+    private lateinit var mocks: AutoCloseable
 
     companion object {
         const val TAG: String = "JUnit4"
@@ -46,14 +62,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
 
     @BeforeEach
     fun setUp() {
-        loadKoinModules(
-            module {
-                listOf(
-                    SurvivalViewModelModule.getModule(),
-                    RepositoryModule.getModule(),
-                    GameUseCasesModule.getModules()
-                )
-            })
+        mocks = MockitoAnnotations.openMocks(this)
 
         context = InstrumentationRegistry.getInstrumentation().targetContext
         db = Room.inMemoryDatabaseBuilder(context, CountryDatabase::class.java)
@@ -62,6 +71,9 @@ class SurvivalViewModelAndroidTest : KoinTest {
         Log.d(TAG, "createDb")
         countryDao = db.countryDatabaseDao
         Log.d(TAG, "Dao Referenced")
+        countryRepository = DataDownloader(DataCsvLoader(), countryDao, context)
+        gameUseCases = GameInteractor(countryRepository)
+        survivalViewModel = SurvivalViewModel(gameUseCases, Dispatchers.Default)
     }
 
     @AfterEach
@@ -69,6 +81,7 @@ class SurvivalViewModelAndroidTest : KoinTest {
     fun tearDown() {
         db.close()
         Log.d(TAG, "closeDb")
+        mocks.close()
     }
 
     @Test

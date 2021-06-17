@@ -11,7 +11,7 @@ import java.util.*
     J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 
  */
-class GameInteractor(
+open class GameInteractor(
     private val countryRepository: CountryRepository
 ) : GameUseCases{
 
