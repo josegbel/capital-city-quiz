@@ -20,7 +20,7 @@ The api uses a docker container to run the application.
 * [Material Components for Android](https://material.io/develop/android/) by The Android Open Source Project
 * [Koin](https://github.com/InsertKoinIO/koin) by arnaudgiuliani
 * [RxJava](https://github.com/ReactiveX/RxJava) by ReactiveX
-* [MockK](https://github.com/mockk/mockk) by oleksiyp
+* [Mockito](https://github.com/mockito/mockito) by Szczepan Faber
 * [AssertK](https://github.com/willowtreeapps/assertk) by willowtreeapps
 
 ## Contributors
