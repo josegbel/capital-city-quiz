@@ -3,7 +3,7 @@ package com.example.capitalcityquizktx
 import android.app.Application
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.di.DatabaseModule
-import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.SurvivalGameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
 import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
@@ -43,7 +43,7 @@ class SurvivalViewModelTest : KoinTest {
             modules(listOf(
                 SurvivalViewModelModule.getModule(),
                 RepositoryModule.getModule(),
-                GameUseCasesModule.getModules(),
+                SurvivalGameUseCasesModule.getModules(),
                 DatabaseModule.getModule()))
         }
     }

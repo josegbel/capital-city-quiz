@@ -1,7 +1,7 @@
 package com.example.capitalcityquizktx.domain.viewmodels
 
 import androidx.lifecycle.*
-import com.example.capitalcityquizktx.domain.GameUseCases
+import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
 import com.example.capitalcityquizktx.domain.ISurvivalGame
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.data.models.geographical.Country
@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 
  */
 class SurvivalViewModel(
-    val gameUseCases: GameUseCases,
+    val survivalGameUseCases: SurvivalGameUseCases,
    // val subscribeOnScheduler: Scheduler,
    // val observeOnScheduler: Scheduler,
     private val coroutineDispatcher: CoroutineDispatcher)
@@ -48,7 +48,7 @@ class SurvivalViewModel(
 
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun populateDatabase() {
+    fun repopulateCountriesInCache() {
         uiScope.launch {
             deleteAllCountries()
             insertCountries(getListOfCountriesFromFile())
@@ -57,26 +57,26 @@ class SurvivalViewModel(
 
     fun getCountriesFrom(continents: List<Continent>) {
         uiScope.launch (coroutineDispatcher) {
-                _countries.postValue(gameUseCases.getCountriesIn(continents))
+                _countries.postValue(survivalGameUseCases.getCountriesIn(continents))
         }
     }
 
     private suspend fun deleteAllCountries() {
         withContext(coroutineDispatcher){
-            gameUseCases.destroyCountries()
+            survivalGameUseCases.destroyCountries()
         }
     }
 
     private suspend fun insertCountries(countries: List<Country>) {
         withContext(coroutineDispatcher) {
-            gameUseCases.insertAllCountries(countries)
+            survivalGameUseCases.insertAllCountries(countries)
         }
     }
 
     private suspend fun getListOfCountriesFromFile(): List<Country> {
         // Creating the list of countries from a raw file (csv)
         return withContext(coroutineDispatcher){
-            gameUseCases.getCountriesFromStream()
+            survivalGameUseCases.getCountriesFromStream()
         }
     }
 }

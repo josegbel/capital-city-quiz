@@ -1,14 +1,12 @@
 package com.example.capitalcityquizktx.domain.viewmodels
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.capitalcityquizktx.domain.GameUseCases
+import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
 import com.example.capitalcityquizktx.testUtil.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Assert
-import org.junit.Rule
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -34,7 +32,7 @@ class SurvivalViewModelTest : CoroutineTest {
     override lateinit var testDispatcher: TestCoroutineDispatcher
 
     @Mock
-    lateinit var useCases : GameUseCases
+    lateinit var useCasesSurvival : SurvivalGameUseCases
 
     // endregion helper fields
     private lateinit var SUT : SurvivalViewModel
@@ -44,7 +42,7 @@ class SurvivalViewModelTest : CoroutineTest {
     @BeforeEach
     fun setUp() {
         mocks = MockitoAnnotations.openMocks(this)
-        SUT = SurvivalViewModel(useCases, testDispatcher)
+        SUT = SurvivalViewModel(useCasesSurvival, testDispatcher)
     }
 
     @AfterEach
@@ -54,7 +52,7 @@ class SurvivalViewModelTest : CoroutineTest {
 
     @Test
     fun getCountriesFrom_successfullyPostCountriesToLiveData() = testDispatcher.runBlockingTest {
-        Mockito.`when`(useCases.getCountriesIn(any())).thenReturn(TestData.COUNTRIES)
+        Mockito.`when`(useCasesSurvival.getCountriesIn(any())).thenReturn(TestData.COUNTRIES)
         SUT.getCountriesFrom(TestData.CONTINENTS)
         Assert.assertEquals(SUT.countries.value, TestData.COUNTRIES)
     }

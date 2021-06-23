@@ -25,6 +25,5 @@ object RepositoryModule {
         }
         single { provideCountryRepository(get(), get(), get()) }
         factory { DataCsvLoader() }
-//        factory { CountryDatabase(get()) }
     }
 }

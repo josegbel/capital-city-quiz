@@ -7,12 +7,10 @@ import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
 import com.example.capitalcityquizktx.data.models.geographical.continents.Asia
 import com.example.capitalcityquizktx.data.models.geographical.continents.Europe
-import com.example.capitalcityquizktx.di.GameUseCasesModule
+import com.example.capitalcityquizktx.di.SurvivalGameUseCasesModule
 import io.reactivex.Single
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -21,6 +19,7 @@ import org.koin.test.KoinTest
 import org.mockito.internal.verification.Times
 import org.mockito.stubbing.Answer
 import com.example.capitalcityquizktx.testUtil.TestData
+import org.junit.Assert.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -34,7 +33,7 @@ class GameInteractorTest : KoinTest {
         private const val FIELD_COUNT = 10
     }
 
-    private val interactor: GameInteractor by inject()
+    private val interactor: SurvivalGameUseCases by inject()
 
     @Mock
     private lateinit var application: Application
@@ -71,7 +70,7 @@ class GameInteractorTest : KoinTest {
                 listOf(
                     mockedRepositoryModule,
                     mockedDbModule,
-                    GameUseCasesModule.getModules()
+                    SurvivalGameUseCasesModule.getModules()
                 )
             )
         }

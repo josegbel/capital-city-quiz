@@ -61,7 +61,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
             }
         }
         survivalViewModel.countries.observe(viewLifecycleOwner, myObserver)
-        survivalViewModel.populateDatabase()
+        survivalViewModel.repopulateCountriesInCache()
         survivalViewModel.getCountriesFrom(gameConfig?.continents ?: emptyList())
     }
 }
