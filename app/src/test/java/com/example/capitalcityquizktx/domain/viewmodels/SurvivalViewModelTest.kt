@@ -2,6 +2,7 @@ package com.example.capitalcityquizktx.domain.viewmodels
 
 import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
 import com.example.capitalcityquizktx.testUtil.*
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.TestCoroutineScope

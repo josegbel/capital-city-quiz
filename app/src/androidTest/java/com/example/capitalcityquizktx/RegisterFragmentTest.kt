@@ -5,18 +5,16 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.ui.register.RegisterFragment
 import org.junit.Rule
 import org.junit.jupiter.api.Test
-import org.junit.runner.RunWith
 
 class RegisterFragmentTest {
 
     @Rule
     @JvmField
-    var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    var activityRule: ActivityTestRule<SingleActivity> = ActivityTestRule(SingleActivity::class.java)
 
     @Test
     fun testingVisibilityOfAllViewsInLayout() {

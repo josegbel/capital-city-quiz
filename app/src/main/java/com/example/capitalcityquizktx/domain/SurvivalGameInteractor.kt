@@ -15,16 +15,16 @@ open class SurvivalGameInteractor(
     private val countryRepository: CountryRepository
 ) : SurvivalGameUseCases{
 
-    override fun getNextQuestion(countries: MutableList<Country>): Country? {
-        if (countries.isEmpty()) {
+    override fun getNextQuestion(list: MutableList<Country>): Country? {
+        if (list.isEmpty()) {
             return null
         }
-        return countries[0]
+        return list[0]
     }
 
     override fun checkAnswer(question: Country, answer: String): Boolean {
         if (question.capitalCity
-                .name.toLowerCase(Locale.getDefault()) == answer.toLowerCase(Locale.getDefault())) {
+                .name.lowercase(Locale.getDefault()) == answer.lowercase(Locale.getDefault())) {
             return true
         }
         return false

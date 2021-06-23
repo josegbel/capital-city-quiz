@@ -1,7 +1,7 @@
 package com.example.capitalcityquizktx.data.models.geographical.continents
 
 import com.example.capitalcityquizktx.data.models.geographical.Continent
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
 

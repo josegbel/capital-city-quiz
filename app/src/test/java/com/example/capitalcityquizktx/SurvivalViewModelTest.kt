@@ -6,7 +6,7 @@ import com.example.capitalcityquizktx.di.DatabaseModule
 import com.example.capitalcityquizktx.di.SurvivalGameUseCasesModule
 import com.example.capitalcityquizktx.di.RepositoryModule
 import com.example.capitalcityquizktx.di.SurvivalViewModelModule
-import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import com.example.capitalcityquizktx.testUtil.MainCoroutineRule
 import org.junit.Rule
 import org.junit.jupiter.api.AfterEach

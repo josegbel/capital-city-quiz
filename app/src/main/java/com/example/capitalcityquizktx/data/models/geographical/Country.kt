@@ -7,7 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
 import com.example.capitalcityquizktx.data.models.geographical.Continent
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
 

@@ -9,7 +9,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
-import com.example.capitalcityquizktx.MainActivity
+import com.example.capitalcityquizktx.SingleActivity
 import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.geographical.continents.Africa
 import org.junit.Assert.assertEquals
@@ -22,7 +22,7 @@ class GameConfigSurvivalFragmentTest {
 
     @Rule
     @JvmField
-    val activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    val activityRule: ActivityTestRule<SingleActivity> = ActivityTestRule(SingleActivity::class.java)
 
     @BeforeEach
     fun setUp(){

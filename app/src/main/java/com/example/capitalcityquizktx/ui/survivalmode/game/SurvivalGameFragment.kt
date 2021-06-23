@@ -11,7 +11,7 @@ import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
 import com.example.capitalcityquizktx.data.models.geographical.Country
-import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**

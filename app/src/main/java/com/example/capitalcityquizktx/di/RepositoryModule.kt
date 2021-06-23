@@ -2,9 +2,8 @@ package com.example.capitalcityquizktx.di
 
 import android.content.Context
 import com.example.capitalcityquizktx.data.DataCsvLoader
-import com.example.capitalcityquizktx.data.DataDownloader
+import com.example.capitalcityquizktx.data.CountryRepositoryImpl
 import com.example.capitalcityquizktx.data.CountryRepository
-import com.example.capitalcityquizktx.data.local.CountryDatabase
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import org.koin.core.module.Module
 import org.koin.dsl.module
@@ -21,7 +20,7 @@ object RepositoryModule {
                                      context: Context
         ): CountryRepository {
 
-            return DataDownloader(dataCsvLoader, dao, context)
+            return CountryRepositoryImpl(dataCsvLoader, dao, context)
         }
         single { provideCountryRepository(get(), get(), get()) }
         factory { DataCsvLoader() }

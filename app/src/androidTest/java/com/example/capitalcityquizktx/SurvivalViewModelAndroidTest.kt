@@ -8,7 +8,7 @@ import com.example.capitalcityquizktx.androidTestUtils.MainCoroutineRule
 import com.example.capitalcityquizktx.androidTestUtils.getOrAwaitValue
 import com.example.capitalcityquizktx.data.CountryRepository
 import com.example.capitalcityquizktx.data.DataCsvLoader
-import com.example.capitalcityquizktx.data.DataDownloader
+import com.example.capitalcityquizktx.data.CountryRepositoryImpl
 import com.example.capitalcityquizktx.data.local.CountryDatabase
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.data.models.geographical.CapitalCity
@@ -18,7 +18,7 @@ import com.example.capitalcityquizktx.data.models.user.LearnedCountry
 import com.example.capitalcityquizktx.data.models.user.User
 import com.example.capitalcityquizktx.domain.SurvivalGameInteractor
 import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
-import com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
@@ -60,7 +60,7 @@ class SurvivalViewModelAndroidTest {
         Log.d(TAG, "createDb")
         countryDao = db.countryDatabaseDao
         Log.d(TAG, "Dao Referenced")
-        countryRepository = DataDownloader(DataCsvLoader(), countryDao, context)
+        countryRepository = CountryRepositoryImpl(DataCsvLoader(), countryDao, context)
         survivalGameUseCases = SurvivalGameInteractor(countryRepository)
         survivalViewModel = SurvivalViewModel(survivalGameUseCases, Dispatchers.Default)
     }

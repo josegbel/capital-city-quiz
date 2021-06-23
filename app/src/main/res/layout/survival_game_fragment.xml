@@ -8,7 +8,7 @@
 <!--        <import type="com.example.capitalcityquizktx.model.database.Country"/>-->
         <variable
             name="survivalViewModel"
-            type="com.example.capitalcityquizktx.domain.viewmodels.SurvivalViewModel"/>
+            type="com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel"/>
 <!--        <variable-->
 <!--                name="countryName"-->
 <!--                type="LiveData&lt;Country>" />-->

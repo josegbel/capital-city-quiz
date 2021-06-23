@@ -1,4 +1,4 @@
-package com.example.capitalcityquizktx.domain.viewmodels
+package com.example.capitalcityquizktx.ui.survivalmode
 
 import androidx.lifecycle.*
 import com.example.capitalcityquizktx.domain.SurvivalGameUseCases

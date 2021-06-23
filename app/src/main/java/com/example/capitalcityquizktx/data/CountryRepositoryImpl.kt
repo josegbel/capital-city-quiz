@@ -13,9 +13,9 @@ import io.reactivex.Single
     J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 
  */
-open class DataDownloader(private val dataCsvLoader : DataCsvLoader,
-                     private val database: CountryDatabaseDao,
-                     private val context : Context
+open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
+                                 private val database: CountryDatabaseDao,
+                                 private val context : Context
 ) : CountryRepository {
     override fun removeCountries() {
         database.destroyCountries()

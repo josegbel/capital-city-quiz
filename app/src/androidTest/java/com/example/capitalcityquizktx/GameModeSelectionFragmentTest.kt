@@ -6,9 +6,8 @@ import androidx.navigation.Navigation
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import androidx.test.filters.LargeTest
 import androidx.test.rule.ActivityTestRule
-import com.example.capitalcityquizktx.ui.GameModeSelectionFragment
+import com.example.capitalcityquizktx.ui.gamemodeselection.GameModeSelectionFragment
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -18,7 +17,7 @@ class GameModeSelectionFragmentTest {
 
     @Rule
     @JvmField
-    var activityRule: ActivityTestRule<MainActivity> = ActivityTestRule(MainActivity::class.java)
+    var activityRule: ActivityTestRule<SingleActivity> = ActivityTestRule(SingleActivity::class.java)
 
     @Test
     fun when_survival_mode_button_clicked_navigates_to_game_config_fragment(){

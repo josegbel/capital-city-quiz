@@ -6,7 +6,7 @@
 
     <fragment
             android:id="@+id/loginFragment"
-            android:name="com.example.capitalcityquizktx.ui.LoginFragment"
+            android:name="com.example.capitalcityquizktx.ui.login.LoginFragment"
             android:label="@string/capitalCityQuiz">
         <action
                 android:id="@+id/action_titleFragment_to_gameModeSelectionFragment"
@@ -22,7 +22,7 @@
 
     <fragment
             android:id="@+id/gameModeSelectionFragment"
-            android:name="com.example.capitalcityquizktx.ui.GameModeSelectionFragment"
+            android:name="com.example.capitalcityquizktx.ui.gamemodeselection.GameModeSelectionFragment"
             android:label="GameModeSelectionFragment">
         <action
                 android:id="@+id/action_gameModeSelectionFragment_to_gameConfigSurvivalFragment"
