@@ -56,6 +56,7 @@ android {
     buildFeatures {
         dataBinding true
         viewBinding true
+        compose true
     }
 
     configurations.all {
@@ -86,12 +87,31 @@ ext {
     version_lifecycle_extensions = "2.0.0"
     version_room = "2.3.0"
     koin_version = "3.1.0"
+    compose_version = "1.0.0-beta09"
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation "net.bytebuddy:byte-buddy:1.10.5"
+
+    implementation "androidx.compose.ui:ui:$compose_version"
+    // Tooling support (Previews, etc.)
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation "androidx.compose.foundation:foundation:$compose_version"
+    // Material Design
+    implementation "androidx.compose.material:material:$compose_version"
+    // Material design icons
+    implementation "androidx.compose.material:material-icons-core:$compose_version"
+    implementation "androidx.compose.material:material-icons-extended:$compose_version"
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.3.0-beta02'
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
+    // Integration with observables
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
 
     // Retrofit's
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
@@ -158,6 +178,7 @@ dependencies {
     androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.7.2")
     androidTestImplementation("de.mannodermaus.junit5:android-test-core:1.2.2")
     androidTestRuntimeOnly("de.mannodermaus.junit5:android-test-runner:1.2.2")
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 }
 
 tasks.withType(AndroidUnitTest) {

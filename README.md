@@ -17,6 +17,7 @@ The api uses a docker container to run the application.
 
 * [AndroidX](https://developer.android.com/jetpack/androidx/) by The Android Open Source Project
 * [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/) by The Android Open Source Project
+* [Android Jetpack Compose](https://developer.android.com/jetpack/compose/) by The Android Open Source Project
 * [Material Components for Android](https://material.io/develop/android/) by The Android Open Source Project
 * [Koin](https://github.com/InsertKoinIO/koin) by arnaudgiuliani
 * [RxJava](https://github.com/ReactiveX/RxJava) by ReactiveX
