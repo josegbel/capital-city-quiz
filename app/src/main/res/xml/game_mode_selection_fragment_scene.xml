@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@+id/end"
+        motion:constraintSetStart="@id/start"
+        motion:duration="1000"
+            motion:autoTransition="animateToEnd">
+       <KeyFrameSet>
+           <KeyAttribute
+                   motion:motionTarget="@+id/imageView"
+                   motion:framePosition="50"
+                   android:scaleX="1.2" />
+           <KeyAttribute
+                   motion:motionTarget="@+id/imageView"
+                   motion:framePosition="0"
+                   android:scaleX="1"
+                   android:alpha="0" />
+           <KeyAttribute
+                   motion:motionTarget="@+id/game_mode_selection_survival_mode_btn"
+                   motion:framePosition="50"
+                   android:scaleX="1.2"
+                   android:scaleY="1" />
+           <KeyAttribute
+                   motion:motionTarget="@+id/game_mode_selection_survival_mode_btn"
+                   motion:framePosition="0"
+                   android:scaleX="1"
+                   android:scaleY="0" />
+           <KeyAttribute
+                   motion:motionTarget="@+id/game_mode_selection_practice_btn"
+                   motion:framePosition="50"
+                   android:scaleX="1.2"
+                   android:scaleY="1" />
+           <KeyAttribute
+                   motion:motionTarget="@+id/game_mode_selection_practice_btn"
+                   motion:framePosition="0"
+                   android:scaleX="1"
+                   android:scaleY="0" />
+       </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+                android:id="@+id/game_mode_selection_survival_mode_btn"
+                android:layout_width="wrap_content"
+                android:scaleX="0.75"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toBottomOf="parent"
+                motion:layout_constraintEnd_toStartOf="@id/game_mode_selection_vertical_guideline1"
+                motion:layout_constraintTop_toTopOf="parent" />
+        <Constraint
+                android:id="@+id/textView"
+                motion:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                motion:layout_constraintBottom_toTopOf="@id/game_mode_selection_horizontal_guideline40"
+                motion:layout_constraintStart_toStartOf="parent"
+                android:alpha="0"
+                android:translationY="10dp" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+    </ConstraintSet>
+</MotionScene>

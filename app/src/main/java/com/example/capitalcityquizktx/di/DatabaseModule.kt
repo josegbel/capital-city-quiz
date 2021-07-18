@@ -12,7 +12,7 @@ object DatabaseModule {
     fun getModule() : Module = module {
         fun provideDatabase(context: Context): CountryDatabase {
             return Room.databaseBuilder(
-                context.applicationContext,
+                context,
                 CountryDatabase::class.java,
                 "country_database"
             )

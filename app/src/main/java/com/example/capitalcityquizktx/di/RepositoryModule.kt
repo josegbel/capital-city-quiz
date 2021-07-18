@@ -18,10 +18,7 @@ object RepositoryModule {
         fun provideCountryRepository(dataCsvLoader: DataCsvLoader,
                                      dao : CountryDatabaseDao,
                                      context: Context
-        ): CountryRepository {
-
-            return CountryRepositoryImpl(dataCsvLoader, dao, context)
-        }
+        ): CountryRepository = CountryRepositoryImpl(dataCsvLoader, dao, context)
         single { provideCountryRepository(get(), get(), get()) }
         factory { DataCsvLoader() }
     }

@@ -11,7 +11,7 @@ import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.config.SurvivalGameConfig
 import com.example.capitalcityquizktx.databinding.SurvivalGameFragmentBinding
 import com.example.capitalcityquizktx.data.models.geographical.Country
-import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModelImpl
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -51,7 +51,7 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
         if (gameConfig == null)
             gameConfig = args.survivalGameConfig
 
-        val survivalViewModel by viewModel<SurvivalViewModel>()
+        val survivalViewModel by viewModel<SurvivalGameViewModelImpl>()
         binding.lifecycleOwner = this
         binding.survivalViewModel = survivalViewModel
 

@@ -8,7 +8,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.rule.ActivityTestRule
 import com.example.capitalcityquizktx.ui.login.LoginFragment
-import com.example.capitalcityquizktx.ui.LoginFragmentDirections
+import com.example.capitalcityquizktx.ui.login.LoginFragmentDirections
 import org.junit.Rule
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito

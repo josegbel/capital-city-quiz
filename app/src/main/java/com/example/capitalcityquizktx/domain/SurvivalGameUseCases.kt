@@ -18,8 +18,6 @@ interface SurvivalGameUseCases {
     fun destroyCountries()
     fun insertAllCountries(countries: List<Country>)
     fun getDataFieldsCount(): Int
-    fun getCountriesFromStream() : List<Country>
-    fun getNextQuestion(list: MutableList<Country>) : Country?
-    fun checkAnswer(question: Country, answer: String): Boolean
+    fun getCountriesFromFile() : List<Country>
     fun removeCountry(country: Country)
 }

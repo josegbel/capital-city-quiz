@@ -15,7 +15,6 @@ object SurvivalGameUseCasesModule {
     fun getModules() : Module =  module {
         single { provideSurvivalGameUseCases(get()) }
     }
-    fun provideSurvivalGameUseCases(countryRepository: CountryRepository): SurvivalGameUseCases {
-        return SurvivalGameInteractor(countryRepository)
-    }
+    private fun provideSurvivalGameUseCases(countryRepository: CountryRepository)
+    : SurvivalGameUseCases = SurvivalGameInteractor(countryRepository)
 }

@@ -81,6 +81,8 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.md'
         exclude 'META-INF/LICENSE-notice.md'
+        exclude 'META-INF/AL2.0'
+        exclude 'META-INF/LGPL2.1'
     }
 }
 
@@ -100,26 +102,39 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$version_kotlin"
     implementation "net.bytebuddy:byte-buddy:1.10.5"
 
-    implementation "androidx.compose.ui:ui:$compose_version"
-    // Tooling support (Previews, etc.)
+    // Compose
     implementation "androidx.compose.ui:ui-tooling:$compose_version"
-    // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha03"
     implementation "androidx.compose.foundation:foundation:$compose_version"
-    // Material Design
     implementation "androidx.compose.material:material:$compose_version"
-    // Material design icons
     implementation "androidx.compose.material:material-icons-core:$compose_version"
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
-    // Integration with activities
     implementation 'androidx.activity:activity-compose:1.3.0-beta02'
-    // Integration with ViewModels
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07'
-    // Integration with observables
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
     implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
 
-    // Retrofit's
+    // Android Jetpack
+    kapt  "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-runtime:$version_room"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
+    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    // Android Support libraries
+    implementation "androidx.core:core-ktx:$version_core"
+    implementation "androidx.appcompat:appcompat:1.3.0"
+    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.google.android.material:material:1.3.0'
+
+    // Networking
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
 
     // DI
     implementation "io.insert-koin:koin-android:$koin_version"
@@ -129,34 +144,12 @@ dependencies {
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
-    // Support libraries
-    implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
-    implementation 'com.android.support:multidex:1.0.3'
-    implementation 'com.google.android.material:material:1.3.0'
-
-    // Android KTX
-    implementation "androidx.core:core-ktx:$version_core"
-
-    // Room and Lifecycle dependencies
-    //noinspection GradleDependency
-    implementation "androidx.room:room-runtime:$version_room"
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    kapt  "androidx.room:room-compiler:$version_room"
-//    kapt  "android.arch.persistence.room:compiler:$version_room"
-    implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
-
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$version_coroutine"
 
-    // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
-    implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
-
-    implementation "com.squareup.okhttp3:logging-interceptor:3.8.0"
     implementation 'com.basgeekball:awesome-validation:4.2'
 
     // Testing

@@ -14,11 +14,11 @@ import io.reactivex.Single
 
  */
 open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
-                                 private val database: CountryDatabaseDao,
+                                 private val countryDatabase: CountryDatabaseDao,
                                  private val context : Context
 ) : CountryRepository {
     override fun removeCountries() {
-        database.destroyCountries()
+        countryDatabase.destroyCountries()
     }
 
     override fun removeCountry(country: Country) {
@@ -26,16 +26,17 @@ open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
     }
 
     override fun getCountriesFromFile(): List<Country> {
+        // FIXME This context, not only leakes but WTF!
         return dataCsvLoader.getCountryList(context.resources.openRawResource(R.raw.allcountries),
             ContinentSelector())
     }
 
     override fun insertCountries(countries: List<Country>) {
-        database.insertAllCountries(countries)
+        countryDatabase.insertAllCountries(countries)
     }
 
     override fun getFieldsCount(): Int {
-        return database.dataFieldsCount()
+        return countryDatabase.dataFieldsCount()
     }
 
     override fun getCountryList(): Single<MutableList<Country>> {
@@ -48,7 +49,7 @@ open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
 
         // collect all the countries in a temporary list
         for (i in continents.indices){
-            tempList.addAll(database.getCountriesBy(continents[i].continentName))
+            tempList.addAll(countryDatabase.getCountriesBy(continents[i].continentName))
         }
         return tempList
     }

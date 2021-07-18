@@ -18,7 +18,7 @@ import com.example.capitalcityquizktx.data.models.user.LearnedCountry
 import com.example.capitalcityquizktx.data.models.user.User
 import com.example.capitalcityquizktx.domain.SurvivalGameInteractor
 import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
-import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModelImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertEquals
@@ -39,7 +39,7 @@ class SurvivalViewModelAndroidTest {
     private lateinit var countryDao: CountryDatabaseDao
     private lateinit var db: CountryDatabase
     private lateinit var context: Context
-    private lateinit var survivalViewModel: SurvivalViewModel
+    private lateinit var survivalGameViewModel: SurvivalGameViewModelImpl
     private lateinit var survivalGameUseCases: SurvivalGameUseCases
     private lateinit var countryRepository: CountryRepository
 
@@ -62,7 +62,7 @@ class SurvivalViewModelAndroidTest {
         Log.d(TAG, "Dao Referenced")
         countryRepository = CountryRepositoryImpl(DataCsvLoader(), countryDao, context)
         survivalGameUseCases = SurvivalGameInteractor(countryRepository)
-        survivalViewModel = SurvivalViewModel(survivalGameUseCases, Dispatchers.Default)
+        survivalGameViewModel = SurvivalGameViewModelImpl(survivalGameUseCases, Dispatchers.Default,)
     }
 
     @AfterEach
@@ -102,9 +102,9 @@ class SurvivalViewModelAndroidTest {
         val expectedSizeList = Europe.totalCountries + Africa.totalCountries + Asia.totalCountries
         val countries: List<Country>
 
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
-        countries = survivalViewModel.survivalGameUseCases.getCountriesIn(continents)
+        countries = survivalGameViewModel.survivalGameUseCases.getCountriesIn(continents)
         Thread.sleep(350)
 
         assertEquals(expectedSizeList, countries.size)
@@ -112,68 +112,68 @@ class SurvivalViewModelAndroidTest {
 
     @Test
     fun should_print_all_european_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until Europe.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))[i].countryName)
     }
 
     @Test
     fun should_print_all_european_countries_in_shuffled_fashion() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
-        val shuffle1: List<Country> = survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))
-        survivalViewModel.repopulateCountriesInCache()
+        val shuffle1: List<Country> = survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
-        val shuffle2: List<Country> = survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))
+        val shuffle2: List<Country> = survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Europe))
 
         assertNotEquals(shuffle1, shuffle2)
     }
 
     @Test
     fun should_print_all_north_american_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until NorthAmerica.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(NorthAmerica))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(NorthAmerica))[i].countryName)
     }
 
     @Test
     fun should_print_all_south_american_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until SouthAmerica.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(SouthAmerica))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(SouthAmerica))[i].countryName)
     }
 
     @Test
     fun should_print_all_australian_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until Australia.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Australia))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Australia))[i].countryName)
     }
 
     @Test
     fun should_print_all_african_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until Africa.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Africa))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Africa))[i].countryName)
     }
 
     @Test
     fun should_print_all_asian_countries() = coroutineRule.runBlockingTest {
-        survivalViewModel.repopulateCountriesInCache()
+        survivalGameViewModel.repopulateCountriesInCache()
         Thread.sleep(350)
 
         for (i in 0 until Asia.totalCountries)
-            println(survivalViewModel.survivalGameUseCases.getCountriesIn(listOf(Asia))[i].countryName)
+            println(survivalGameViewModel.survivalGameUseCases.getCountriesIn(listOf(Asia))[i].countryName)
     }
 
     @Test
@@ -305,7 +305,7 @@ class SurvivalViewModelAndroidTest {
     fun given_full_database_when_view_model_is_initialised_then_delete_entries_and_insert_all_again() =
         coroutineRule.runBlockingTest {
             // thread sleep is a workaround to the problem with coroutines
-            survivalViewModel.survivalGameUseCases.destroyCountries()
+            survivalGameViewModel.survivalGameUseCases.destroyCountries()
             Thread.sleep(1000)
 
             val country1 =
@@ -327,20 +327,20 @@ class SurvivalViewModelAndroidTest {
                     Europe
                 )
             val expectedCountries = listOf(country1, country2, country3)
-            survivalViewModel.survivalGameUseCases.insertAllCountries(expectedCountries)
+            survivalGameViewModel.survivalGameUseCases.insertAllCountries(expectedCountries)
             Log.d(TAG, "write3EntriesInDb")
-            assertEquals(3, survivalViewModel.survivalGameUseCases.getDataFieldsCount())
+            assertEquals(3, survivalGameViewModel.survivalGameUseCases.getDataFieldsCount())
 
-            survivalViewModel.repopulateCountriesInCache()
+            survivalGameViewModel.repopulateCountriesInCache()
             Thread.sleep(1000)
 
-            assertEquals(195, survivalViewModel.survivalGameUseCases.getDataFieldsCount())
+            assertEquals(195, survivalGameViewModel.survivalGameUseCases.getDataFieldsCount())
         }
 
     fun when_database_is_populated_print_elements_for_debugging_purposes_only() =
         coroutineRule.runBlockingTest {
-            survivalViewModel.repopulateCountriesInCache()
-            val countriesObservable = survivalViewModel.survivalGameUseCases.getAllCountries()
+            survivalGameViewModel.repopulateCountriesInCache()
+            val countriesObservable = survivalGameViewModel.survivalGameUseCases.getAllCountries()
             countriesObservable.subscribe { countries ->
                 for (i in 0..194) {
                     println(

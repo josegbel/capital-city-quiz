@@ -26,7 +26,7 @@ class GameModeSelectionFragmentTest {
         scenario.onFragment {
             Navigation.setViewNavController(it.requireView(), mockNavController)
         }
-        onView(withId(R.id.GMSFsurvivalModeBtn)).perform(click())
+        onView(withId(R.id.game_mode_selection_survival_mode_btn)).perform(click())
         verify(mockNavController).navigate(R.id.action_gameModeSelectionFragment_to_gameConfigSurvivalFragment)
     }
 }

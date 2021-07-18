@@ -8,27 +8,12 @@ import java.util.*
 
 /**
 
-    J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
+J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
 
  */
 open class SurvivalGameInteractor(
     private val countryRepository: CountryRepository
-) : SurvivalGameUseCases{
-
-    override fun getNextQuestion(list: MutableList<Country>): Country? {
-        if (list.isEmpty()) {
-            return null
-        }
-        return list[0]
-    }
-
-    override fun checkAnswer(question: Country, answer: String): Boolean {
-        if (question.capitalCity
-                .name.lowercase(Locale.getDefault()) == answer.lowercase(Locale.getDefault())) {
-            return true
-        }
-        return false
-    }
+) : SurvivalGameUseCases {
 
     override fun removeCountry(country: Country) {
         countryRepository.removeCountry(country)
@@ -39,11 +24,11 @@ open class SurvivalGameInteractor(
     }
 
     override fun getCountriesIn(continents: List<Continent>): List<Country> {
-        return  getCountriesBy(continents).shuffled()
+        return getCountriesBy(continents).shuffled()
     }
 
-    private fun getCountriesBy(continents :List<Continent>): List<Country>{
-        return  countryRepository.getCountryListBy(continents)
+    private fun getCountriesBy(continents: List<Continent>): List<Country> {
+        return countryRepository.getCountryListBy(continents)
     }
 
     override fun destroyCountries() {
@@ -58,10 +43,10 @@ open class SurvivalGameInteractor(
         return countryRepository.getFieldsCount()
     }
 
-    override fun getCountriesFromStream(): List<Country> {
+    override fun getCountriesFromFile(): List<Country> {
 //        DatabaseUtils.getCountriesFromStream(applicationContext
 //            .resources.openRawResource(R.raw.allcountries), ContinentSelector() )
-         return countryRepository.getCountriesFromFile()
+        return countryRepository.getCountriesFromFile()
     }
 
 //    override fun getLearnedCountryListBy(user: User): LiveData<List<PracticeViewModel>> {

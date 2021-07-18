@@ -28,6 +28,7 @@ interface CountryDatabaseDao {
     @Query("select COUNT(*) from countries")
     fun dataFieldsCount() : Int
 
+    // FIXME CREATE LEARNED COUNTRIES REPOSITORY
     @Transaction
     @Query ("select * from learned_countries")
     fun getLearnedCountries(): LiveData<List<LearnedCountry>>
@@ -39,6 +40,7 @@ interface CountryDatabaseDao {
     @Query ("delete from countries")
     fun destroyCountries()
 
+    // FIXME CREATE USER REPOSITORY
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertUser(user : User)
 

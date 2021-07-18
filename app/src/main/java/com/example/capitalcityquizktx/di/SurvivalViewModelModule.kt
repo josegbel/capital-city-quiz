@@ -1,6 +1,10 @@
 package com.example.capitalcityquizktx.di
 
-import com.example.capitalcityquizktx.ui.survivalmode.SurvivalViewModel
+import com.example.capitalcityquizktx.data.CountryRepository
+import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModel
+import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModelImpl
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.module.Module
@@ -13,7 +17,12 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
  */
 object SurvivalViewModelModule {
     fun getModule(): Module = module {
+        fun provideSurvivalViewModel(gameUseCases: SurvivalGameUseCases,
+                                     coroutineDispatcher: CoroutineDispatcher,
+                                     countryRepository: CountryRepository
+        ): SurvivalGameViewModel = SurvivalGameViewModelImpl(gameUseCases, coroutineDispatcher, countryRepository)
+
         factory { Dispatchers.Default }
-        viewModel { SurvivalViewModel(get(), get()) }
+        viewModel { provideSurvivalViewModel(get(), get(), get()) }
     }
 }
