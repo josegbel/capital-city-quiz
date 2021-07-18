@@ -61,7 +61,10 @@ class SurvivalGameFragment : Fragment(), ISurvivalGameStatus {
             }
         }
         survivalViewModel.countries.observe(viewLifecycleOwner, myObserver)
-        survivalViewModel.repopulateCountriesInCache()
-        survivalViewModel.getCountriesIn(gameConfig?.continents ?: emptyList())
+        val csvFile = context?.resources?.openRawResource(R.raw.allcountries)
+        csvFile?.let {
+            survivalViewModel.repopulateCountriesInCache(it)
+            survivalViewModel.getCountriesIn(gameConfig?.continents ?: emptyList())
+        }
     }
 }

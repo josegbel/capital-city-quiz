@@ -26,13 +26,14 @@ import org.koin.dsl.module
 import org.koin.test.KoinTest
 import org.koin.test.inject
 import org.mockito.Mock
+import org.mockito.Mockito.mock
 import org.mockito.MockitoAnnotations
 import org.mockito.internal.verification.Times
-import org.mockito.kotlin.any
-import org.mockito.kotlin.argumentCaptor
-import org.mockito.kotlin.verify
-import org.mockito.kotlin.whenever
+import org.mockito.kotlin.*
 import org.mockito.stubbing.Answer
+import java.io.FileInputStream
+import java.io.InputStream
+import kotlin.test.assertEquals
 
 class SurvivalViewModelTest : KoinTest {
 
@@ -164,10 +165,13 @@ class SurvivalViewModelTest : KoinTest {
     }
 
     @Test
-    fun `Transforms a csv file into a list of Country objects`() = coroutineRule.runBlockingTest {
-        whenever(mockedRepository.getCountriesFromFile()).thenReturn(TestData.COUNTRIES)
-        val actual = survivalGameViewModel.getCountriesFromFile()
-        Assert.assertEquals(TestData.COUNTRIES, actual)
+    fun `Ask repository to populate a database from a csv file`() = coroutineRule.runBlockingTest {
+        val mockFile = mock(InputStream::class.java)
+        val captor = argumentCaptor<InputStream>()
+        whenever(mockedRepository.getCountriesFromCsvFile(any())).thenReturn(TestData.COUNTRIES)
+        survivalGameViewModel.repopulateCountriesInCache(mockFile)
+        verify(mockedRepository).getCountriesFromCsvFile(captor.capture())
+        assertEquals(mockFile, captor.firstValue)
     }
 
     @Test

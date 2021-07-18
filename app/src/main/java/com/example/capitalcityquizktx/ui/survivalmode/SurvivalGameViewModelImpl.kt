@@ -7,6 +7,7 @@ import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.data.models.geographical.Country
 import io.reactivex.Single
 import kotlinx.coroutines.*
+import java.io.InputStream
 import java.util.*
 
 /**
@@ -34,11 +35,11 @@ class SurvivalGameViewModelImpl(
     val countries: LiveData<List<Country>>
         get() = _countries
 
-    override fun repopulateCountriesInCache() {
+    override fun repopulateCountriesInCache(inputStream: InputStream) {
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
                 destroyCountries()
-                insert(getCountriesFromFile())
+                insert(getCountriesFromCsvFile(inputStream))
             }
         }
     }
@@ -55,10 +56,8 @@ class SurvivalGameViewModelImpl(
         return countryRepository.getFieldsCount()
     }
 
-    override suspend fun getCountriesFromFile(): List<Country> {
-//        DatabaseUtils.getCountriesFromStream(applicationContext
-//            .resources.openRawResource(R.raw.allcountries), ContinentSelector() )
-        return countryRepository.getCountriesFromFile()
+    private fun getCountriesFromCsvFile(inputStream: InputStream): List<Country> {
+        return countryRepository.getCountriesFromCsvFile(inputStream)
     }
 
     override fun getCountriesIn(continents: List<Continent>): List<Country> {

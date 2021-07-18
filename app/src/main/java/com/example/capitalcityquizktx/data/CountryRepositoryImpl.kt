@@ -1,12 +1,13 @@
 package com.example.capitalcityquizktx.data
 
 import android.content.Context
-import com.example.capitalcityquizktx.R
 import com.example.capitalcityquizktx.data.models.geographical.Continent
 import com.example.capitalcityquizktx.data.models.geographical.Country
 import com.example.capitalcityquizktx.data.local.CountryDatabaseDao
 import com.example.capitalcityquizktx.common.utils.ContinentSelector
 import io.reactivex.Single
+import java.io.FileInputStream
+import java.io.InputStream
 
 /**
 
@@ -25,10 +26,8 @@ open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
 
     }
 
-    override fun getCountriesFromFile(): List<Country> {
-        // FIXME This context, not only leakes but WTF!
-        return dataCsvLoader.getCountryList(context.resources.openRawResource(R.raw.allcountries),
-            ContinentSelector())
+    override fun getCountriesFromCsvFile(csvFile: InputStream): List<Country> {
+        return dataCsvLoader.getCountryList(csvFile, ContinentSelector())
     }
 
     override fun insertCountries(countries: List<Country>) {
