@@ -1,7 +1,6 @@
 package com.example.capitalcityquizktx.di
 
 import com.example.capitalcityquizktx.data.CountryRepository
-import com.example.capitalcityquizktx.domain.SurvivalGameUseCases
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModel
 import com.example.capitalcityquizktx.ui.survivalmode.SurvivalGameViewModelImpl
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,12 +16,11 @@ J. Garcia CapitalCityQuiz in Kotlin 10/12/2019
  */
 object SurvivalViewModelModule {
     fun getModule(): Module = module {
-        fun provideSurvivalViewModel(gameUseCases: SurvivalGameUseCases,
-                                     coroutineDispatcher: CoroutineDispatcher,
+        fun provideSurvivalViewModel(coroutineDispatcher: CoroutineDispatcher,
                                      countryRepository: CountryRepository
-        ): SurvivalGameViewModel = SurvivalGameViewModelImpl(gameUseCases, coroutineDispatcher, countryRepository)
+        ): SurvivalGameViewModel = SurvivalGameViewModelImpl(coroutineDispatcher, countryRepository)
 
         factory { Dispatchers.Default }
-        viewModel { provideSurvivalViewModel(get(), get(), get()) }
+        viewModel { provideSurvivalViewModel(get(), get()) }
     }
 }

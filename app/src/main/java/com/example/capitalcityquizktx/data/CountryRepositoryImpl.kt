@@ -44,7 +44,7 @@ open class CountryRepositoryImpl(private val dataCsvLoader : DataCsvLoader,
         return Single.just(mutableListOf())
     }
 
-    override fun getCountryListBy(continents: List<Continent>): List<Country> {
+    override fun getCountriesByContinents(continents: List<Continent>): List<Country> {
         val tempList = mutableListOf<Country>()
 
         // collect all the countries in a temporary list

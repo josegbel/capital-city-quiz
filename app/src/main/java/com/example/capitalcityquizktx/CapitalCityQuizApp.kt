@@ -18,7 +18,6 @@ class CapitalCityQuizApp : Application() {
             androidLogger()
             androidContext(this@CapitalCityQuizApp)
             modules(listOf(
-                SurvivalGameUseCasesModule.getModules(),
                 RepositoryModule.getModule(),
                 DatabaseModule.getModule(),
                 SurvivalViewModelModule.getModule()))
